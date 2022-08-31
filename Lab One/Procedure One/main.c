@@ -45,3 +45,4 @@ void io_init(void)
     // turn off led on init
     PORTB = 0x80;
 }
+
