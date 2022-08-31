@@ -19,10 +19,11 @@
 #include <util/delay.h>
 
 /* NOTE: Function prototypes */
-
 // inits IO ports
 void io_init(void);
 
+/* NOTE: Main loop */
+// the main loop of the function, provided to us
 int main(void)
 {
     io_init();
