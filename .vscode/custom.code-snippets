@@ -1,0 +1,23 @@
+{
+    "Block Comment": {
+        "prefix": [
+            "header"
+        ],
+        "body": [
+            "/*",
+            " * FileName: main.c",
+            " * Version: 1",
+            " *",
+            " * Created: ${1:1/01/2022 12:00 AM}",
+            " * Author: ${2:First Last}",
+            " *",
+            " * Operations: ${3:description of the file's purpose}",
+            " *",
+            " * Hardware:",
+            " *\tAtmega2560\t\tmicro controller",
+            " *\t${4:port}\t\t${5:function}",
+            " */",
+        ],
+        "description": "Default header for lab"
+    }
+}

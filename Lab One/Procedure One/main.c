@@ -2,14 +2,14 @@
  * FileName: main.c
  * Version: 1
  *
- * Created: 8/24/2022 2:09:46 PM
+ * Created: 8/24/2022 2:09 PM
  * Author: Ethan Zeronik
  *
- * Operations: turn on board LED every second
+ * Operations: turn on board LED every half second
  *
  * Hardware:
  *   Atmega2560          micro controller
- *   PORTD.x             LED13 active high
+ *   PORTD.7             LED13 active high
  */
 
 #include <avr/io.h>
@@ -20,13 +20,13 @@
 
 /* NOTE: Function prototypes */
 // inits IO ports
-void io_init(void);
+void IO_init(void);
 
-/* NOTE: Main loop */
+/* NOTE: Application implementation */
 // the main loop of the function, provided to us
 int main(void)
 {
-    io_init();
+    IO_init();
 
     while(1)
     {
@@ -39,7 +39,7 @@ int main(void)
 }
 
 /* NOTE: Function implementations */
-void io_init(void)
+void IO_init(void)
 {
     // set led 13 as output
     DDRB  = 0x80;
