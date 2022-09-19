@@ -66,7 +66,7 @@ int main(void)
         else if((inputSwitches & (1 << Pause)) && sweepFlag)
         {
             // DEBUG: comment this line out when using simulator
-            _delay_ms(100);
+            _delay_ms(200);
 
             LED_sweep(&PORTA);
         }
@@ -110,7 +110,7 @@ void LED_sweep(volatile uint8_t * port)
         // if all the leds are off
         if(*port == 0x00)
         {
-            sweepFlag = 1;
+            sweepFlag = 0;
         }
 
         // move over leds by one

@@ -3,29 +3,29 @@ Procedure One.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000070  00800200  000003da  0000044e  2**0
+  0 .data         00000070  00800200  000003ee  00000462  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         000003da  00000000  00000000  00000074  2**1
+  1 .text         000003ee  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .comment      00000030  00000000  00000000  000004be  2**0
+  2 .comment      00000030  00000000  00000000  000004d2  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000004f0  2**2
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000504  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 000000a0  00000000  00000000  00000530  2**0
+  4 .debug_aranges 000000a8  00000000  00000000  00000544  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00001198  00000000  00000000  000005d0  2**0
+  5 .debug_info   000011c2  00000000  00000000  000005ec  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 00000d1d  00000000  00000000  00001768  2**0
+  6 .debug_abbrev 00000d42  00000000  00000000  000017ae  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   00000656  00000000  00000000  00002485  2**0
+  7 .debug_line   000006e4  00000000  00000000  000024f0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000188  00000000  00000000  00002adc  2**2
+  8 .debug_frame  00000198  00000000  00000000  00002bd4  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    0000062c  00000000  00000000  00002c64  2**0
+  9 .debug_str    00000668  00000000  00000000  00002d6c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    000002d1  00000000  00000000  00003290  2**0
+ 10 .debug_loc    000002d1  00000000  00000000  000033d4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000080  00000000  00000000  00003561  2**0
+ 11 .debug_ranges 00000088  00000000  00000000  000036a5  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -160,7 +160,7 @@ Disassembly of section .text:
   f4:	12 e0       	ldi	r17, 0x02	; 2
   f6:	a0 e0       	ldi	r26, 0x00	; 0
   f8:	b2 e0       	ldi	r27, 0x02	; 2
-  fa:	ea ed       	ldi	r30, 0xDA	; 218
+  fa:	ee ee       	ldi	r30, 0xEE	; 238
   fc:	f3 e0       	ldi	r31, 0x03	; 3
   fe:	00 e0       	ldi	r16, 0x00	; 0
  100:	0b bf       	out	0x3b, r16	; 59
@@ -170,8 +170,8 @@ Disassembly of section .text:
  108:	a0 37       	cpi	r26, 0x70	; 112
  10a:	b1 07       	cpc	r27, r17
  10c:	d9 f7       	brne	.-10     	; 0x104 <__do_copy_data+0x10>
- 10e:	61 d1       	rcall	.+706    	; 0x3d2 <main>
- 110:	62 c1       	rjmp	.+708    	; 0x3d6 <_exit>
+ 10e:	66 d1       	rcall	.+716    	; 0x3dc <main>
+ 110:	6c c1       	rjmp	.+728    	; 0x3ea <_exit>
 
 00000112 <__bad_interrupt>:
  112:	76 cf       	rjmp	.-276    	; 0x0 <__vectors>
@@ -809,18 +809,44 @@ ISR(TIMER5_OVF_vect)
  3ce:	1f 90       	pop	r1
  3d0:	18 95       	reti
 
-000003d2 <main>:
-#include "Debugger.h"
+000003d2 <IO_init>:
 
+/* NOTE: Function implementations */
+void IO_init(void)
+{
+    // the top nibble is the motor output while the bottom is button input
+    DDRA  = 0xF0;
+ 3d2:	80 ef       	ldi	r24, 0xF0	; 240
+ 3d4:	81 b9       	out	0x01, r24	; 1
+    // turn on pullup resisitors on the bottom nibble
+    PORTA = 0x0F;
+ 3d6:	8f e0       	ldi	r24, 0x0F	; 15
+ 3d8:	82 b9       	out	0x02, r24	; 2
+ 3da:	08 95       	ret
 
+000003dc <main>:
+
+/* NOTE: Application implementation */
+// the main loop of the function, provided to us
 int main(void)
 {
-	initDebug();
- 3d2:	bc de       	rcall	.-648    	; 0x14c <initDebug>
- 3d4:	ff cf       	rjmp	.-2      	; 0x3d4 <main+0x2>
+    initDebug();
+ 3dc:	b7 de       	rcall	.-658    	; 0x14c <initDebug>
 
-000003d6 <_exit>:
- 3d6:	f8 94       	cli
+    IO_init();
+ 3de:	f9 df       	rcall	.-14     	; 0x3d2 <IO_init>
+ 3e0:	82 b1       	in	r24, 0x02	; 2
 
-000003d8 <__stop_program>:
- 3d8:	ff cf       	rjmp	.-2      	; 0x3d8 <__stop_program>
+    while(1)
+    {
+        PORTA = (0x55 & 0xF0) | (PORTA & 0x0F);
+ 3e2:	8f 70       	andi	r24, 0x0F	; 15
+ 3e4:	80 65       	ori	r24, 0x50	; 80
+ 3e6:	82 b9       	out	0x02, r24	; 2
+ 3e8:	fb cf       	rjmp	.-10     	; 0x3e0 <main+0x4>
+
+000003ea <_exit>:
+ 3ea:	f8 94       	cli
+
+000003ec <__stop_program>:
+ 3ec:	ff cf       	rjmp	.-2      	; 0x3ec <__stop_program>
