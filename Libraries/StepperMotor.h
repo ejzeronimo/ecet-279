@@ -44,6 +44,10 @@ void SM_move(StepperMotorRunMode_t mode, double distance);
 // distance is in units of degrees
 void SM_movePosition(StepperMotorRunMode_t mode, uint16_t distance);
 
+// moves the motor in the given mode and the given direction for the given time
+// 0 is CW and 1 is CCW
+void SM_movePosition(StepperMotorRunMode_t mode, bool direction, double time);
+
 #if defined(__cplusplus)
 } /* extern "C" */
 #endif

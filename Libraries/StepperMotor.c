@@ -96,7 +96,7 @@ void SM_move(StepperMotorRunMode_t mode, double distance)
     for(uint32_t i = 0; i < steps; i++)
     {
         *sMotorPort = pArray[i % size];
-        _delay_ms(3);
+        _delay_ms( 3);
     }
 
     *sMotorPort = 0x00;
@@ -104,5 +104,5 @@ void SM_move(StepperMotorRunMode_t mode, double distance)
 
 void SM_movePosition(StepperMotorRunMode_t mode, uint16_t distance)
 {
-    SM_move(mode, ((double)distance / 360));
+    SM_move(mode, ((double)distance / 360) 3);
 }

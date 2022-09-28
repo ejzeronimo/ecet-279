@@ -2,7 +2,7 @@
  * FileName: main.c
  * Version: 1
  *
- * Created: TODO: fill in!
+ * Created: 9/19/2022 9:04:37 AM
  * Author: Ethan Zeronik
  *
  * Operations: TODO: fill in!
@@ -17,6 +17,8 @@
 
 #define F_CPU 16000000UL
 #include <util/delay.h>
+
+#include "Debugger.h"
 
 /* NOTE: Custom Macros */
 // TODO: None
@@ -33,6 +35,8 @@ void IO_init(void);
 // the main loop of the function, provided to us
 int main(void)
 {
+	IO_init();
+	
 	initDebug();
 	
     while (1) 
