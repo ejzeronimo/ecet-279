@@ -9,7 +9,21 @@
  *
  * Hardware:
  *   Atmega2560          micro controller
- *   PORTx.x             LED13 active high
+ *   PORTA.4             hot water switch
+ *   PORTA.5             warm water switch
+ *   PORTA.6             cold water switch
+ *   PORTA.7             door open switch
+ *   PORTK.0             start pushbutton
+ *   PORTA.0             motor out 1
+ *   PORTA.1             motor out 2
+ *   PORTA.2             motor out 3
+ *   PORTA.3             motor out 4
+ *   PORTC.0             wash done led
+ *   PORTC.1             agitate led
+ *   PORTC.2             spin led
+ *   PORTC.4             drain valve
+ *   PORTC.5             hot water valve
+ *   PORTC.6             cold water valve             
  */
 
 #include <avr/io.h>
