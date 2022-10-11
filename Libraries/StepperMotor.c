@@ -12,8 +12,24 @@
 #include "StepperMotor.h"
 
 // TODO: move this
+#define __DELAY_BACKWARD_COMPATIBLE__
 #define F_CPU 16000000UL
 #include <util/delay.h>
+
+/* NOTE: Local declarations */
+typedef struct StepperMotorModeData_t
+{
+    // size of the array
+    size_t                arraySize;
+    // pointer to the array
+    uint8_t const * const pArray;
+    // number of steps to take for desired rotation
+    uint32_t              steps;
+} StepperMotorModeData_t;
+
+// returns the amount of steps needed for the given mode
+// rotation is in radians (I think)
+StepperMotorModeData_t getModeAndSteps(StepperMotorRunMode_t mode, double rotation);
 
 /* NOTE: Global Variables */
 // implementation of the wave step map
@@ -62,40 +78,17 @@ void SM_init(volatile uint8_t * pRegister, volatile uint8_t * pPort)
 
 void SM_move(StepperMotorRunMode_t mode, double distance)
 {
-    uint8_t * pArray = NULL;
-    uint8_t   size   = 0;
-    uint32_t  steps  = 0;
+    StepperMotorModeData_t data = getModeAndSteps(mode, distance);
 
-    switch(mode)
+    for(uint32_t i = 0, j = 0; i < data.steps; i++)
     {
-        case Wave:
-        {
-            pArray = sWaveStepMap;
-            size   = sizeof(sWaveStepMap) / sizeof(uint8_t);
-            steps  = (distance * 2048);
-        }
-        break;
-        case Full:
-        {
-            pArray = sFullStepMap;
-            size   = sizeof(sFullStepMap) / sizeof(uint8_t);
-            steps  = (distance * 2048);
-        }
-        break;
-        case Half:
-        {
-            pArray = sHalfStepMap;
-            size   = sizeof(sHalfStepMap) / sizeof(uint8_t);
-            steps  = (distance * 4096);
-        }
-        break;
-        default:
-            break;
-    }
+        *sMotorPort = data.pArray[j++];
 
-    for(uint32_t i = 0; i < steps; i++)
-    {
-        *sMotorPort = pArray[i % size];
+        if(j >= data.arraySize)
+        {
+            j = 0;
+        }
+
         _delay_ms(3);
     }
 
@@ -105,4 +98,64 @@ void SM_move(StepperMotorRunMode_t mode, double distance)
 void SM_movePosition(StepperMotorRunMode_t mode, uint16_t distance)
 {
     SM_move(mode, ((double)distance / 360));
+}
+
+void SM_moveTime(StepperMotorRunMode_t mode, bool direction, double time, double stepTime)
+{
+    StepperMotorModeData_t data = getModeAndSteps(mode, 0);
+
+    for(uint32_t i = 0, j = (direction ? data.arraySize : 0); i < (time / stepTime); i++)
+    {
+        *sMotorPort = data.pArray[(direction ? j-- : j++)];
+
+        if(j >= data.arraySize || j <= 0)
+        {
+            j = (direction ? data.arraySize : 0);
+        }
+
+        _delay_ms(stepTime);
+    }
+
+    *sMotorPort = 0x00;
+}
+
+/* NOTE: Local function implementations */
+StepperMotorModeData_t getModeAndSteps(StepperMotorRunMode_t mode, double rotation)
+{
+    uint8_t * pArray = NULL;
+    uint8_t   size   = 0;
+    uint32_t  steps  = 0;
+
+    switch(mode)
+    {
+        case Wave:
+        {
+            pArray = sWaveStepMap;
+            size   = sizeof(sWaveStepMap) / sizeof(sWaveStepMap[0]);
+            steps  = (rotation * 2048);
+        }
+        break;
+        case Full:
+        {
+            pArray = sFullStepMap;
+            size   = sizeof(sFullStepMap) / sizeof(sFullStepMap[0]);
+            steps  = (rotation * 2048);
+        }
+        break;
+        case Half:
+        {
+            pArray = sHalfStepMap;
+            size   = sizeof(sHalfStepMap) / sizeof(sHalfStepMap[0]);
+            steps  = (rotation * 4096);
+        }
+        break;
+        default:
+            break;
+    };
+
+    return (StepperMotorModeData_t){
+        .pArray    = pArray,
+        .steps     = steps,
+        .arraySize = size,
+    };
 }
