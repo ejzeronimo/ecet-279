@@ -52,7 +52,7 @@ int main(void)
 
         PWM_enable();
 
-        rampUpDelayWithSteps(.1, .9, 8000, 8);
+        rampUpDelayWithSteps(.1, .5, 8000, 5);
 
         while((PINA & 0x20) == 0)
         {

@@ -48,5 +48,7 @@ void PWM_enable(void)
 
 void PWM_disable(void)
 {
+    OCR1A = 0x00;
+
     TCCR1A = (TCCR1A & ~0x80);
 }
