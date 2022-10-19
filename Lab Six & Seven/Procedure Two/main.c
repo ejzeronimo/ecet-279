@@ -40,10 +40,7 @@ int main(void)
 
     while(1)
     {
-        for(size_t i = 0; i < 100; i++)
-        {
-            DLY_ms(500);
-        }
+        DLY_ms(500);
 
         PORTB = ~(0x80 & PORTB);
     }
