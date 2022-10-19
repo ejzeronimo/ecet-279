@@ -1,0 +1,843 @@
+
+Procedure One.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000070  00800200  000003e8  0000045c  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         000003e8  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      00000030  00000000  00000000  000004cc  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000004fc  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 000000a8  00000000  00000000  0000053c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000011c2  00000000  00000000  000005e4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000d42  00000000  00000000  000017a6  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000006da  00000000  00000000  000024e8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000198  00000000  00000000  00002bc4  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000063c  00000000  00000000  00002d5c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    000002d1  00000000  00000000  00003398  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000088  00000000  00000000  00003669  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	71 c0       	rjmp	.+226    	; 0xe4 <__ctors_end>
+   2:	00 00       	nop
+   4:	86 c0       	rjmp	.+268    	; 0x112 <__bad_interrupt>
+   6:	00 00       	nop
+   8:	84 c0       	rjmp	.+264    	; 0x112 <__bad_interrupt>
+   a:	00 00       	nop
+   c:	82 c0       	rjmp	.+260    	; 0x112 <__bad_interrupt>
+   e:	00 00       	nop
+  10:	80 c0       	rjmp	.+256    	; 0x112 <__bad_interrupt>
+  12:	00 00       	nop
+  14:	7e c0       	rjmp	.+252    	; 0x112 <__bad_interrupt>
+  16:	00 00       	nop
+  18:	7c c0       	rjmp	.+248    	; 0x112 <__bad_interrupt>
+  1a:	00 00       	nop
+  1c:	7a c0       	rjmp	.+244    	; 0x112 <__bad_interrupt>
+  1e:	00 00       	nop
+  20:	78 c0       	rjmp	.+240    	; 0x112 <__bad_interrupt>
+  22:	00 00       	nop
+  24:	76 c0       	rjmp	.+236    	; 0x112 <__bad_interrupt>
+  26:	00 00       	nop
+  28:	74 c0       	rjmp	.+232    	; 0x112 <__bad_interrupt>
+  2a:	00 00       	nop
+  2c:	72 c0       	rjmp	.+228    	; 0x112 <__bad_interrupt>
+  2e:	00 00       	nop
+  30:	70 c0       	rjmp	.+224    	; 0x112 <__bad_interrupt>
+  32:	00 00       	nop
+  34:	6e c0       	rjmp	.+220    	; 0x112 <__bad_interrupt>
+  36:	00 00       	nop
+  38:	6c c0       	rjmp	.+216    	; 0x112 <__bad_interrupt>
+  3a:	00 00       	nop
+  3c:	6a c0       	rjmp	.+212    	; 0x112 <__bad_interrupt>
+  3e:	00 00       	nop
+  40:	68 c0       	rjmp	.+208    	; 0x112 <__bad_interrupt>
+  42:	00 00       	nop
+  44:	66 c0       	rjmp	.+204    	; 0x112 <__bad_interrupt>
+  46:	00 00       	nop
+  48:	64 c0       	rjmp	.+200    	; 0x112 <__bad_interrupt>
+  4a:	00 00       	nop
+  4c:	62 c0       	rjmp	.+196    	; 0x112 <__bad_interrupt>
+  4e:	00 00       	nop
+  50:	60 c0       	rjmp	.+192    	; 0x112 <__bad_interrupt>
+  52:	00 00       	nop
+  54:	5e c0       	rjmp	.+188    	; 0x112 <__bad_interrupt>
+  56:	00 00       	nop
+  58:	5c c0       	rjmp	.+184    	; 0x112 <__bad_interrupt>
+  5a:	00 00       	nop
+  5c:	5a c0       	rjmp	.+180    	; 0x112 <__bad_interrupt>
+  5e:	00 00       	nop
+  60:	58 c0       	rjmp	.+176    	; 0x112 <__bad_interrupt>
+  62:	00 00       	nop
+  64:	56 c0       	rjmp	.+172    	; 0x112 <__bad_interrupt>
+  66:	00 00       	nop
+  68:	54 c0       	rjmp	.+168    	; 0x112 <__bad_interrupt>
+  6a:	00 00       	nop
+  6c:	52 c0       	rjmp	.+164    	; 0x112 <__bad_interrupt>
+  6e:	00 00       	nop
+  70:	50 c0       	rjmp	.+160    	; 0x112 <__bad_interrupt>
+  72:	00 00       	nop
+  74:	4e c0       	rjmp	.+156    	; 0x112 <__bad_interrupt>
+  76:	00 00       	nop
+  78:	4c c0       	rjmp	.+152    	; 0x112 <__bad_interrupt>
+  7a:	00 00       	nop
+  7c:	4a c0       	rjmp	.+148    	; 0x112 <__bad_interrupt>
+  7e:	00 00       	nop
+  80:	48 c0       	rjmp	.+144    	; 0x112 <__bad_interrupt>
+  82:	00 00       	nop
+  84:	46 c0       	rjmp	.+140    	; 0x112 <__bad_interrupt>
+  86:	00 00       	nop
+  88:	44 c0       	rjmp	.+136    	; 0x112 <__bad_interrupt>
+  8a:	00 00       	nop
+  8c:	42 c0       	rjmp	.+132    	; 0x112 <__bad_interrupt>
+  8e:	00 00       	nop
+  90:	40 c0       	rjmp	.+128    	; 0x112 <__bad_interrupt>
+  92:	00 00       	nop
+  94:	3e c0       	rjmp	.+124    	; 0x112 <__bad_interrupt>
+  96:	00 00       	nop
+  98:	3c c0       	rjmp	.+120    	; 0x112 <__bad_interrupt>
+  9a:	00 00       	nop
+  9c:	3a c0       	rjmp	.+116    	; 0x112 <__bad_interrupt>
+  9e:	00 00       	nop
+  a0:	38 c0       	rjmp	.+112    	; 0x112 <__bad_interrupt>
+  a2:	00 00       	nop
+  a4:	36 c0       	rjmp	.+108    	; 0x112 <__bad_interrupt>
+  a6:	00 00       	nop
+  a8:	34 c0       	rjmp	.+104    	; 0x112 <__bad_interrupt>
+  aa:	00 00       	nop
+  ac:	32 c0       	rjmp	.+100    	; 0x112 <__bad_interrupt>
+  ae:	00 00       	nop
+  b0:	30 c0       	rjmp	.+96     	; 0x112 <__bad_interrupt>
+  b2:	00 00       	nop
+  b4:	2e c0       	rjmp	.+92     	; 0x112 <__bad_interrupt>
+  b6:	00 00       	nop
+  b8:	2c c0       	rjmp	.+88     	; 0x112 <__bad_interrupt>
+  ba:	00 00       	nop
+  bc:	2a c0       	rjmp	.+84     	; 0x112 <__bad_interrupt>
+  be:	00 00       	nop
+  c0:	28 c0       	rjmp	.+80     	; 0x112 <__bad_interrupt>
+  c2:	00 00       	nop
+  c4:	26 c0       	rjmp	.+76     	; 0x112 <__bad_interrupt>
+  c6:	00 00       	nop
+  c8:	57 c1       	rjmp	.+686    	; 0x378 <__vector_50>
+  ca:	00 00       	nop
+  cc:	22 c0       	rjmp	.+68     	; 0x112 <__bad_interrupt>
+  ce:	00 00       	nop
+  d0:	20 c0       	rjmp	.+64     	; 0x112 <__bad_interrupt>
+  d2:	00 00       	nop
+  d4:	1e c0       	rjmp	.+60     	; 0x112 <__bad_interrupt>
+  d6:	00 00       	nop
+  d8:	1c c0       	rjmp	.+56     	; 0x112 <__bad_interrupt>
+  da:	00 00       	nop
+  dc:	1a c0       	rjmp	.+52     	; 0x112 <__bad_interrupt>
+  de:	00 00       	nop
+  e0:	18 c0       	rjmp	.+48     	; 0x112 <__bad_interrupt>
+	...
+
+000000e4 <__ctors_end>:
+  e4:	11 24       	eor	r1, r1
+  e6:	1f be       	out	0x3f, r1	; 63
+  e8:	cf ef       	ldi	r28, 0xFF	; 255
+  ea:	d1 e2       	ldi	r29, 0x21	; 33
+  ec:	de bf       	out	0x3e, r29	; 62
+  ee:	cd bf       	out	0x3d, r28	; 61
+  f0:	00 e0       	ldi	r16, 0x00	; 0
+  f2:	0c bf       	out	0x3c, r16	; 60
+
+000000f4 <__do_copy_data>:
+  f4:	12 e0       	ldi	r17, 0x02	; 2
+  f6:	a0 e0       	ldi	r26, 0x00	; 0
+  f8:	b2 e0       	ldi	r27, 0x02	; 2
+  fa:	e8 ee       	ldi	r30, 0xE8	; 232
+  fc:	f3 e0       	ldi	r31, 0x03	; 3
+  fe:	00 e0       	ldi	r16, 0x00	; 0
+ 100:	0b bf       	out	0x3b, r16	; 59
+ 102:	02 c0       	rjmp	.+4      	; 0x108 <__do_copy_data+0x14>
+ 104:	07 90       	elpm	r0, Z+
+ 106:	0d 92       	st	X+, r0
+ 108:	a0 37       	cpi	r26, 0x70	; 112
+ 10a:	b1 07       	cpc	r27, r17
+ 10c:	d9 f7       	brne	.-10     	; 0x104 <__do_copy_data+0x10>
+ 10e:	67 d1       	rcall	.+718    	; 0x3de <main>
+ 110:	69 c1       	rjmp	.+722    	; 0x3e4 <_exit>
+
+00000112 <__bad_interrupt>:
+ 112:	76 cf       	rjmp	.-276    	; 0x0 <__vectors>
+
+00000114 <initDebugTimer>:
+	Uses Timer5 with a prescaler of 256, and enables overflow interrupt
+*/
+void initDebugTimer()
+{
+	//Prescaler 256
+	TCCR5B |= (1<<CS52) | (1<<CS50);
+ 114:	e1 e2       	ldi	r30, 0x21	; 33
+ 116:	f1 e0       	ldi	r31, 0x01	; 1
+ 118:	80 81       	ld	r24, Z
+ 11a:	85 60       	ori	r24, 0x05	; 5
+ 11c:	80 83       	st	Z, r24
+	
+	//15625 TOP Value for UPDATE_FREQUENCY
+	TCNT5 = 65535 - (F_CPU / (1024*UPDATE_FREQUENCY));
+ 11e:	85 ee       	ldi	r24, 0xE5	; 229
+ 120:	99 ef       	ldi	r25, 0xF9	; 249
+ 122:	90 93 25 01 	sts	0x0125, r25	; 0x800125 <__TEXT_REGION_LENGTH__+0x7c0125>
+ 126:	80 93 24 01 	sts	0x0124, r24	; 0x800124 <__TEXT_REGION_LENGTH__+0x7c0124>
+	
+	//Enable Timer Overflow Interrupt
+	TIMSK5 = (1<<TOIE5);
+ 12a:	81 e0       	ldi	r24, 0x01	; 1
+ 12c:	80 93 73 00 	sts	0x0073, r24	; 0x800073 <__TEXT_REGION_LENGTH__+0x7c0073>
+ 130:	08 95       	ret
+
+00000132 <initDebugUSART>:
+	8-bits, 25000 Baud Rate
+*/
+void initDebugUSART()
+{
+	//Enable RX and TX
+	UCSR0B = (1<<TXEN0) | (1<<RXEN0);
+ 132:	88 e1       	ldi	r24, 0x18	; 24
+ 134:	80 93 c1 00 	sts	0x00C1, r24	; 0x8000c1 <__TEXT_REGION_LENGTH__+0x7c00c1>
+	
+	//Set Communication Modes
+	UCSR0C = (1<<UCSZ01) | (1<<UCSZ00);	//8 Data bits
+ 138:	86 e0       	ldi	r24, 0x06	; 6
+ 13a:	80 93 c2 00 	sts	0x00C2, r24	; 0x8000c2 <__TEXT_REGION_LENGTH__+0x7c00c2>
+	UBRR0 = 3;							//250000 Baud Rate	
+ 13e:	83 e0       	ldi	r24, 0x03	; 3
+ 140:	90 e0       	ldi	r25, 0x00	; 0
+ 142:	90 93 c5 00 	sts	0x00C5, r25	; 0x8000c5 <__TEXT_REGION_LENGTH__+0x7c00c5>
+ 146:	80 93 c4 00 	sts	0x00C4, r24	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7c00c4>
+ 14a:	08 95       	ret
+
+0000014c <initDebug>:
+	Configures the USART registers for data transmission, Configures the
+	Timer registers, and enables interrupts.
+*/
+void initDebug()
+{
+	initDebugUSART();
+ 14c:	f2 df       	rcall	.-28     	; 0x132 <initDebugUSART>
+	initDebugTimer();
+ 14e:	e2 df       	rcall	.-60     	; 0x114 <initDebugTimer>
+ 150:	78 94       	sei
+	sei();
+ 152:	08 95       	ret
+
+00000154 <UART0Out>:
+ 154:	90 91 c0 00 	lds	r25, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7c00c0>
+	Sends 8-bit unsigned integer out UART0
+*/
+void UART0Out(uint8_t data) 
+{
+	//Wait for previous transmission to be done
+	while(!(UCSR0A & (1<<UDRE0)));
+ 158:	95 ff       	sbrs	r25, 5
+ 15a:	fc cf       	rjmp	.-8      	; 0x154 <UART0Out>
+	
+	//Set register for next transmission
+	UDR0 = data;	
+ 15c:	80 93 c6 00 	sts	0x00C6, r24	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7c00c6>
+ 160:	08 95       	ret
+
+00000162 <sendStopBit>:
+	Sends 0x0A to signify stop
+*/
+void sendStopBit()
+{
+	//Wait for previous transmission to be done
+	while(!(UCSR0A & (1<<UDRE0)));
+ 162:	80 91 c0 00 	lds	r24, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7c00c0>
+ 166:	85 ff       	sbrs	r24, 5
+ 168:	fc cf       	rjmp	.-8      	; 0x162 <sendStopBit>
+	
+	//Set register for next transmission
+	UDR0 = 0x0A;
+ 16a:	8a e0       	ldi	r24, 0x0A	; 10
+ 16c:	80 93 c6 00 	sts	0x00C6, r24	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7c00c6>
+ 170:	08 95       	ret
+
+00000172 <UART0PrintString>:
+
+Description:
+	Continues to send data until reaching null character
+*/
+void UART0PrintString(char *strPtr)
+{
+ 172:	cf 93       	push	r28
+ 174:	df 93       	push	r29
+ 176:	ec 01       	movw	r28, r24
+	while(*strPtr != 0x00) 
+ 178:	02 c0       	rjmp	.+4      	; 0x17e <UART0PrintString+0xc>
+	{
+		UART0Out(*strPtr);
+ 17a:	ec df       	rcall	.-40     	; 0x154 <UART0Out>
+		strPtr ++;
+ 17c:	21 96       	adiw	r28, 0x01	; 1
+Description:
+	Continues to send data until reaching null character
+*/
+void UART0PrintString(char *strPtr)
+{
+	while(*strPtr != 0x00) 
+ 17e:	88 81       	ld	r24, Y
+ 180:	81 11       	cpse	r24, r1
+ 182:	fb cf       	rjmp	.-10     	; 0x17a <UART0PrintString+0x8>
+	{
+		UART0Out(*strPtr);
+		strPtr ++;
+	}
+}
+ 184:	df 91       	pop	r29
+ 186:	cf 91       	pop	r28
+ 188:	08 95       	ret
+
+0000018a <sendPortData>:
+Description:
+	Loops through portAddr array and sends
+	out data at each address
+*/
+void sendPortData()
+{	
+ 18a:	cf 93       	push	r28
+	for (uint8_t i=0; i<18; i++)
+ 18c:	c0 e0       	ldi	r28, 0x00	; 0
+ 18e:	0c c0       	rjmp	.+24     	; 0x1a8 <sendPortData+0x1e>
+	{
+		UART0Out(*portAddr[i]);
+ 190:	ec 2f       	mov	r30, r28
+ 192:	f0 e0       	ldi	r31, 0x00	; 0
+ 194:	ee 0f       	add	r30, r30
+ 196:	ff 1f       	adc	r31, r31
+ 198:	ec 5b       	subi	r30, 0xBC	; 188
+ 19a:	fd 4f       	sbci	r31, 0xFD	; 253
+ 19c:	01 90       	ld	r0, Z+
+ 19e:	f0 81       	ld	r31, Z
+ 1a0:	e0 2d       	mov	r30, r0
+ 1a2:	80 81       	ld	r24, Z
+ 1a4:	d7 df       	rcall	.-82     	; 0x154 <UART0Out>
+	Loops through portAddr array and sends
+	out data at each address
+*/
+void sendPortData()
+{	
+	for (uint8_t i=0; i<18; i++)
+ 1a6:	cf 5f       	subi	r28, 0xFF	; 255
+ 1a8:	c2 31       	cpi	r28, 0x12	; 18
+ 1aa:	90 f3       	brcs	.-28     	; 0x190 <sendPortData+0x6>
+	{
+		UART0Out(*portAddr[i]);
+	}
+}
+ 1ac:	cf 91       	pop	r28
+ 1ae:	08 95       	ret
+
+000001b0 <sendTimerData>:
+Description:
+	Loops though timerAddr array and sends
+	out data at each address
+*/
+void sendTimerData()
+{
+ 1b0:	cf 93       	push	r28
+ 1b2:	df 93       	push	r29
+	//Timer 0
+	for (uint8_t i=0; i<3; i++) 
+ 1b4:	c0 e0       	ldi	r28, 0x00	; 0
+ 1b6:	0c c0       	rjmp	.+24     	; 0x1d0 <sendTimerData+0x20>
+	{
+		UART0Out(*timerAddr[i]);
+ 1b8:	ec 2f       	mov	r30, r28
+ 1ba:	f0 e0       	ldi	r31, 0x00	; 0
+ 1bc:	ee 0f       	add	r30, r30
+ 1be:	ff 1f       	adc	r31, r31
+ 1c0:	e8 5e       	subi	r30, 0xE8	; 232
+ 1c2:	fd 4f       	sbci	r31, 0xFD	; 253
+ 1c4:	01 90       	ld	r0, Z+
+ 1c6:	f0 81       	ld	r31, Z
+ 1c8:	e0 2d       	mov	r30, r0
+ 1ca:	80 81       	ld	r24, Z
+ 1cc:	c3 df       	rcall	.-122    	; 0x154 <UART0Out>
+	out data at each address
+*/
+void sendTimerData()
+{
+	//Timer 0
+	for (uint8_t i=0; i<3; i++) 
+ 1ce:	cf 5f       	subi	r28, 0xFF	; 255
+ 1d0:	c3 30       	cpi	r28, 0x03	; 3
+ 1d2:	90 f3       	brcs	.-28     	; 0x1b8 <sendTimerData+0x8>
+	{
+		UART0Out(*timerAddr[i]);
+	}
+	
+	//OCR0A
+	UART0Out(*timerAddr[3]);
+ 1d4:	c8 e1       	ldi	r28, 0x18	; 24
+ 1d6:	d2 e0       	ldi	r29, 0x02	; 2
+ 1d8:	ee 81       	ldd	r30, Y+6	; 0x06
+ 1da:	ff 81       	ldd	r31, Y+7	; 0x07
+ 1dc:	80 81       	ld	r24, Z
+ 1de:	ba df       	rcall	.-140    	; 0x154 <UART0Out>
+	UART0Out(*(timerAddr[3]+1));
+ 1e0:	ee 81       	ldd	r30, Y+6	; 0x06
+ 1e2:	ff 81       	ldd	r31, Y+7	; 0x07
+ 1e4:	81 81       	ldd	r24, Z+1	; 0x01
+ 1e6:	b6 df       	rcall	.-148    	; 0x154 <UART0Out>
+	
+	//OCR0B
+	UART0Out(*timerAddr[4]);
+ 1e8:	e8 85       	ldd	r30, Y+8	; 0x08
+ 1ea:	f9 85       	ldd	r31, Y+9	; 0x09
+ 1ec:	80 81       	ld	r24, Z
+ 1ee:	b2 df       	rcall	.-156    	; 0x154 <UART0Out>
+	UART0Out(*(timerAddr[4]+1));
+ 1f0:	e8 85       	ldd	r30, Y+8	; 0x08
+ 1f2:	f9 85       	ldd	r31, Y+9	; 0x09
+ 1f4:	81 81       	ldd	r24, Z+1	; 0x01
+ 1f6:	ae df       	rcall	.-164    	; 0x154 <UART0Out>
+ 1f8:	c5 e0       	ldi	r28, 0x05	; 5
+	
+	//Timer 1
+	for (uint8_t i=5; i<8; i++)
+ 1fa:	0c c0       	rjmp	.+24     	; 0x214 <sendTimerData+0x64>
+ 1fc:	ec 2f       	mov	r30, r28
+	{
+		UART0Out(*timerAddr[i]);
+ 1fe:	f0 e0       	ldi	r31, 0x00	; 0
+ 200:	ee 0f       	add	r30, r30
+ 202:	ff 1f       	adc	r31, r31
+ 204:	e8 5e       	subi	r30, 0xE8	; 232
+ 206:	fd 4f       	sbci	r31, 0xFD	; 253
+ 208:	01 90       	ld	r0, Z+
+ 20a:	f0 81       	ld	r31, Z
+ 20c:	e0 2d       	mov	r30, r0
+ 20e:	80 81       	ld	r24, Z
+ 210:	a1 df       	rcall	.-190    	; 0x154 <UART0Out>
+ 212:	cf 5f       	subi	r28, 0xFF	; 255
+	//OCR0B
+	UART0Out(*timerAddr[4]);
+	UART0Out(*(timerAddr[4]+1));
+	
+	//Timer 1
+	for (uint8_t i=5; i<8; i++)
+ 214:	c8 30       	cpi	r28, 0x08	; 8
+ 216:	90 f3       	brcs	.-28     	; 0x1fc <sendTimerData+0x4c>
+	{
+		UART0Out(*timerAddr[i]);
+	}
+	
+	//OCR1A
+	UART0Out(*timerAddr[8]);
+ 218:	c8 e1       	ldi	r28, 0x18	; 24
+ 21a:	d2 e0       	ldi	r29, 0x02	; 2
+ 21c:	e8 89       	ldd	r30, Y+16	; 0x10
+ 21e:	f9 89       	ldd	r31, Y+17	; 0x11
+ 220:	80 81       	ld	r24, Z
+ 222:	98 df       	rcall	.-208    	; 0x154 <UART0Out>
+	UART0Out(*(timerAddr[8]+1));
+ 224:	e8 89       	ldd	r30, Y+16	; 0x10
+ 226:	f9 89       	ldd	r31, Y+17	; 0x11
+ 228:	81 81       	ldd	r24, Z+1	; 0x01
+ 22a:	94 df       	rcall	.-216    	; 0x154 <UART0Out>
+	
+	//OCR1B
+	UART0Out(*timerAddr[9]);
+ 22c:	ea 89       	ldd	r30, Y+18	; 0x12
+ 22e:	fb 89       	ldd	r31, Y+19	; 0x13
+ 230:	80 81       	ld	r24, Z
+ 232:	90 df       	rcall	.-224    	; 0x154 <UART0Out>
+	UART0Out(*(timerAddr[9]+1));
+ 234:	ea 89       	ldd	r30, Y+18	; 0x12
+ 236:	fb 89       	ldd	r31, Y+19	; 0x13
+ 238:	81 81       	ldd	r24, Z+1	; 0x01
+ 23a:	8c df       	rcall	.-232    	; 0x154 <UART0Out>
+	
+	//OCR1C
+	UART0Out(*timerAddr[10]);
+ 23c:	ec 89       	ldd	r30, Y+20	; 0x14
+ 23e:	fd 89       	ldd	r31, Y+21	; 0x15
+ 240:	80 81       	ld	r24, Z
+ 242:	88 df       	rcall	.-240    	; 0x154 <UART0Out>
+ 244:	ec 89       	ldd	r30, Y+20	; 0x14
+	UART0Out(*(timerAddr[10]+1));
+ 246:	fd 89       	ldd	r31, Y+21	; 0x15
+ 248:	81 81       	ldd	r24, Z+1	; 0x01
+ 24a:	84 df       	rcall	.-248    	; 0x154 <UART0Out>
+ 24c:	cb e0       	ldi	r28, 0x0B	; 11
+ 24e:	0c c0       	rjmp	.+24     	; 0x268 <sendTimerData+0xb8>
+	
+	//Timer 2
+	for (uint8_t i=11; i<14; i++)
+ 250:	ec 2f       	mov	r30, r28
+	{
+		UART0Out(*timerAddr[i]);
+ 252:	f0 e0       	ldi	r31, 0x00	; 0
+ 254:	ee 0f       	add	r30, r30
+ 256:	ff 1f       	adc	r31, r31
+ 258:	e8 5e       	subi	r30, 0xE8	; 232
+ 25a:	fd 4f       	sbci	r31, 0xFD	; 253
+ 25c:	01 90       	ld	r0, Z+
+ 25e:	f0 81       	ld	r31, Z
+ 260:	e0 2d       	mov	r30, r0
+ 262:	80 81       	ld	r24, Z
+ 264:	77 df       	rcall	.-274    	; 0x154 <UART0Out>
+ 266:	cf 5f       	subi	r28, 0xFF	; 255
+	//OCR1C
+	UART0Out(*timerAddr[10]);
+	UART0Out(*(timerAddr[10]+1));
+	
+	//Timer 2
+	for (uint8_t i=11; i<14; i++)
+ 268:	ce 30       	cpi	r28, 0x0E	; 14
+ 26a:	90 f3       	brcs	.-28     	; 0x250 <sendTimerData+0xa0>
+ 26c:	c8 e1       	ldi	r28, 0x18	; 24
+	{
+		UART0Out(*timerAddr[i]);
+	}
+	
+	//OCR2A
+	UART0Out(*timerAddr[14]);
+ 26e:	d2 e0       	ldi	r29, 0x02	; 2
+ 270:	ec 8d       	ldd	r30, Y+28	; 0x1c
+ 272:	fd 8d       	ldd	r31, Y+29	; 0x1d
+ 274:	80 81       	ld	r24, Z
+ 276:	6e df       	rcall	.-292    	; 0x154 <UART0Out>
+	UART0Out(*(timerAddr[14]+1));
+ 278:	ec 8d       	ldd	r30, Y+28	; 0x1c
+ 27a:	fd 8d       	ldd	r31, Y+29	; 0x1d
+ 27c:	81 81       	ldd	r24, Z+1	; 0x01
+ 27e:	6a df       	rcall	.-300    	; 0x154 <UART0Out>
+ 280:	ee 8d       	ldd	r30, Y+30	; 0x1e
+	
+	//OCR2B
+	UART0Out(*timerAddr[15]);
+ 282:	ff 8d       	ldd	r31, Y+31	; 0x1f
+ 284:	80 81       	ld	r24, Z
+ 286:	66 df       	rcall	.-308    	; 0x154 <UART0Out>
+ 288:	ee 8d       	ldd	r30, Y+30	; 0x1e
+ 28a:	ff 8d       	ldd	r31, Y+31	; 0x1f
+	UART0Out(*(timerAddr[15]+1));
+ 28c:	81 81       	ldd	r24, Z+1	; 0x01
+ 28e:	62 df       	rcall	.-316    	; 0x154 <UART0Out>
+ 290:	c0 e1       	ldi	r28, 0x10	; 16
+ 292:	0c c0       	rjmp	.+24     	; 0x2ac <sendTimerData+0xfc>
+	
+	//Timer 3
+	for (uint8_t i=16; i<19; i++)
+ 294:	ec 2f       	mov	r30, r28
+ 296:	f0 e0       	ldi	r31, 0x00	; 0
+	{
+		UART0Out(*timerAddr[i]);
+ 298:	ee 0f       	add	r30, r30
+ 29a:	ff 1f       	adc	r31, r31
+ 29c:	e8 5e       	subi	r30, 0xE8	; 232
+ 29e:	fd 4f       	sbci	r31, 0xFD	; 253
+ 2a0:	01 90       	ld	r0, Z+
+ 2a2:	f0 81       	ld	r31, Z
+ 2a4:	e0 2d       	mov	r30, r0
+ 2a6:	80 81       	ld	r24, Z
+ 2a8:	55 df       	rcall	.-342    	; 0x154 <UART0Out>
+ 2aa:	cf 5f       	subi	r28, 0xFF	; 255
+	//OCR2B
+	UART0Out(*timerAddr[15]);
+	UART0Out(*(timerAddr[15]+1));
+	
+	//Timer 3
+	for (uint8_t i=16; i<19; i++)
+ 2ac:	c3 31       	cpi	r28, 0x13	; 19
+ 2ae:	90 f3       	brcs	.-28     	; 0x294 <sendTimerData+0xe4>
+	{
+		UART0Out(*timerAddr[i]);
+	}
+	
+	//OCR3A
+	UART0Out(*timerAddr[19]);
+ 2b0:	c8 e1       	ldi	r28, 0x18	; 24
+ 2b2:	d2 e0       	ldi	r29, 0x02	; 2
+ 2b4:	ee a1       	ldd	r30, Y+38	; 0x26
+ 2b6:	ff a1       	ldd	r31, Y+39	; 0x27
+ 2b8:	80 81       	ld	r24, Z
+ 2ba:	4c df       	rcall	.-360    	; 0x154 <UART0Out>
+	UART0Out(*(timerAddr[19]+1));
+ 2bc:	ee a1       	ldd	r30, Y+38	; 0x26
+ 2be:	ff a1       	ldd	r31, Y+39	; 0x27
+ 2c0:	81 81       	ldd	r24, Z+1	; 0x01
+ 2c2:	48 df       	rcall	.-368    	; 0x154 <UART0Out>
+	
+	//OCR3B
+	UART0Out(*timerAddr[20]);
+ 2c4:	e8 a5       	ldd	r30, Y+40	; 0x28
+ 2c6:	f9 a5       	ldd	r31, Y+41	; 0x29
+ 2c8:	80 81       	ld	r24, Z
+ 2ca:	44 df       	rcall	.-376    	; 0x154 <UART0Out>
+ 2cc:	e8 a5       	ldd	r30, Y+40	; 0x28
+	UART0Out(*(timerAddr[20]+1));
+ 2ce:	f9 a5       	ldd	r31, Y+41	; 0x29
+ 2d0:	81 81       	ldd	r24, Z+1	; 0x01
+ 2d2:	40 df       	rcall	.-384    	; 0x154 <UART0Out>
+ 2d4:	ea a5       	ldd	r30, Y+42	; 0x2a
+ 2d6:	fb a5       	ldd	r31, Y+43	; 0x2b
+	
+	//OCR3C
+	UART0Out(*timerAddr[21]);
+ 2d8:	80 81       	ld	r24, Z
+ 2da:	3c df       	rcall	.-392    	; 0x154 <UART0Out>
+ 2dc:	ea a5       	ldd	r30, Y+42	; 0x2a
+ 2de:	fb a5       	ldd	r31, Y+43	; 0x2b
+ 2e0:	81 81       	ldd	r24, Z+1	; 0x01
+	UART0Out(*(timerAddr[21]+1));
+ 2e2:	38 df       	rcall	.-400    	; 0x154 <UART0Out>
+ 2e4:	df 91       	pop	r29
+ 2e6:	cf 91       	pop	r28
+ 2e8:	08 95       	ret
+
+000002ea <sendUSARTData>:
+ 2ea:	cf 93       	push	r28
+}
+ 2ec:	c0 e0       	ldi	r28, 0x00	; 0
+ 2ee:	0c c0       	rjmp	.+24     	; 0x308 <sendUSARTData+0x1e>
+ 2f0:	ec 2f       	mov	r30, r28
+*/
+void sendUSARTData()
+{
+	for (uint8_t i=0; i<6; i++)
+	{
+		UART0Out(*USARTAddr[i]);
+ 2f2:	f0 e0       	ldi	r31, 0x00	; 0
+ 2f4:	ee 0f       	add	r30, r30
+ 2f6:	ff 1f       	adc	r31, r31
+ 2f8:	e4 5f       	subi	r30, 0xF4	; 244
+ 2fa:	fd 4f       	sbci	r31, 0xFD	; 253
+ 2fc:	01 90       	ld	r0, Z+
+ 2fe:	f0 81       	ld	r31, Z
+ 300:	e0 2d       	mov	r30, r0
+ 302:	80 81       	ld	r24, Z
+ 304:	27 df       	rcall	.-434    	; 0x154 <UART0Out>
+	Loops though USARTAddr array and sends
+	out data at each address
+*/
+void sendUSARTData()
+{
+	for (uint8_t i=0; i<6; i++)
+ 306:	cf 5f       	subi	r28, 0xFF	; 255
+ 308:	c6 30       	cpi	r28, 0x06	; 6
+ 30a:	90 f3       	brcs	.-28     	; 0x2f0 <sendUSARTData+0x6>
+	{
+		UART0Out(*USARTAddr[i]);
+	}
+}
+ 30c:	cf 91       	pop	r28
+ 30e:	08 95       	ret
+
+00000310 <sendADCData>:
+Description:
+	Loops though ADCAddr array and sends
+	out data at each address
+*/
+void sendADCData()
+{
+ 310:	cf 93       	push	r28
+	for (uint8_t i=0; i<3; i++)
+ 312:	c0 e0       	ldi	r28, 0x00	; 0
+ 314:	0c c0       	rjmp	.+24     	; 0x32e <sendADCData+0x1e>
+	{
+		UART0Out(*ADCAddr[i]);
+ 316:	ec 2f       	mov	r30, r28
+ 318:	f0 e0       	ldi	r31, 0x00	; 0
+ 31a:	ee 0f       	add	r30, r30
+ 31c:	ff 1f       	adc	r31, r31
+ 31e:	ea 5f       	subi	r30, 0xFA	; 250
+ 320:	fd 4f       	sbci	r31, 0xFD	; 253
+ 322:	01 90       	ld	r0, Z+
+ 324:	f0 81       	ld	r31, Z
+ 326:	e0 2d       	mov	r30, r0
+ 328:	80 81       	ld	r24, Z
+ 32a:	14 df       	rcall	.-472    	; 0x154 <UART0Out>
+	Loops though ADCAddr array and sends
+	out data at each address
+*/
+void sendADCData()
+{
+	for (uint8_t i=0; i<3; i++)
+ 32c:	cf 5f       	subi	r28, 0xFF	; 255
+ 32e:	c3 30       	cpi	r28, 0x03	; 3
+ 330:	90 f3       	brcs	.-28     	; 0x316 <sendADCData+0x6>
+	{
+		UART0Out(*ADCAddr[i]);
+	}
+}
+ 332:	cf 91       	pop	r28
+ 334:	08 95       	ret
+
+00000336 <sendINTData>:
+Description:
+	Loops though intAddr array and sends
+	out data at each address
+*/
+void sendINTData()
+{
+ 336:	cf 93       	push	r28
+	for (uint8_t i=0; i<3; i++)
+ 338:	c0 e0       	ldi	r28, 0x00	; 0
+ 33a:	0c c0       	rjmp	.+24     	; 0x354 <sendINTData+0x1e>
+	{
+		UART0Out(*intAddr[i]);
+ 33c:	ec 2f       	mov	r30, r28
+ 33e:	f0 e0       	ldi	r31, 0x00	; 0
+ 340:	ee 0f       	add	r30, r30
+ 342:	ff 1f       	adc	r31, r31
+ 344:	e0 50       	subi	r30, 0x00	; 0
+ 346:	fe 4f       	sbci	r31, 0xFE	; 254
+ 348:	01 90       	ld	r0, Z+
+ 34a:	f0 81       	ld	r31, Z
+ 34c:	e0 2d       	mov	r30, r0
+ 34e:	80 81       	ld	r24, Z
+ 350:	01 df       	rcall	.-510    	; 0x154 <UART0Out>
+	Loops though intAddr array and sends
+	out data at each address
+*/
+void sendINTData()
+{
+	for (uint8_t i=0; i<3; i++)
+ 352:	cf 5f       	subi	r28, 0xFF	; 255
+ 354:	c3 30       	cpi	r28, 0x03	; 3
+ 356:	90 f3       	brcs	.-28     	; 0x33c <sendINTData+0x6>
+	{
+		UART0Out(*intAddr[i]);
+	}
+}
+ 358:	cf 91       	pop	r28
+ 35a:	08 95       	ret
+
+0000035c <sendRegisterData>:
+Description:
+	Calls each send___Data() function
+*/
+void sendRegisterData() 
+{
+	UART0PrintString(st);
+ 35c:	8c e6       	ldi	r24, 0x6C	; 108
+ 35e:	92 e0       	ldi	r25, 0x02	; 2
+ 360:	08 df       	rcall	.-496    	; 0x172 <UART0PrintString>
+	sendStopBit();
+ 362:	ff de       	rcall	.-514    	; 0x162 <sendStopBit>
+	
+	sendPortData();
+ 364:	12 df       	rcall	.-476    	; 0x18a <sendPortData>
+	sendTimerData();
+ 366:	24 df       	rcall	.-440    	; 0x1b0 <sendTimerData>
+	sendUSARTData();
+ 368:	c0 df       	rcall	.-128    	; 0x2ea <sendUSARTData>
+	sendADCData();
+ 36a:	d2 df       	rcall	.-92     	; 0x310 <sendADCData>
+	sendINTData();
+ 36c:	e4 df       	rcall	.-56     	; 0x336 <sendINTData>
+ 36e:	88 e6       	ldi	r24, 0x68	; 104
+	
+	UART0PrintString(en);
+ 370:	92 e0       	ldi	r25, 0x02	; 2
+ 372:	ff de       	rcall	.-514    	; 0x172 <UART0PrintString>
+ 374:	f6 ce       	rjmp	.-532    	; 0x162 <sendStopBit>
+ 376:	08 95       	ret
+
+00000378 <__vector_50>:
+	sendStopBit();
+ 378:	1f 92       	push	r1
+ 37a:	0f 92       	push	r0
+ 37c:	0f b6       	in	r0, 0x3f	; 63
+
+Description:
+	Resets counter value then sends register data
+*/
+ISR(TIMER5_OVF_vect) 
+{
+ 37e:	0f 92       	push	r0
+ 380:	11 24       	eor	r1, r1
+ 382:	0b b6       	in	r0, 0x3b	; 59
+ 384:	0f 92       	push	r0
+ 386:	2f 93       	push	r18
+ 388:	3f 93       	push	r19
+ 38a:	4f 93       	push	r20
+ 38c:	5f 93       	push	r21
+ 38e:	6f 93       	push	r22
+ 390:	7f 93       	push	r23
+ 392:	8f 93       	push	r24
+ 394:	9f 93       	push	r25
+ 396:	af 93       	push	r26
+ 398:	bf 93       	push	r27
+ 39a:	ef 93       	push	r30
+ 39c:	ff 93       	push	r31
+	TCNT5 = 65535 - (F_CPU / (1024*UPDATE_FREQUENCY));
+ 39e:	85 ee       	ldi	r24, 0xE5	; 229
+ 3a0:	99 ef       	ldi	r25, 0xF9	; 249
+ 3a2:	90 93 25 01 	sts	0x0125, r25	; 0x800125 <__TEXT_REGION_LENGTH__+0x7c0125>
+ 3a6:	80 93 24 01 	sts	0x0124, r24	; 0x800124 <__TEXT_REGION_LENGTH__+0x7c0124>
+	sendRegisterData();
+ 3aa:	d8 df       	rcall	.-80     	; 0x35c <sendRegisterData>
+}
+ 3ac:	ff 91       	pop	r31
+ 3ae:	ef 91       	pop	r30
+ 3b0:	bf 91       	pop	r27
+ 3b2:	af 91       	pop	r26
+ 3b4:	9f 91       	pop	r25
+ 3b6:	8f 91       	pop	r24
+ 3b8:	7f 91       	pop	r23
+ 3ba:	6f 91       	pop	r22
+ 3bc:	5f 91       	pop	r21
+ 3be:	4f 91       	pop	r20
+ 3c0:	3f 91       	pop	r19
+ 3c2:	2f 91       	pop	r18
+ 3c4:	0f 90       	pop	r0
+ 3c6:	0b be       	out	0x3b, r0	; 59
+ 3c8:	0f 90       	pop	r0
+ 3ca:	0f be       	out	0x3f, r0	; 63
+ 3cc:	0f 90       	pop	r0
+ 3ce:	1f 90       	pop	r1
+ 3d0:	18 95       	reti
+
+000003d2 <IO_init>:
+
+/* NOTE: Function implementations */
+void IO_init(void)
+{
+    // set port K as all inputs
+    DDRK  = 0x00;
+ 3d2:	10 92 07 01 	sts	0x0107, r1	; 0x800107 <__TEXT_REGION_LENGTH__+0x7c0107>
+    // turn all pullup resisistors
+    PORTK = 0xFF;
+ 3d6:	8f ef       	ldi	r24, 0xFF	; 255
+ 3d8:	80 93 08 01 	sts	0x0108, r24	; 0x800108 <__TEXT_REGION_LENGTH__+0x7c0108>
+ 3dc:	08 95       	ret
+
+000003de <main>:
+
+/* NOTE: Application implementation */
+// the main loop of the function, provided to us
+int main(void)
+{
+    IO_init();
+ 3de:	f9 df       	rcall	.-14     	; 0x3d2 <IO_init>
+
+    initDebug();
+ 3e0:	b5 de       	rcall	.-662    	; 0x14c <initDebug>
+ 3e2:	ff cf       	rjmp	.-2      	; 0x3e2 <main+0x4>
+
+000003e4 <_exit>:
+ 3e4:	f8 94       	cli
+
+000003e6 <__stop_program>:
+ 3e6:	ff cf       	rjmp	.-2      	; 0x3e6 <__stop_program>
