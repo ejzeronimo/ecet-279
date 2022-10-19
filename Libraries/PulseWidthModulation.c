@@ -23,8 +23,8 @@
 void PWM_init(void)
 {
     // set up PORTB.5 as an output and 0V
-    DDRB |= 1 << 5;
-    PORTB |= PORTB & ~(1 << 5);
+    DDRB |= 0x20;
+    PORTB |= PORTB & ~0x20;
 
     // 512 @ 8
     // set frequency to 3900hz

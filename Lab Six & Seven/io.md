@@ -4,7 +4,7 @@
 | ------------------ | ------------- |
 | Start profile pb   | PORTA.4       |
 | Stop PWM out       | PORTA.5       |
-| Potentiometer      | PORTK.0       |
+| Potentiometer      | PORTF.0       |
 | Pot change mode sw | PORTA.0       |
 
 | Outputs            | Controller Out      |
