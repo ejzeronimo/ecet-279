@@ -17,7 +17,7 @@
 // TODO: None
 
 /* NOTE: Global Variables */
-// TODO: None
+static uint16_t tick = 0;
 
 /* NOTE: Local function implementations */
 void DLY_init(void)
@@ -30,6 +30,16 @@ void DLY_init(void)
     TCCR0B = 0x00;
 
     OCR0A = 0;
+}
+
+void DLY_initInterrupt(void)
+{
+    // interrupt mode
+    TCCR0A = 0x00;
+    TCCR0B = 0x04;
+    TCNT0  = 0;
+    OCR0A  = 62;
+    TIMSK0 = (1 << OCIE0A);
 }
 
 void DLY_ms(double ms)
@@ -78,4 +88,19 @@ void DLY_ms(double ms)
 
         OCR0A = 0;
     }
+}
+
+uint16_t DLY_getTick(void)
+{
+    return tick;
+}
+
+void DLY_setTick(uint16_t t){
+    tick = t;
+}
+
+ISR(TIMER0_COMPA_vect)
+{
+    TCNT0 = 0;
+    tick++;
 }

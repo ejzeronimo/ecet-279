@@ -15,7 +15,8 @@
 extern "C" {
 #endif
 
-#include "stdio.h"
+#include <avr/interrupt.h>
+#include <stdio.h>
 
 #define F_CPU 16000000UL
 
@@ -24,9 +25,13 @@ extern "C" {
 
 /* NOTE: Function prototypes */
 // init registers for adc
-void ADC_init(void);
+void   ADC_init(void);
+// init adc for interrupt mode
+void   ADC_initInterrupt(void);
 // returns the value of the given channel
 double ADC_getTenBitValue(uint16_t channel);
+// gets the 10 bit value on channel o
+uint16_t ADC_getTenBitValueInterrupt(uint16_t channel);
 
 #if defined(__cplusplus)
 } /* extern "C" */
