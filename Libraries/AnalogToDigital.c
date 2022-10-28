@@ -17,7 +17,7 @@
 // TODO: None
 
 /* NOTE: Global Variables */
-// TODO: None
+static uint16_t readInterrupt = 0;
 
 /* NOTE: Local function implementations */
 void ADC_init(void)
@@ -31,12 +31,19 @@ void ADC_init(void)
     ADCSRB = 0x00;
 }
 
+void ADC_initInterrupt(void)
+{
+    ADC_init();
+
+    ADCSRA |= (1 << ADIE);
+}
+
 double ADC_getTenBitValue(uint16_t channel)
 {
     uint16_t result = 0;
 
     // select the channel
-    ADMUX = (ADMUX & 0xe0) | channel;
+    ADMUX  = (ADMUX & 0xe0) | channel;
     ADCSRB = (ADCSRB & 0xf7) | (channel >> 2);
 
     // start conversion
@@ -53,4 +60,22 @@ double ADC_getTenBitValue(uint16_t channel)
     result = result | (ADCH << 8);
 
     return result / 1024.0;
+}
+
+uint16_t ADC_getTenBitValueInterrupt(uint16_t channel)
+{
+    // select the channel
+    ADMUX  = (ADMUX & 0xe0) | channel;
+    ADCSRB = (ADCSRB & 0xf7) | (channel >> 2);
+
+    // start conversion
+    ADCSRA |= (1 << ADSC);
+
+    return readInterrupt;
+}
+
+ISR(ADC_vect)
+{
+    readInterrupt = ADCL;
+    readInterrupt = readInterrupt | (ADCH << 8);
 }
