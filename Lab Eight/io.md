@@ -3,7 +3,9 @@
 | Inputs Hardware    | Controller In |
 | ------------------ | ------------- |
 | Potentiometer      | PORTF.0       |
-| Mode pushbutton    | PORTC.0       |
+| Mode pushbutton    | PORTD.3       |
+| Mode direction pin | PORTD.1       |
+| Encoder clock pin  | PORTD.2       |
 
 | Outputs            | Controller Out      |
 | ------------------ | ------------------- |

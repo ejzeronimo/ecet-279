@@ -24,11 +24,13 @@ static uint8_t direction = 0;
 /* NOTE: Local function implementations */
 void ENC_init(void)
 {
-    DDRD  = 0x06;
-    PORTD = 0x06;
+    // turn on the clock and direction inputs
+    DDRD  |= 0x06;
+    PORTD |= 0x06;
 
-    EIMSK = (1 << INT2);
-    EICRA = (1 << ISC21);
+    // interupt 2 to enabled falling edge
+    EIMSK |= (1 << INT2);
+    EICRA |= (1 << ISC21);
 }
 
 uint8_t ENC_getValue(void)
@@ -38,10 +40,13 @@ uint8_t ENC_getValue(void)
 
 uint8_t ENC_getDirection(void)
 {
+    // cache the flag state
     uint8_t dir = direction;
 
+    // reset the flag in the global
     direction = 0x00;
 
+    // return the cached state
     return dir;
 }
 
@@ -50,18 +55,21 @@ ISR(INT2_vect)
     // if pin is high
     if(PIND & 0x02)
     {
+        // set the flag
         direction = 0x11;
 
+        // increment if it won't overflow
         if(value < 255)
         {
             value++;
         }
     }
-    // else decrement
     else
     {
+        // set the flag
         direction = 0x10;
 
+        // decrement if it won't overflow
         if(value > 0)
         {
             value--;

@@ -10,7 +10,7 @@
  * Hardware:
  *   Atmega2560          micro controller
  *   PORTA               LED bar
- *   PORTF.0             pot in
+ *   PORTF.0             Potentiometer in
  */
 
 /* NOTE: Includes */
@@ -40,6 +40,7 @@ int main(void)
 
     while(1)
     {
+        // get the value and bit shift it right 2
         PORTA = ADC_getTenBitValueInterrupt(0) >> 2;
     }
 }

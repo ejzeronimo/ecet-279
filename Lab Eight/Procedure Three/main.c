@@ -10,6 +10,8 @@
  * Hardware:
  *   Atmega2560          micro controller
  *   PORTA               LED bar
+ *   PORTD1              Direction encoder pin
+ *   PORTD2              Encoder clock pin
  */
 
 /* NOTE: Includes */
@@ -45,12 +47,15 @@ int main(void)
         // if the flag has been set
         if(directionFlag & 0x10)
         {
+            // get the driection flag
             if((directionFlag & 0x01))
             {
+                // move the bar left one
                 PORTA = PORTA << 1 | 0x01;
             }
             else
             {
+                // move the bar right one
                 PORTA = PORTA >> 1;
             }
         }
