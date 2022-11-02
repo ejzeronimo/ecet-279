@@ -36,8 +36,8 @@ int main(void)
 {
     IO_init();
 
+    // init async uart and bind an interrupt handler
     SERIAL_uartInitAsync();
-
     SERIAL_uartAsyncGetHandler(&asyncGetHandler);
 
     sei();
@@ -63,6 +63,5 @@ void IO_init(void)
 
 void asyncGetHandler(char c)
 {
-    PORTA = 0x00;
     PORTA = c;
 }

@@ -179,7 +179,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x1e0
+.text           0x00000000      0x1fa
  *(.vectors)
  .vectors       0x00000000       0xe4 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega2560/avr6/crtatmega2560.o
                 0x00000000                __vector_default
@@ -298,26 +298,26 @@ END GROUP
                 0x0000010a       0x1c Serial.o
                 0x0000010a                SERIAL_uartInitAsync
  .text.SERIAL_uartSend
-                0x00000126       0x1a Serial.o
+                0x00000126       0x36 Serial.o
                 0x00000126                SERIAL_uartSend
  .text.SERIAL_uartAsyncGetHandler
-                0x00000140        0xa Serial.o
-                0x00000140                SERIAL_uartAsyncGetHandler
+                0x0000015c        0xa Serial.o
+                0x0000015c                SERIAL_uartAsyncGetHandler
  .text.__vector_25
-                0x0000014a       0x5a Serial.o
-                0x0000014a                __vector_25
+                0x00000166       0x5a Serial.o
+                0x00000166                __vector_25
  .text.asyncGetHandler
-                0x000001a4        0x6 main.o
-                0x000001a4                asyncGetHandler
- .text.IO_init  0x000001aa        0xc main.o
-                0x000001aa                IO_init
- .text.main     0x000001b6       0x26 main.o
-                0x000001b6                main
-                0x000001dc                . = ALIGN (0x2)
+                0x000001c0        0x4 main.o
+                0x000001c0                asyncGetHandler
+ .text.IO_init  0x000001c4        0xc main.o
+                0x000001c4                IO_init
+ .text.main     0x000001d0       0x26 main.o
+                0x000001d0                main
+                0x000001f6                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000001dc        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
-                0x000001dc                _exit
-                0x000001dc                exit
+ .fini9         0x000001f6        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
+                0x000001f6                _exit
+                0x000001f6                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -336,11 +336,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000001dc        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
+ .fini0         0x000001f6        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
  *(.fini0)
-                0x000001e0                _etext = .
+                0x000001fa                _etext = .
 
-.data           0x00800200        0x0 load address 0x000001e0
+.data           0x00800200        0x0 load address 0x000001fa
                 [!provide]                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -360,8 +360,8 @@ END GROUP
                 0x00800200        0x2 Serial.o
  *(COMMON)
                 0x00800202                PROVIDE (__bss_end, .)
-                0x000001e0                __data_load_start = LOADADDR (.data)
-                0x000001e0                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000001fa                __data_load_start = LOADADDR (.data)
+                0x000001fa                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800202        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -443,41 +443,41 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0xed9
+.debug_info     0x00000000      0xee9
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0xbbc C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega2560/avr6/crtatmega2560.o
- .debug_info    0x00000bbc      0x1b4 Serial.o
- .debug_info    0x00000d70      0x169 main.o
+ .debug_info    0x00000bbc      0x1c4 Serial.o
+ .debug_info    0x00000d80      0x169 main.o
 
-.debug_abbrev   0x00000000      0xd05
+.debug_abbrev   0x00000000      0xd1d
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0xb1a C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega2560/avr6/crtatmega2560.o
- .debug_abbrev  0x00000b1a       0xf2 Serial.o
- .debug_abbrev  0x00000c0c       0xf9 main.o
+ .debug_abbrev  0x00000b1a      0x10a Serial.o
+ .debug_abbrev  0x00000c24       0xf9 main.o
 
-.debug_line     0x00000000      0x4b5
+.debug_line     0x00000000      0x533
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x1fa C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega2560/avr6/crtatmega2560.o
- .debug_line    0x000001fa      0x190 Serial.o
- .debug_line    0x0000038a      0x12b main.o
+ .debug_line    0x000001fa      0x214 Serial.o
+ .debug_line    0x0000040e      0x125 main.o
 
 .debug_frame    0x00000000      0x110
  *(.debug_frame)
  .debug_frame   0x00000000       0xbc Serial.o
  .debug_frame   0x000000bc       0x54 main.o
 
-.debug_str      0x00000000      0x61d
+.debug_str      0x00000000      0x617
  *(.debug_str)
  .debug_str     0x00000000      0x3e6 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega2560/avr6/crtatmega2560.o
- .debug_str     0x000003e6      0x205 Serial.o
-                                0x23e (size before relaxing)
- .debug_str     0x000005eb       0x32 main.o
+ .debug_str     0x000003e6      0x1ff Serial.o
+                                0x238 (size before relaxing)
+ .debug_str     0x000005e5       0x32 main.o
                                 0x1d2 (size before relaxing)
 
-.debug_loc      0x00000000      0x139
+.debug_loc      0x00000000      0x15f
  *(.debug_loc)
- .debug_loc     0x00000000       0xf1 Serial.o
- .debug_loc     0x000000f1       0x48 main.o
+ .debug_loc     0x00000000      0x117 Serial.o
+ .debug_loc     0x00000117       0x48 main.o
 
 .debug_macinfo
  *(.debug_macinfo)

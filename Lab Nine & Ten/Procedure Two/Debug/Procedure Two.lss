@@ -3,31 +3,31 @@ Procedure Two.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800200  00800200  00000254  2**0
+  0 .data         00000000  00800200  00800200  0000026e  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         000001e0  00000000  00000000  00000074  2**1
+  1 .text         000001fa  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000002  00800200  00800200  00000254  2**0
+  2 .bss          00000002  00800200  00800200  0000026e  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  00000254  2**0
+  3 .comment      00000030  00000000  00000000  0000026e  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000284  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000002a0  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000078  00000000  00000000  000002c4  2**0
+  5 .debug_aranges 00000078  00000000  00000000  000002e0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000ed9  00000000  00000000  0000033c  2**0
+  6 .debug_info   00000ee9  00000000  00000000  00000358  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000d05  00000000  00000000  00001215  2**0
+  7 .debug_abbrev 00000d1d  00000000  00000000  00001241  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000004b5  00000000  00000000  00001f1a  2**0
+  8 .debug_line   00000533  00000000  00000000  00001f5e  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000110  00000000  00000000  000023d0  2**2
+  9 .debug_frame  00000110  00000000  00000000  00002494  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    0000061d  00000000  00000000  000024e0  2**0
+ 10 .debug_str    00000617  00000000  00000000  000025a4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000139  00000000  00000000  00002afd  2**0
+ 11 .debug_loc    0000015f  00000000  00000000  00002bbb  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000058  00000000  00000000  00002c36  2**0
+ 12 .debug_ranges 00000058  00000000  00000000  00002d1a  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -83,7 +83,7 @@ Disassembly of section .text:
   5e:	00 00       	nop
   60:	53 c0       	rjmp	.+166    	; 0x108 <__bad_interrupt>
   62:	00 00       	nop
-  64:	72 c0       	rjmp	.+228    	; 0x14a <__vector_25>
+  64:	80 c0       	rjmp	.+256    	; 0x166 <__vector_25>
   66:	00 00       	nop
   68:	4f c0       	rjmp	.+158    	; 0x108 <__bad_interrupt>
   6a:	00 00       	nop
@@ -171,15 +171,15 @@ Disassembly of section .text:
   fe:	a2 30       	cpi	r26, 0x02	; 2
  100:	b2 07       	cpc	r27, r18
  102:	e1 f7       	brne	.-8      	; 0xfc <.do_clear_bss_loop>
- 104:	58 d0       	rcall	.+176    	; 0x1b6 <main>
- 106:	6a c0       	rjmp	.+212    	; 0x1dc <_exit>
+ 104:	65 d0       	rcall	.+202    	; 0x1d0 <main>
+ 106:	77 c0       	rjmp	.+238    	; 0x1f6 <_exit>
 
 00000108 <__bad_interrupt>:
  108:	7b cf       	rjmp	.-266    	; 0x0 <__vectors>
 
 0000010a <SERIAL_uartInitAsync>:
-    }
 
+    // save to the char
     ch = UDR0;
 
     return ch;
@@ -195,148 +195,161 @@ Disassembly of section .text:
  124:	08 95       	ret
 
 00000126 <SERIAL_uartSend>:
- 126:	fc 01       	movw	r30, r24
- 128:	07 c0       	rjmp	.+14     	; 0x138 <SERIAL_uartSend+0x12>
- 12a:	90 91 c0 00 	lds	r25, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7c00c0>
- 12e:	95 ff       	sbrs	r25, 5
- 130:	fc cf       	rjmp	.-8      	; 0x12a <SERIAL_uartSend+0x4>
- 132:	31 96       	adiw	r30, 0x01	; 1
- 134:	80 93 c6 00 	sts	0x00C6, r24	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7c00c6>
- 138:	80 81       	ld	r24, Z
- 13a:	81 11       	cpse	r24, r1
- 13c:	f6 cf       	rjmp	.-20     	; 0x12a <SERIAL_uartSend+0x4>
- 13e:	08 95       	ret
+ 126:	dc 01       	movw	r26, r24
+ 128:	20 e0       	ldi	r18, 0x00	; 0
+ 12a:	30 e0       	ldi	r19, 0x00	; 0
+ 12c:	0c c0       	rjmp	.+24     	; 0x146 <SERIAL_uartSend+0x20>
+ 12e:	90 91 c0 00 	lds	r25, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7c00c0>
+ 132:	95 ff       	sbrs	r25, 5
+ 134:	fc cf       	rjmp	.-8      	; 0x12e <SERIAL_uartSend+0x8>
+ 136:	fd 01       	movw	r30, r26
+ 138:	e2 0f       	add	r30, r18
+ 13a:	f3 1f       	adc	r31, r19
+ 13c:	80 81       	ld	r24, Z
+ 13e:	80 93 c6 00 	sts	0x00C6, r24	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7c00c6>
+ 142:	2f 5f       	subi	r18, 0xFF	; 255
+ 144:	3f 4f       	sbci	r19, 0xFF	; 255
+ 146:	fd 01       	movw	r30, r26
+ 148:	01 90       	ld	r0, Z+
+ 14a:	00 20       	and	r0, r0
+ 14c:	e9 f7       	brne	.-6      	; 0x148 <SERIAL_uartSend+0x22>
+ 14e:	31 97       	sbiw	r30, 0x01	; 1
+ 150:	ea 1b       	sub	r30, r26
+ 152:	fb 0b       	sbc	r31, r27
+ 154:	2e 17       	cp	r18, r30
+ 156:	3f 07       	cpc	r19, r31
+ 158:	50 f3       	brcs	.-44     	; 0x12e <SERIAL_uartSend+0x8>
+ 15a:	08 95       	ret
 
-00000140 <SERIAL_uartAsyncGetHandler>:
+0000015c <SERIAL_uartAsyncGetHandler>:
 
 void SERIAL_uartAsyncGetHandler(asyncGetHandler_t cb)
 {
+    // set the interal callback pointer to the one we were given
     interruptCallback = cb;
- 140:	90 93 01 02 	sts	0x0201, r25	; 0x800201 <__DATA_REGION_ORIGIN__+0x1>
- 144:	80 93 00 02 	sts	0x0200, r24	; 0x800200 <__DATA_REGION_ORIGIN__>
- 148:	08 95       	ret
+ 15c:	90 93 01 02 	sts	0x0201, r25	; 0x800201 <_edata+0x1>
+ 160:	80 93 00 02 	sts	0x0200, r24	; 0x800200 <_edata>
+ 164:	08 95       	ret
 
-0000014a <__vector_25>:
+00000166 <__vector_25>:
 }
 
 ISR(USART0_RX_vect)
 {
- 14a:	1f 92       	push	r1
- 14c:	0f 92       	push	r0
- 14e:	0f b6       	in	r0, 0x3f	; 63
- 150:	0f 92       	push	r0
- 152:	11 24       	eor	r1, r1
- 154:	0b b6       	in	r0, 0x3b	; 59
- 156:	0f 92       	push	r0
- 158:	2f 93       	push	r18
- 15a:	3f 93       	push	r19
- 15c:	4f 93       	push	r20
- 15e:	5f 93       	push	r21
- 160:	6f 93       	push	r22
- 162:	7f 93       	push	r23
- 164:	8f 93       	push	r24
- 166:	9f 93       	push	r25
- 168:	af 93       	push	r26
- 16a:	bf 93       	push	r27
- 16c:	ef 93       	push	r30
- 16e:	ff 93       	push	r31
+ 166:	1f 92       	push	r1
+ 168:	0f 92       	push	r0
+ 16a:	0f b6       	in	r0, 0x3f	; 63
+ 16c:	0f 92       	push	r0
+ 16e:	11 24       	eor	r1, r1
+ 170:	0b b6       	in	r0, 0x3b	; 59
+ 172:	0f 92       	push	r0
+ 174:	2f 93       	push	r18
+ 176:	3f 93       	push	r19
+ 178:	4f 93       	push	r20
+ 17a:	5f 93       	push	r21
+ 17c:	6f 93       	push	r22
+ 17e:	7f 93       	push	r23
+ 180:	8f 93       	push	r24
+ 182:	9f 93       	push	r25
+ 184:	af 93       	push	r26
+ 186:	bf 93       	push	r27
+ 188:	ef 93       	push	r30
+ 18a:	ff 93       	push	r31
     interruptCallback(UDR0);
- 170:	80 91 c6 00 	lds	r24, 0x00C6	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7c00c6>
- 174:	e0 91 00 02 	lds	r30, 0x0200	; 0x800200 <__DATA_REGION_ORIGIN__>
- 178:	f0 91 01 02 	lds	r31, 0x0201	; 0x800201 <__DATA_REGION_ORIGIN__+0x1>
- 17c:	19 95       	eicall
- 17e:	ff 91       	pop	r31
- 180:	ef 91       	pop	r30
- 182:	bf 91       	pop	r27
- 184:	af 91       	pop	r26
- 186:	9f 91       	pop	r25
- 188:	8f 91       	pop	r24
- 18a:	7f 91       	pop	r23
- 18c:	6f 91       	pop	r22
- 18e:	5f 91       	pop	r21
- 190:	4f 91       	pop	r20
- 192:	3f 91       	pop	r19
- 194:	2f 91       	pop	r18
- 196:	0f 90       	pop	r0
- 198:	0b be       	out	0x3b, r0	; 59
- 19a:	0f 90       	pop	r0
- 19c:	0f be       	out	0x3f, r0	; 63
- 19e:	0f 90       	pop	r0
- 1a0:	1f 90       	pop	r1
- 1a2:	18 95       	reti
+ 18c:	80 91 c6 00 	lds	r24, 0x00C6	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7c00c6>
+ 190:	e0 91 00 02 	lds	r30, 0x0200	; 0x800200 <_edata>
+ 194:	f0 91 01 02 	lds	r31, 0x0201	; 0x800201 <_edata+0x1>
+ 198:	19 95       	eicall
+ 19a:	ff 91       	pop	r31
+ 19c:	ef 91       	pop	r30
+ 19e:	bf 91       	pop	r27
+ 1a0:	af 91       	pop	r26
+ 1a2:	9f 91       	pop	r25
+ 1a4:	8f 91       	pop	r24
+ 1a6:	7f 91       	pop	r23
+ 1a8:	6f 91       	pop	r22
+ 1aa:	5f 91       	pop	r21
+ 1ac:	4f 91       	pop	r20
+ 1ae:	3f 91       	pop	r19
+ 1b0:	2f 91       	pop	r18
+ 1b2:	0f 90       	pop	r0
+ 1b4:	0b be       	out	0x3b, r0	; 59
+ 1b6:	0f 90       	pop	r0
+ 1b8:	0f be       	out	0x3f, r0	; 63
+ 1ba:	0f 90       	pop	r0
+ 1bc:	1f 90       	pop	r1
+ 1be:	18 95       	reti
 
-000001a4 <asyncGetHandler>:
+000001c0 <asyncGetHandler>:
     PORTC = 0xFF;
 }
 
 void asyncGetHandler(char c)
 {
-    PORTA = 0x00;
- 1a4:	12 b8       	out	0x02, r1	; 2
     PORTA = c;
- 1a6:	82 b9       	out	0x02, r24	; 2
- 1a8:	08 95       	ret
+ 1c0:	82 b9       	out	0x02, r24	; 2
+ 1c2:	08 95       	ret
 
-000001aa <IO_init>:
+000001c4 <IO_init>:
 
 /* NOTE: Function implementations */
 void IO_init(void)
 {
     // set portA as an output
     DDRA  = 0xFF;
- 1aa:	8f ef       	ldi	r24, 0xFF	; 255
- 1ac:	81 b9       	out	0x01, r24	; 1
+ 1c4:	8f ef       	ldi	r24, 0xFF	; 255
+ 1c6:	81 b9       	out	0x01, r24	; 1
     PORTA = 0x00;
- 1ae:	12 b8       	out	0x02, r1	; 2
+ 1c8:	12 b8       	out	0x02, r1	; 2
 
     // set portC as an input
     DDRC  = 0x00;
- 1b0:	17 b8       	out	0x07, r1	; 7
+ 1ca:	17 b8       	out	0x07, r1	; 7
     PORTC = 0xFF;
- 1b2:	88 b9       	out	0x08, r24	; 8
- 1b4:	08 95       	ret
+ 1cc:	88 b9       	out	0x08, r24	; 8
+ 1ce:	08 95       	ret
 
-000001b6 <main>:
+000001d0 <main>:
 void asyncGetHandler(char c);
 
 /* NOTE: Application implementation */
 // the main loop of the function, provided to us
 int main(void)
 {
- 1b6:	cf 93       	push	r28
- 1b8:	df 93       	push	r29
- 1ba:	1f 92       	push	r1
- 1bc:	1f 92       	push	r1
- 1be:	cd b7       	in	r28, 0x3d	; 61
- 1c0:	de b7       	in	r29, 0x3e	; 62
+ 1d0:	cf 93       	push	r28
+ 1d2:	df 93       	push	r29
+ 1d4:	1f 92       	push	r1
+ 1d6:	1f 92       	push	r1
+ 1d8:	cd b7       	in	r28, 0x3d	; 61
+ 1da:	de b7       	in	r29, 0x3e	; 62
     IO_init();
- 1c2:	f3 df       	rcall	.-26     	; 0x1aa <IO_init>
+ 1dc:	f3 df       	rcall	.-26     	; 0x1c4 <IO_init>
 
+    // init async uart and bind an interrupt handler
     SERIAL_uartInitAsync();
- 1c4:	a2 df       	rcall	.-188    	; 0x10a <SERIAL_uartInitAsync>
- 1c6:	82 ed       	ldi	r24, 0xD2	; 210
-
+ 1de:	95 df       	rcall	.-214    	; 0x10a <SERIAL_uartInitAsync>
+ 1e0:	80 ee       	ldi	r24, 0xE0	; 224
     SERIAL_uartAsyncGetHandler(&asyncGetHandler);
- 1c8:	90 e0       	ldi	r25, 0x00	; 0
- 1ca:	ba df       	rcall	.-140    	; 0x140 <SERIAL_uartAsyncGetHandler>
- 1cc:	78 94       	sei
+ 1e2:	90 e0       	ldi	r25, 0x00	; 0
+ 1e4:	bb df       	rcall	.-138    	; 0x15c <SERIAL_uartAsyncGetHandler>
+ 1e6:	78 94       	sei
 
     sei();
- 1ce:	86 b1       	in	r24, 0x06	; 6
+ 1e8:	86 b1       	in	r24, 0x06	; 6
 
     while(1)
     {
-        char foo[2] = {(char)PINC, '\0'};// + "\0";
- 1d0:	89 83       	std	Y+1, r24	; 0x01
- 1d2:	1a 82       	std	Y+2, r1	; 0x02
+        char foo[2] = {PINC, '\0'};
+ 1ea:	89 83       	std	Y+1, r24	; 0x01
+ 1ec:	1a 82       	std	Y+2, r1	; 0x02
         SERIAL_uartSend((char const * const)&foo);
- 1d4:	ce 01       	movw	r24, r28
- 1d6:	01 96       	adiw	r24, 0x01	; 1
- 1d8:	a6 df       	rcall	.-180    	; 0x126 <SERIAL_uartSend>
- 1da:	f9 cf       	rjmp	.-14     	; 0x1ce <main+0x18>
+ 1ee:	ce 01       	movw	r24, r28
+ 1f0:	01 96       	adiw	r24, 0x01	; 1
+ 1f2:	99 df       	rcall	.-206    	; 0x126 <SERIAL_uartSend>
+ 1f4:	f9 cf       	rjmp	.-14     	; 0x1e8 <main+0x18>
 
-000001dc <_exit>:
- 1dc:	f8 94       	cli
+000001f6 <_exit>:
+ 1f6:	f8 94       	cli
 
-000001de <__stop_program>:
- 1de:	ff cf       	rjmp	.-2      	; 0x1de <__stop_program>
+000001f8 <__stop_program>:
+ 1f8:	ff cf       	rjmp	.-2      	; 0x1f8 <__stop_program>

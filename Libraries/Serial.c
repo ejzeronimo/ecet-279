@@ -12,6 +12,7 @@
 #include "Serial.h"
 
 #include <avr/io.h>
+#include <string.h>
 
 /* NOTE: Local declarations */
 // TODO: None
@@ -39,7 +40,7 @@ void SERIAL_uartInitAsync(void)
     uint16_t baudCalc = ((16000000 / 9600) / 16) - 1;
 
     UCSR0A = 0x00;
-    // enable UART TX and RX
+    // enable UART TX and RX with interrupt flag
     UCSR0B = 0x98;
     // set the UART for N, 8, 1
     UCSR0C = 0x06;
@@ -51,9 +52,7 @@ void SERIAL_uartInitAsync(void)
 
 void SERIAL_uartSend(char const * const pTransmitString)
 {
-    char const * localPointer = pTransmitString;
-
-    while(*localPointer != 0x00)
+    for(size_t i = 0; i < strlen(pTransmitString); i++)
     {
         // wait for uart tx to be ready
         while((UCSR0A & (1 << UDRE0)) == 0)
@@ -61,7 +60,7 @@ void SERIAL_uartSend(char const * const pTransmitString)
         }
 
         // send out uart
-        UDR0 = *localPointer++;
+        UDR0 = pTransmitString[i];
     }
 }
 
@@ -74,6 +73,7 @@ char SERIAL_uartGetSync(void)
     {
     }
 
+    // save to the char
     ch = UDR0;
 
     return ch;
@@ -81,6 +81,7 @@ char SERIAL_uartGetSync(void)
 
 void SERIAL_uartAsyncGetHandler(asyncGetHandler_t cb)
 {
+    // set the interal callback pointer to the one we were given
     interruptCallback = cb;
 }
 
