@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "io.h": "c",
-        "intellisenseoverride.h": "c"
+        "intellisenseoverride.h": "c",
+        "analogtodigital.h": "c"
     }
 }
