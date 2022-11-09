@@ -15,19 +15,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .debug_aranges 000000b0  00000000  00000000  0000032c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   000010d3  00000000  00000000  000003dc  2**0
+  6 .debug_info   000011c2  00000000  00000000  000003dc  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000dce  00000000  00000000  000014af  2**0
+  7 .debug_abbrev 00000e16  00000000  00000000  0000159e  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000005ed  00000000  00000000  0000227d  2**0
+  8 .debug_line   000006cd  00000000  00000000  000023b4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000164  00000000  00000000  0000286c  2**2
+  9 .debug_frame  000001b8  00000000  00000000  00002a84  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000688  00000000  00000000  000029d0  2**0
+ 10 .debug_str    00000697  00000000  00000000  00002c3c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000264  00000000  00000000  00003058  2**0
+ 11 .debug_loc    0000044a  00000000  00000000  000032d3  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000080  00000000  00000000  000032bc  2**0
+ 12 .debug_ranges 00000080  00000000  00000000  0000371d  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -158,34 +158,34 @@ Disassembly of section .text:
   f0:	00 e0       	ldi	r16, 0x00	; 0
   f2:	0c bf       	out	0x3c, r16	; 60
 
-000000f4 <__do_copy_data>:
-  f4:	12 e0       	ldi	r17, 0x02	; 2
+000000f4 <__do_clear_bss>:
+  f4:	22 e0       	ldi	r18, 0x02	; 2
   f6:	a0 e0       	ldi	r26, 0x00	; 0
   f8:	b2 e0       	ldi	r27, 0x02	; 2
-  fa:	e8 e4       	ldi	r30, 0x48	; 72
-  fc:	f2 e0       	ldi	r31, 0x02	; 2
-  fe:	00 e0       	ldi	r16, 0x00	; 0
- 100:	0b bf       	out	0x3b, r16	; 59
- 102:	02 c0       	rjmp	.+4      	; 0x108 <__do_copy_data+0x14>
- 104:	07 90       	elpm	r0, Z+
- 106:	0d 92       	st	X+, r0
- 108:	a0 30       	cpi	r26, 0x00	; 0
- 10a:	b1 07       	cpc	r27, r17
- 10c:	d9 f7       	brne	.-10     	; 0x104 <__do_copy_data+0x10>
+  fa:	01 c0       	rjmp	.+2      	; 0xfe <.do_clear_bss_start>
 
-0000010e <__do_clear_bss>:
- 10e:	22 e0       	ldi	r18, 0x02	; 2
- 110:	a0 e0       	ldi	r26, 0x00	; 0
- 112:	b2 e0       	ldi	r27, 0x02	; 2
- 114:	01 c0       	rjmp	.+2      	; 0x118 <.do_clear_bss_start>
+000000fc <.do_clear_bss_loop>:
+  fc:	1d 92       	st	X+, r1
 
-00000116 <.do_clear_bss_loop>:
- 116:	1d 92       	st	X+, r1
+000000fe <.do_clear_bss_start>:
+  fe:	a2 30       	cpi	r26, 0x02	; 2
+ 100:	b2 07       	cpc	r27, r18
+ 102:	e1 f7       	brne	.-8      	; 0xfc <.do_clear_bss_loop>
 
-00000118 <.do_clear_bss_start>:
- 118:	a2 30       	cpi	r26, 0x02	; 2
- 11a:	b2 07       	cpc	r27, r18
- 11c:	e1 f7       	brne	.-8      	; 0x116 <.do_clear_bss_loop>
+00000104 <__do_copy_data>:
+ 104:	12 e0       	ldi	r17, 0x02	; 2
+ 106:	a0 e0       	ldi	r26, 0x00	; 0
+ 108:	b2 e0       	ldi	r27, 0x02	; 2
+ 10a:	e8 e4       	ldi	r30, 0x48	; 72
+ 10c:	f2 e0       	ldi	r31, 0x02	; 2
+ 10e:	00 e0       	ldi	r16, 0x00	; 0
+ 110:	0b bf       	out	0x3b, r16	; 59
+ 112:	02 c0       	rjmp	.+4      	; 0x118 <__do_copy_data+0x14>
+ 114:	07 90       	elpm	r0, Z+
+ 116:	0d 92       	st	X+, r0
+ 118:	a0 30       	cpi	r26, 0x00	; 0
+ 11a:	b1 07       	cpc	r27, r17
+ 11c:	d9 f7       	brne	.-10     	; 0x114 <__do_copy_data+0x10>
  11e:	78 d0       	rcall	.+240    	; 0x210 <main>
  120:	91 c0       	rjmp	.+290    	; 0x244 <_exit>
 
@@ -193,42 +193,24 @@ Disassembly of section .text:
  122:	6e cf       	rjmp	.-292    	; 0x0 <__vectors>
 
 00000124 <read>:
+    // add in the null terminator and resize
+    buf[i] = '\0';
+    buf = realloc(buf, sizeof(char) * i);
 
-/* NOTE: Local function implementations */
-uint8_t read(uint16_t address)
-{
-    // wait for read completion
-    while(EECR & (1 << EEPE))
+    return buf;
+}
  124:	f9 99       	sbic	0x1f, 1	; 31
  126:	fe cf       	rjmp	.-4      	; 0x124 <read>
-    {
-        // do nothing
-    }
-
-    // set address
-    EEAR = address;
  128:	92 bd       	out	0x22, r25	; 34
  12a:	81 bd       	out	0x21, r24	; 33
-
-    // read and return
-    EECR |= (1 << EERE);
  12c:	8f b3       	in	r24, 0x1f	; 31
  12e:	81 60       	ori	r24, 0x01	; 1
  130:	8f bb       	out	0x1f, r24	; 31
-    return EEDR;
  132:	80 b5       	in	r24, 0x20	; 32
-}
  134:	08 95       	ret
 
 00000136 <EEPROM_readChar>:
-    write(in, addr);
-}
-
-char EEPROM_readChar(uint16_t addr)
-{
-    return (char)read(addr);
  136:	f6 cf       	rjmp	.-20     	; 0x124 <read>
-}
  138:	08 95       	ret
 
 0000013a <write>:
@@ -403,14 +385,13 @@ int main(void)
  230:	ce 01       	movw	r24, r28
  232:	01 96       	adiw	r24, 0x01	; 1
 
-    //SERIAL_uartSend("Hello World!\r\n");
-
     while(1)
     {
         char result = SERIAL_uartGetSync();
  234:	9e df       	rcall	.-196    	; 0x172 <SERIAL_uartSend>
  236:	b8 df       	rcall	.-144    	; 0x1a8 <SERIAL_uartGetSync>
-
+        
+        // 0d 0a 00
         if (result != 0x00)
  238:	88 23       	and	r24, r24
         {

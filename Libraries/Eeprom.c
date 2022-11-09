@@ -12,6 +12,7 @@
 #include "Eeprom.h"
 
 #include <avr/io.h>
+#include <stdlib.h>
 #include <string.h>
 
 /* NOTE: Local declarations */
@@ -42,12 +43,27 @@ void EEPROM_writeString(char * in, uint16_t addr)
     }
 
     // add in a null terminator
-    write(0x00, addr + strlen(in));
+    write('\0', addr + strlen(in));
 }
 
 char * EEPROM_readString(uint16_t addr)
 {
-    return "asd";
+    char * buf = malloc(sizeof(char) * 256);
+    size_t i   = 0;
+
+    while(read(addr + i) != '\0')
+    {
+        // read into buffer
+        buf[i] = read(addr + i);
+
+        i++;
+    }
+
+    // add in the null terminator and resize
+    buf[i] = '\0';
+    buf = realloc(buf, sizeof(char) * i);
+
+    return buf;
 }
 
 /* NOTE: Local function implementations */

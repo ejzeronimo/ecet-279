@@ -23,7 +23,7 @@
 // TODO: None
 
 /* NOTE: Global Variables */
-// TODO: None
+uint16_t addr = 0x0100;
 
 /* NOTE: Function prototypes */
 // TODO: none
@@ -43,7 +43,7 @@ int main(void)
         char result = SERIAL_uartGetSync();
         
         // 0d 0a 00
-        if (result != 0x00)
+        if (result != 0)
         {
             EEPROM_writeChar(result, 0x0100);
         }
