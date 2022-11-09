@@ -2,6 +2,7 @@
     "files.associations": {
         "io.h": "c",
         "intellisenseoverride.h": "c",
-        "analogtodigital.h": "c"
+        "analogtodigital.h": "c",
+        "delay.h": "c"
     }
 }
