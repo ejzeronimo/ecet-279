@@ -35,19 +35,11 @@ int main(void)
     // init async uart and bind an interrupt handler
     SERIAL_uartInit();
 
-    char format[] = {EEPROM_readChar(0x0100), '\n', '\r', '\0'};
-    SERIAL_uartSend((char const * const)format);
+    char * result = EEPROM_readString(0x0100);
 
     while(1)
     {
-        char result = SERIAL_uartGetSync();
-        
-        // 0d 0a 00
-        if (result != 0)
-        {
-            EEPROM_writeChar(result, 0x0100);
-        }
-        
+        // do nothing
     }
 }
 
