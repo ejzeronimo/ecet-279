@@ -15,9 +15,19 @@
 extern "C" {
 #endif
 
+#pragma message("WARNING: this module uses the bottom nibble of the provided port")
+
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
+
+/* NOTE: Custom Macros */
+// wave step macro
+#define stepperModeWave 0
+// full step macro
+#define stepperModeFull 1
+// half step macro
+#define stepperModeHalf 2
 
 /* NOTE: Custom Types */
 // typing for the stepper motor enum
@@ -25,9 +35,9 @@ typedef enum StepperMotorRunMode_t
 {
     // wave step mode
     Wave = 0,
-    // wave step mode
+    // full step mode
     Full = 1,
-    // wave step mode
+    // half step mode
     Half = 2,
 } StepperMotorRunMode_t;
 
