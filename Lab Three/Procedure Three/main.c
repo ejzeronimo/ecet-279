@@ -48,17 +48,17 @@ int main(void)
         {
             case 0x10:
             {
-                SM_movePosition((StepperMotorRunMode_t)0, Angle);
+                SM_movePosition(stepperModeWave, Angle);
             }
             break;
             case 0x20:
             {
-                SM_movePosition((StepperMotorRunMode_t)1, Angle);
+                SM_movePosition(stepperModeFull, Angle);
             }
             break;
             case 0x40:
             {
-                SM_movePosition((StepperMotorRunMode_t)2, Angle);
+                SM_movePosition(stepperModeHalf, Angle);
             }
             break;
             default:

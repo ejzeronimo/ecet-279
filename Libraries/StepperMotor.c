@@ -16,6 +16,9 @@
 #define F_CPU 16000000UL
 #include <util/delay.h>
 
+// needed for size_t
+#include <stdio.h>
+
 /* NOTE: Local declarations */
 typedef struct StepperMotorModeData_t
 {

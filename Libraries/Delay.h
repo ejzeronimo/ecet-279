@@ -18,7 +18,7 @@ extern "C" {
 #pragma message("WARNING: this module uses Timer 0 for delays")
 
 #include <avr/interrupt.h>
-#include <stdio.h>
+#include <stdint.h>
 
 #define F_CPU 16000000UL
 
