@@ -11,7 +11,7 @@
 /* NOTE: Includes */
 #include "StepperMotor.h"
 
-// TODO: move this
+// allows for variable delay
 #define __DELAY_BACKWARD_COMPATIBLE__
 #define F_CPU 16000000UL
 #include <util/delay.h>
@@ -67,10 +67,10 @@ static volatile uint8_t * sMotorPort;
 void SM_init(volatile uint8_t * pRegister, volatile uint8_t * pPort)
 {
     // configure port register
-    *pRegister = (*pRegister & 0xf0) | 0x0f;
+    *pRegister |= 0x0f;
 
     // turn on pullup resisitors on the bottom nibble
-    *pPort = 0x00;
+    *pPort = (*pPort & 0xf0) | 0x00;
 
     // save the port pointer to the static var
     sMotorPort = pPort;
@@ -82,7 +82,7 @@ void SM_move(StepperMotorRunMode_t mode, double distance)
 
     for(uint32_t i = 0, j = 0; i < data.steps; i++)
     {
-        *sMotorPort = data.pArray[j++];
+        *sMotorPort = (*sMotorPort & 0xf0) | data.pArray[j++];
 
         if(j >= data.arraySize)
         {
@@ -92,7 +92,7 @@ void SM_move(StepperMotorRunMode_t mode, double distance)
         _delay_ms(3);
     }
 
-    *sMotorPort = 0x00;
+    *sMotorPort = *sMotorPort & 0xf0;
 }
 
 void SM_movePosition(StepperMotorRunMode_t mode, uint16_t distance)
@@ -106,7 +106,7 @@ void SM_moveTime(StepperMotorRunMode_t mode, bool direction, double time, double
 
     for(uint32_t i = 0, j = (direction ? data.arraySize : 0); i < (time / stepTime); i++)
     {
-        *sMotorPort = data.pArray[(direction ? j-- : j++)];
+        *sMotorPort = (*sMotorPort & 0xf0) | data.pArray[(direction ? j-- : j++)];
 
         if(j >= data.arraySize || j <= 0)
         {
@@ -116,7 +116,7 @@ void SM_moveTime(StepperMotorRunMode_t mode, bool direction, double time, double
         _delay_ms(stepTime);
     }
 
-    *sMotorPort = 0x00;
+    *sMotorPort = *sMotorPort & 0xf0;
 }
 
 /* NOTE: Local function implementations */
