@@ -36,15 +36,12 @@ typedef enum StepperMotorRunMode_t
 // inits IO for the stepper motor
 // takes a pointer to the port to use, assumes botom nibble
 void SM_init(uint8_t volatile * const pRegister, uint8_t volatile * const pPort);
-
 // moves the motor in the given mode to the given distance
 // distance is in units of rotation
 void SM_move(StepperMotorRunMode_t mode, double distance);
-
 // moves the motor in the given mode to the given position
 // distance is in units of degrees
 void SM_movePosition(StepperMotorRunMode_t mode, uint16_t distance);
-
 // moves the motor in the given mode and the given direction for the given time
 // 1 is CW and 0 is CCW
 // both times are in ms

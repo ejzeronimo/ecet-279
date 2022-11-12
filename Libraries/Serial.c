@@ -11,10 +11,12 @@
 /* NOTE: Includes */
 #include "Serial.h"
 
+#if !defined(F_CPU)
+    #define F_CPU 16000000UL
+#endif
+
 #include <avr/io.h>
 #include <avr/interrupt.h>
-
-#define F_CPU 16000000UL
 
 /* NOTE: Local declarations */
 // a helper to poll for the given registers then set the given value

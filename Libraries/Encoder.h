@@ -21,12 +21,11 @@ extern "C" {
 
 /* NOTE: Function prototypes */
 // init for the encoder
-void ENC_init(void);
+void    ENC_init(void);
 // gets the raw value for the port
 uint8_t ENC_getValue(void);
 // returns the flagged direction
 uint8_t ENC_getDirection(void);
-
 
 #if defined(__cplusplus)
 } /* extern "C" */

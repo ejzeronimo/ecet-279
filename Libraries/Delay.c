@@ -11,12 +11,15 @@
 /* NOTE: Includes */
 #include "Delay.h"
 
+#if !defined(F_CPU)
+    #define F_CPU 16000000UL
+#endif
+
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-#define F_CPU 16000000UL
-
 /* NOTE: Global Variables */
+// internal tick tracker
 static uint16_t tick = 0;
 
 /* NOTE: Local function implementations */
@@ -95,7 +98,8 @@ uint16_t DLY_getTick(void)
     return tick;
 }
 
-void DLY_setTick(uint16_t t){
+void DLY_setTick(uint16_t t)
+{
     tick = t;
 }
 

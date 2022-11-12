@@ -39,7 +39,7 @@ typedef enum LcdCharacterAddress_t
     lcdSixthSlot   = 0x68,
     // the seventh charcater slot
     lcdSeventhSlot = 0x70,
-    // the eigth charcater slot
+    // the eighth charcater slot
     lcdEighthSlot  = 0x78,
 } LcdCharacterAddress_t;
 

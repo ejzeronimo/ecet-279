@@ -11,7 +11,9 @@
 /* NOTE: Includes */
 #include "LiquidCrystalDisplay.h"
 
-#define F_CPU 16000000UL
+#if !defined(F_CPU)
+    #define F_CPU 16000000UL
+#endif
 
 #include <avr/io.h>
 #include <util/delay.h>
@@ -133,6 +135,7 @@ void LCD_createCharacter(LcdCharacterAddress_t address, LcdCustomCharacter_t cus
     LCD_sendString((char const * const)safety);
 }
 
-char LCD_getCharacter(LcdCharacterAddress_t address){
-    return (address - 64) /8;
+char LCD_getCharacter(LcdCharacterAddress_t address)
+{
+    return (address - 64) / 8;
 }

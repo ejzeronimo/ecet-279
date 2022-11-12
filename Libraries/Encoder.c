@@ -15,6 +15,7 @@
 #include <avr/interrupt.h>
 
 /* NOTE: Global Variables */
+// the value of the encoder currently
 static uint8_t value     = 0;
 // upper byte is flag lower is direction
 static uint8_t direction = 0;
@@ -23,7 +24,7 @@ static uint8_t direction = 0;
 void ENC_init(void)
 {
     // turn on the clock and direction inputs
-    DDRD  |= 0x06;
+    DDRD |= 0x06;
     PORTD |= 0x06;
 
     // interupt 2 to enabled falling edge
