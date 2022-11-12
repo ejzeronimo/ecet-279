@@ -20,24 +20,16 @@ extern "C" {
 #include <stdbool.h>
 #include <stdint.h>
 
-/* NOTE: Custom Macros */
-// wave step macro
-#define stepperModeWave (StepperMotorRunMode_t)0
-// full step macro
-#define stepperModeFull (StepperMotorRunMode_t)1
-// half step macro
-#define stepperModeHalf (StepperMotorRunMode_t)2
-
 /* NOTE: Custom Types */
 // typing for the stepper motor enum
 typedef enum StepperMotorRunMode_t
 {
     // wave step mode
-    wave = 0,
+    stepperModeWave = 0,
     // full step mode
-    full = 1,
+    stepperModeFull = 1,
     // half step mode
-    half = 2,
+    stepperModeHalf = 2,
 } StepperMotorRunMode_t;
 
 /* NOTE: Function prototypes */

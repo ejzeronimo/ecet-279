@@ -16,9 +16,6 @@
 
 #define F_CPU 16000000UL
 
-/* NOTE: Local declarations */
-// TODO: None
-
 /* NOTE: Global Variables */
 static uint16_t tick = 0;
 

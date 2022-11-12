@@ -17,19 +17,16 @@
 #define F_CPU 16000000UL
 
 /* NOTE: Local declarations */
-// TODO: None
-
-/* NOTE: Global Variables */
-// the handlers for each main uart channel
-static SerialAsyncGetHandler_t interruptCallback[4];
-
 // a helper to poll for the given registers then set the given value
 // register and mask are related
 // set will be set to the value at read once polling finishes
 void pollThenSetHelper(uint8_t volatile * const pRegister, uint8_t mask, uint8_t volatile * const pSet, uint8_t volatile * const pRead);
-
 // a helper to remove redundant logic for sending data
 void sendCharHelper(SerialPortSelector_t port, char const * const value);
+
+/* NOTE: Global Variables */
+// the handlers for each main uart channel
+static SerialAsyncGetHandler_t interruptCallback[4];
 
 /* NOTE: Local function implementations */
 void SERIAL_uartInit(SerialPortSelector_t port, uint32_t baud)
@@ -39,7 +36,7 @@ void SERIAL_uartInit(SerialPortSelector_t port, uint32_t baud)
     switch(port)
     {
         default:
-        case usart_0:
+        case serialUsart0:
         {
             UCSR0A = 0x00;
             // enable UART TX and RX with interrupt flag
@@ -51,7 +48,7 @@ void SERIAL_uartInit(SerialPortSelector_t port, uint32_t baud)
             UBRR0H = (baudCalc >> 8) & 0x0f;
         }
         break;
-        case usart_1:
+        case serialUsart1:
         {
             UCSR1A = 0x00;
             UCSR1B = 0x18;
@@ -60,7 +57,7 @@ void SERIAL_uartInit(SerialPortSelector_t port, uint32_t baud)
             UBRR1H = (baudCalc >> 8) & 0x0f;
         }
         break;
-        case usart_2:
+        case serialUsart2:
         {
             UCSR2A = 0x00;
             UCSR2B = 0x18;
@@ -69,7 +66,7 @@ void SERIAL_uartInit(SerialPortSelector_t port, uint32_t baud)
             UBRR2H = (baudCalc >> 8) & 0x0f;
         }
         break;
-        case usart_3:
+        case serialUsart3:
         {
             UCSR3A = 0x00;
             UCSR3B = 0x18;
@@ -89,16 +86,16 @@ void SERIAL_uartInitAsync(SerialPortSelector_t port, uint32_t baud)
     switch(port)
     {
         default:
-        case usart_0:
+        case serialUsart0:
             UCSR0B = 0x98;
             break;
-        case usart_1:
+        case serialUsart1:
             UCSR1B = 0x98;
             break;
-        case usart_2:
+        case serialUsart2:
             UCSR2B = 0x98;
             break;
-        case usart_3:
+        case serialUsart3:
             UCSR3B = 0x98;
             break;
     }
@@ -135,16 +132,16 @@ char SERIAL_uartGetSync(SerialPortSelector_t port)
     switch(port)
     {
         default:
-        case usart_0:
+        case serialUsart0:
             pollThenSetHelper(&UCSR0A, (1 << RXC0), (uint8_t volatile * const)&ch, &UDR0);
             break;
-        case usart_1:
+        case serialUsart1:
             pollThenSetHelper(&UCSR1A, (1 << RXC1), (uint8_t volatile * const)&ch, &UDR1);
             break;
-        case usart_2:
+        case serialUsart2:
             pollThenSetHelper(&UCSR2A, (1 << RXC2), (uint8_t volatile * const)&ch, &UDR2);
             break;
-        case usart_3:
+        case serialUsart3:
             pollThenSetHelper(&UCSR3A, (1 << RXC3), (uint8_t volatile * const)&ch, &UDR3);
             break;
     }
@@ -175,16 +172,16 @@ void sendCharHelper(SerialPortSelector_t port, char const * const value)
     switch(port)
     {
         default:
-        case usart_0:
+        case serialUsart0:
             pollThenSetHelper(&UCSR0A, (1 << UDRE0), &UDR0, (uint8_t volatile * const)value);
             break;
-        case usart_1:
+        case serialUsart1:
             pollThenSetHelper(&UCSR1A, (1 << UDRE1), &UDR1, (uint8_t volatile * const)value);
             break;
-        case usart_2:
+        case serialUsart2:
             pollThenSetHelper(&UCSR2A, (1 << UDRE2), &UDR2, (uint8_t volatile * const)value);
             break;
-        case usart_3:
+        case serialUsart3:
             pollThenSetHelper(&UCSR3A, (1 << UDRE3), &UDR3, (uint8_t volatile * const)value);
             break;
     }
@@ -192,20 +189,20 @@ void sendCharHelper(SerialPortSelector_t port, char const * const value)
 
 ISR(USART0_RX_vect)
 {
-    interruptCallback[usart_0](UDR0);
+    interruptCallback[serialUsart0](UDR0);
 }
 
 ISR(USART1_RX_vect)
 {
-    interruptCallback[usart_1](UDR1);
+    interruptCallback[serialUsart1](UDR1);
 }
 
 ISR(USART2_RX_vect)
 {
-    interruptCallback[usart_2](UDR2);
+    interruptCallback[serialUsart2](UDR2);
 }
 
 ISR(USART3_RX_vect)
 {
-    interruptCallback[usart_3](UDR3);
+    interruptCallback[serialUsart3](UDR3);
 }

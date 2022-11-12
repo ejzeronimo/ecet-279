@@ -19,9 +19,6 @@ extern "C" {
 
 #include <stdint.h>
 
-/* NOTE: Custom Types */
-// TODO: None
-
 /* NOTE: Function prototypes */
 // init for the encoder
 void ENC_init(void);

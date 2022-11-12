@@ -132,21 +132,21 @@ StepperMotorModeData_t getModeAndSteps(StepperMotorRunMode_t mode, double rotati
 
     switch(mode)
     {
-        case wave:
+        case stepperModeWave:
         {
             pArray = sWaveStepMap;
             size   = sizeof(sWaveStepMap) / sizeof(sWaveStepMap[0]);
             steps  = (rotation * 2048);
         }
         break;
-        case full:
+        case stepperModeFull:
         {
             pArray = sFullStepMap;
             size   = sizeof(sFullStepMap) / sizeof(sFullStepMap[0]);
             steps  = (rotation * 2048);
         }
         break;
-        case half:
+        case stepperModeHalf:
         {
             pArray = sHalfStepMap;
             size   = sizeof(sHalfStepMap) / sizeof(sHalfStepMap[0]);

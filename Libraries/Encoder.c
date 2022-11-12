@@ -14,9 +14,6 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-/* NOTE: Local declarations */
-// TODO: None
-
 /* NOTE: Global Variables */
 static uint8_t value     = 0;
 // upper byte is flag lower is direction

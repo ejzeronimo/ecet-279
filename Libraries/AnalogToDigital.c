@@ -13,13 +13,10 @@
 
 #include <avr/io.h>
 
-/* NOTE: Local declarations */
-// TODO: None
-
 /* NOTE: Global Variables */
 // value from the interruput
-static uint16_t readInterrupt = 0;
-
+static uint16_t                readInterrupt = 0;
+// callback for the interrupt
 static AnalogAsyncGetHandler_t interruptCallback;
 
 /* NOTE: Local function implementations */

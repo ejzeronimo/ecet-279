@@ -12,9 +12,9 @@
     <OutputFileName>$(MSBuildProjectName)</OutputFileName>
     <OutputFileExtension>.elf</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
-    <AssemblyName>Extra Credit</AssemblyName>
-    <Name>Extra Credit</Name>
-    <RootNamespace>Extra Credit</RootNamespace>
+    <AssemblyName>Special Character</AssemblyName>
+    <Name>Special Character</Name>
+    <RootNamespace>Special Character</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>

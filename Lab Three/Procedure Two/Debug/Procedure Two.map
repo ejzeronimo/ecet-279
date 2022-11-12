@@ -654,15 +654,15 @@ END GROUP
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0xbbc C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega2560/avr6/crtatmega2560.o
  .debug_info    0x00000bbc      0x53d Debugger.o
- .debug_info    0x000010f9      0x4d4 StepperMotor.o
- .debug_info    0x000015cd      0x1b3 main.o
+ .debug_info    0x000010f9      0x4df StepperMotor.o
+ .debug_info    0x000015d8      0x1a8 main.o
 
-.debug_abbrev   0x00000000      0xf66
+.debug_abbrev   0x00000000      0xf6d
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0xb1a C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega2560/avr6/crtatmega2560.o
  .debug_abbrev  0x00000b1a      0x19b Debugger.o
- .debug_abbrev  0x00000cb5      0x1e6 StepperMotor.o
- .debug_abbrev  0x00000e9b       0xcb main.o
+ .debug_abbrev  0x00000cb5      0x1ed StepperMotor.o
+ .debug_abbrev  0x00000ea2       0xcb main.o
 
 .debug_line     0x00000000      0xace
  *(.debug_line .debug_line.* .debug_line_end)
@@ -677,15 +677,15 @@ END GROUP
  .debug_frame   0x00000164      0x108 StepperMotor.o
  .debug_frame   0x0000026c       0x34 main.o
 
-.debug_str      0x00000000      0x7b3
+.debug_str      0x00000000      0x7d4
  *(.debug_str)
  .debug_str     0x00000000      0x3e6 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega2560/avr6/crtatmega2560.o
  .debug_str     0x000003e6      0x237 Debugger.o
                                 0x270 (size before relaxing)
- .debug_str     0x0000061d      0x17d StepperMotor.o
-                                0x2ef (size before relaxing)
- .debug_str     0x0000079a       0x19 main.o
-                                0x1b9 (size before relaxing)
+ .debug_str     0x0000061d      0x19e StepperMotor.o
+                                0x310 (size before relaxing)
+ .debug_str     0x000007bb       0x19 main.o
+                                0x1da (size before relaxing)
 
 .debug_loc      0x00000000      0xa76
  *(.debug_loc)

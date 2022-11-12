@@ -15,10 +15,7 @@
 extern "C" {
 #endif
 
-#include <avr/interrupt.h>
-#include <stdio.h>
-
-#define F_CPU 16000000UL
+#include <stdint.h>
 
 /* NOTE: Custom Types */
 // typing for the handler function
@@ -33,6 +30,8 @@ void   ADC_initInterrupt(void);
 double ADC_getTenBitValue(uint16_t channel);
 // gets the 10 bit value on the channel
 uint16_t ADC_getTenBitValueInterrupt(uint16_t channel);
+// set the interrupt handler for the 10 bit async mode
+void ADC_setInterruptHandler(AnalogAsyncGetHandler_t cb);
 
 #if defined(__cplusplus)
 } /* extern "C" */
