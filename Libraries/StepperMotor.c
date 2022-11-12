@@ -20,6 +20,7 @@
 #include <stdio.h>
 
 /* NOTE: Local declarations */
+// local struct for function return
 typedef struct StepperMotorModeData_t
 {
     // size of the array
@@ -64,10 +65,10 @@ static uint8_t sHalfStepMap[8] = {
 };
 
 // instance pointer to the motor port
-static volatile uint8_t * sMotorPort;
+static uint8_t * sMotorPort;
 
 /* NOTE: Function implementations */
-void SM_init(volatile uint8_t * pRegister, volatile uint8_t * pPort)
+void SM_init(uint8_t volatile * const pRegister, uint8_t volatile * const pPort)
 {
     // configure port register
     *pRegister |= 0x0f;
@@ -76,7 +77,7 @@ void SM_init(volatile uint8_t * pRegister, volatile uint8_t * pPort)
     *pPort = (*pPort & 0xf0) | 0x00;
 
     // save the port pointer to the static var
-    sMotorPort = pPort;
+    sMotorPort = (uint8_t * )pPort;
 }
 
 void SM_move(StepperMotorRunMode_t mode, double distance)
@@ -131,21 +132,21 @@ StepperMotorModeData_t getModeAndSteps(StepperMotorRunMode_t mode, double rotati
 
     switch(mode)
     {
-        case Wave:
+        case wave:
         {
             pArray = sWaveStepMap;
             size   = sizeof(sWaveStepMap) / sizeof(sWaveStepMap[0]);
             steps  = (rotation * 2048);
         }
         break;
-        case Full:
+        case full:
         {
             pArray = sFullStepMap;
             size   = sizeof(sFullStepMap) / sizeof(sFullStepMap[0]);
             steps  = (rotation * 2048);
         }
         break;
-        case Half:
+        case half:
         {
             pArray = sHalfStepMap;
             size   = sizeof(sHalfStepMap) / sizeof(sHalfStepMap[0]);

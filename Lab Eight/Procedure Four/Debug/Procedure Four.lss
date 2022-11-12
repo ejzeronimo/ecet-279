@@ -3,31 +3,31 @@ Procedure Four.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800200  00800200  0000039e  2**0
+  0 .data         00000000  00800200  00800200  000003d2  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         0000032a  00000000  00000000  00000074  2**1
+  1 .text         0000035e  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000007  00800200  00800200  0000039e  2**0
+  2 .bss          00000009  00800200  00800200  000003d2  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  0000039e  2**0
+  3 .comment      00000030  00000000  00000000  000003d2  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000003d0  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000404  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 000000f0  00000000  00000000  00000410  2**0
+  5 .debug_aranges 000000f8  00000000  00000000  00000444  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   0000113c  00000000  00000000  00000500  2**0
+  6 .debug_info   00001188  00000000  00000000  0000053c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000ec5  00000000  00000000  0000163c  2**0
+  7 .debug_abbrev 00000eed  00000000  00000000  000016c4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000008b2  00000000  00000000  00002501  2**0
+  8 .debug_line   00000874  00000000  00000000  000025b1  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000001e4  00000000  00000000  00002db4  2**2
+  9 .debug_frame  00000224  00000000  00000000  00002e28  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000006c3  00000000  00000000  00002f98  2**0
+ 10 .debug_str    00000707  00000000  00000000  0000304c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    0000028d  00000000  00000000  0000365b  2**0
+ 11 .debug_loc    00000315  00000000  00000000  00003753  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000000b0  00000000  00000000  000038e8  2**0
+ 12 .debug_ranges 000000b8  00000000  00000000  00003a68  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -39,9 +39,9 @@ Disassembly of section .text:
    6:	00 00       	nop
    8:	7f c0       	rjmp	.+254    	; 0x108 <__bad_interrupt>
    a:	00 00       	nop
-   c:	0d c1       	rjmp	.+538    	; 0x228 <__vector_3>
+   c:	27 c1       	rjmp	.+590    	; 0x25c <__vector_3>
    e:	00 00       	nop
-  10:	2e c1       	rjmp	.+604    	; 0x26e <__vector_4>
+  10:	48 c1       	rjmp	.+656    	; 0x2a2 <__vector_4>
   12:	00 00       	nop
   14:	79 c0       	rjmp	.+242    	; 0x108 <__bad_interrupt>
   16:	00 00       	nop
@@ -75,7 +75,7 @@ Disassembly of section .text:
   4e:	00 00       	nop
   50:	5b c0       	rjmp	.+182    	; 0x108 <__bad_interrupt>
   52:	00 00       	nop
-  54:	bd c0       	rjmp	.+378    	; 0x1d0 <__vector_21>
+  54:	d7 c0       	rjmp	.+430    	; 0x204 <__vector_21>
   56:	00 00       	nop
   58:	57 c0       	rjmp	.+174    	; 0x108 <__bad_interrupt>
   5a:	00 00       	nop
@@ -168,22 +168,22 @@ Disassembly of section .text:
   fc:	1d 92       	st	X+, r1
 
 000000fe <.do_clear_bss_start>:
-  fe:	a7 30       	cpi	r26, 0x07	; 7
+  fe:	a9 30       	cpi	r26, 0x09	; 9
  100:	b2 07       	cpc	r27, r18
  102:	e1 f7       	brne	.-8      	; 0xfc <.do_clear_bss_loop>
- 104:	d8 d0       	rcall	.+432    	; 0x2b6 <main>
- 106:	0f c1       	rjmp	.+542    	; 0x326 <_exit>
+ 104:	f2 d0       	rcall	.+484    	; 0x2ea <main>
+ 106:	29 c1       	rjmp	.+594    	; 0x35a <_exit>
 
 00000108 <__bad_interrupt>:
  108:	7b cf       	rjmp	.-266    	; 0x0 <__vectors>
 
 0000010a <ADC_init>:
-    // save result
-    result = ADCL;
-    result = result | (ADCH << 8);
-
-    return result / 1024.0;
+    return readInterrupt;
 }
+
+void ADC_setInterruptHandler(AnalogAsyncGetHandler_t cb)
+{
+    interruptCallback = cb;
  10a:	83 e8       	ldi	r24, 0x83	; 131
  10c:	80 93 7a 00 	sts	0x007A, r24	; 0x80007a <__TEXT_REGION_LENGTH__+0x7c007a>
  110:	80 e4       	ldi	r24, 0x40	; 64
@@ -201,18 +201,12 @@ Disassembly of section .text:
  128:	08 95       	ret
 
 0000012a <ADC_getTenBitValueInterrupt>:
-
-uint16_t ADC_getTenBitValueInterrupt(uint16_t channel)
-{
-    // select the channel
-    ADMUX  = (ADMUX & 0xe0) | channel;
  12a:	ec e7       	ldi	r30, 0x7C	; 124
  12c:	f0 e0       	ldi	r31, 0x00	; 0
  12e:	20 81       	ld	r18, Z
  130:	20 7e       	andi	r18, 0xE0	; 224
  132:	28 2b       	or	r18, r24
  134:	20 83       	st	Z, r18
-    ADCSRB = (ADCSRB & 0xf7) | (channel >> 2);
  136:	eb e7       	ldi	r30, 0x7B	; 123
  138:	f0 e0       	ldi	r31, 0x00	; 0
  13a:	20 81       	ld	r18, Z
@@ -224,23 +218,19 @@ uint16_t ADC_getTenBitValueInterrupt(uint16_t channel)
  146:	97 7f       	andi	r25, 0xF7	; 247
  148:	89 2b       	or	r24, r25
  14a:	80 83       	st	Z, r24
-
-    // start conversion
-    ADCSRA |= (1 << ADSC);
  14c:	ea e7       	ldi	r30, 0x7A	; 122
  14e:	f0 e0       	ldi	r31, 0x00	; 0
  150:	80 81       	ld	r24, Z
  152:	80 64       	ori	r24, 0x40	; 64
  154:	80 83       	st	Z, r24
-
-    return readInterrupt;
-}
- 156:	80 91 00 02 	lds	r24, 0x0200	; 0x800200 <__DATA_REGION_ORIGIN__>
- 15a:	90 91 01 02 	lds	r25, 0x0201	; 0x800201 <__DATA_REGION_ORIGIN__+0x1>
+ 156:	80 91 02 02 	lds	r24, 0x0202	; 0x800202 <readInterrupt>
+ 15a:	90 91 03 02 	lds	r25, 0x0203	; 0x800203 <readInterrupt+0x1>
  15e:	08 95       	ret
 
 00000160 <__vector_29>:
+}
 
+/* NOTE: Local function implementations */
 ISR(ADC_vect)
 {
  160:	1f 92       	push	r1
@@ -248,377 +238,403 @@ ISR(ADC_vect)
  164:	0f b6       	in	r0, 0x3f	; 63
  166:	0f 92       	push	r0
  168:	11 24       	eor	r1, r1
- 16a:	2f 93       	push	r18
- 16c:	3f 93       	push	r19
- 16e:	8f 93       	push	r24
- 170:	9f 93       	push	r25
+ 16a:	0b b6       	in	r0, 0x3b	; 59
+ 16c:	0f 92       	push	r0
+ 16e:	2f 93       	push	r18
+ 170:	3f 93       	push	r19
+ 172:	4f 93       	push	r20
+ 174:	5f 93       	push	r21
+ 176:	6f 93       	push	r22
+ 178:	7f 93       	push	r23
+ 17a:	8f 93       	push	r24
+ 17c:	9f 93       	push	r25
+ 17e:	af 93       	push	r26
+ 180:	bf 93       	push	r27
+ 182:	ef 93       	push	r30
+ 184:	ff 93       	push	r31
     readInterrupt = ADCL;
- 172:	80 91 78 00 	lds	r24, 0x0078	; 0x800078 <__TEXT_REGION_LENGTH__+0x7c0078>
- 176:	90 e0       	ldi	r25, 0x00	; 0
- 178:	90 93 01 02 	sts	0x0201, r25	; 0x800201 <__DATA_REGION_ORIGIN__+0x1>
- 17c:	80 93 00 02 	sts	0x0200, r24	; 0x800200 <__DATA_REGION_ORIGIN__>
+ 186:	80 91 78 00 	lds	r24, 0x0078	; 0x800078 <__TEXT_REGION_LENGTH__+0x7c0078>
+ 18a:	28 2f       	mov	r18, r24
+ 18c:	30 e0       	ldi	r19, 0x00	; 0
+ 18e:	30 93 03 02 	sts	0x0203, r19	; 0x800203 <readInterrupt+0x1>
+ 192:	20 93 02 02 	sts	0x0202, r18	; 0x800202 <readInterrupt>
     readInterrupt = readInterrupt | (ADCH << 8);
- 180:	20 91 79 00 	lds	r18, 0x0079	; 0x800079 <__TEXT_REGION_LENGTH__+0x7c0079>
- 184:	30 e0       	ldi	r19, 0x00	; 0
- 186:	32 2f       	mov	r19, r18
- 188:	22 27       	eor	r18, r18
- 18a:	82 2b       	or	r24, r18
- 18c:	93 2b       	or	r25, r19
- 18e:	90 93 01 02 	sts	0x0201, r25	; 0x800201 <__DATA_REGION_ORIGIN__+0x1>
- 192:	80 93 00 02 	sts	0x0200, r24	; 0x800200 <__DATA_REGION_ORIGIN__>
- 196:	9f 91       	pop	r25
- 198:	8f 91       	pop	r24
- 19a:	3f 91       	pop	r19
- 19c:	2f 91       	pop	r18
- 19e:	0f 90       	pop	r0
- 1a0:	0f be       	out	0x3f, r0	; 63
- 1a2:	0f 90       	pop	r0
- 1a4:	1f 90       	pop	r1
- 1a6:	18 95       	reti
+ 196:	80 91 79 00 	lds	r24, 0x0079	; 0x800079 <__TEXT_REGION_LENGTH__+0x7c0079>
+ 19a:	90 e0       	ldi	r25, 0x00	; 0
+ 19c:	98 2f       	mov	r25, r24
+ 19e:	88 27       	eor	r24, r24
+ 1a0:	82 2b       	or	r24, r18
+ 1a2:	93 2b       	or	r25, r19
+ 1a4:	90 93 03 02 	sts	0x0203, r25	; 0x800203 <readInterrupt+0x1>
+ 1a8:	80 93 02 02 	sts	0x0202, r24	; 0x800202 <readInterrupt>
 
-000001a8 <DLY_initInterrupt>:
+    interruptCallback(readInterrupt);
+ 1ac:	e0 91 00 02 	lds	r30, 0x0200	; 0x800200 <__DATA_REGION_ORIGIN__>
+ 1b0:	f0 91 01 02 	lds	r31, 0x0201	; 0x800201 <__DATA_REGION_ORIGIN__+0x1>
+ 1b4:	19 95       	eicall
+ 1b6:	ff 91       	pop	r31
+ 1b8:	ef 91       	pop	r30
+ 1ba:	bf 91       	pop	r27
+ 1bc:	af 91       	pop	r26
+ 1be:	9f 91       	pop	r25
+ 1c0:	8f 91       	pop	r24
+ 1c2:	7f 91       	pop	r23
+ 1c4:	6f 91       	pop	r22
+ 1c6:	5f 91       	pop	r21
+ 1c8:	4f 91       	pop	r20
+ 1ca:	3f 91       	pop	r19
+ 1cc:	2f 91       	pop	r18
+ 1ce:	0f 90       	pop	r0
+ 1d0:	0b be       	out	0x3b, r0	; 59
+ 1d2:	0f 90       	pop	r0
+ 1d4:	0f be       	out	0x3f, r0	; 63
+ 1d6:	0f 90       	pop	r0
+ 1d8:	1f 90       	pop	r1
+ 1da:	18 95       	reti
+
+000001dc <DLY_initInterrupt>:
             TCNT0 = 0;
         }
 
         OCR0A = 0;
     }
 }
- 1a8:	14 bc       	out	0x24, r1	; 36
- 1aa:	84 e0       	ldi	r24, 0x04	; 4
- 1ac:	85 bd       	out	0x25, r24	; 37
- 1ae:	16 bc       	out	0x26, r1	; 38
- 1b0:	8e e3       	ldi	r24, 0x3E	; 62
- 1b2:	87 bd       	out	0x27, r24	; 39
- 1b4:	82 e0       	ldi	r24, 0x02	; 2
- 1b6:	80 93 6e 00 	sts	0x006E, r24	; 0x80006e <__TEXT_REGION_LENGTH__+0x7c006e>
- 1ba:	08 95       	ret
+ 1dc:	14 bc       	out	0x24, r1	; 36
+ 1de:	84 e0       	ldi	r24, 0x04	; 4
+ 1e0:	85 bd       	out	0x25, r24	; 37
+ 1e2:	16 bc       	out	0x26, r1	; 38
+ 1e4:	8e e3       	ldi	r24, 0x3E	; 62
+ 1e6:	87 bd       	out	0x27, r24	; 39
+ 1e8:	82 e0       	ldi	r24, 0x02	; 2
+ 1ea:	80 93 6e 00 	sts	0x006E, r24	; 0x80006e <__TEXT_REGION_LENGTH__+0x7c006e>
+ 1ee:	08 95       	ret
 
-000001bc <DLY_getTick>:
+000001f0 <DLY_getTick>:
 
 uint16_t DLY_getTick(void)
 {
     return tick;
 }
- 1bc:	80 91 02 02 	lds	r24, 0x0202	; 0x800202 <tick>
- 1c0:	90 91 03 02 	lds	r25, 0x0203	; 0x800203 <tick+0x1>
- 1c4:	08 95       	ret
+ 1f0:	80 91 04 02 	lds	r24, 0x0204	; 0x800204 <tick>
+ 1f4:	90 91 05 02 	lds	r25, 0x0205	; 0x800205 <tick+0x1>
+ 1f8:	08 95       	ret
 
-000001c6 <DLY_setTick>:
+000001fa <DLY_setTick>:
 
 void DLY_setTick(uint16_t t){
     tick = t;
- 1c6:	90 93 03 02 	sts	0x0203, r25	; 0x800203 <tick+0x1>
- 1ca:	80 93 02 02 	sts	0x0202, r24	; 0x800202 <tick>
- 1ce:	08 95       	ret
+ 1fa:	90 93 05 02 	sts	0x0205, r25	; 0x800205 <tick+0x1>
+ 1fe:	80 93 04 02 	sts	0x0204, r24	; 0x800204 <tick>
+ 202:	08 95       	ret
 
-000001d0 <__vector_21>:
+00000204 <__vector_21>:
 }
 
 ISR(TIMER0_COMPA_vect)
 {
- 1d0:	1f 92       	push	r1
- 1d2:	0f 92       	push	r0
- 1d4:	0f b6       	in	r0, 0x3f	; 63
- 1d6:	0f 92       	push	r0
- 1d8:	11 24       	eor	r1, r1
- 1da:	8f 93       	push	r24
- 1dc:	9f 93       	push	r25
+ 204:	1f 92       	push	r1
+ 206:	0f 92       	push	r0
+ 208:	0f b6       	in	r0, 0x3f	; 63
+ 20a:	0f 92       	push	r0
+ 20c:	11 24       	eor	r1, r1
+ 20e:	8f 93       	push	r24
+ 210:	9f 93       	push	r25
     TCNT0 = 0;
- 1de:	16 bc       	out	0x26, r1	; 38
+ 212:	16 bc       	out	0x26, r1	; 38
     tick++;
- 1e0:	80 91 02 02 	lds	r24, 0x0202	; 0x800202 <tick>
- 1e4:	90 91 03 02 	lds	r25, 0x0203	; 0x800203 <tick+0x1>
- 1e8:	01 96       	adiw	r24, 0x01	; 1
- 1ea:	90 93 03 02 	sts	0x0203, r25	; 0x800203 <tick+0x1>
- 1ee:	80 93 02 02 	sts	0x0202, r24	; 0x800202 <tick>
+ 214:	80 91 04 02 	lds	r24, 0x0204	; 0x800204 <tick>
+ 218:	90 91 05 02 	lds	r25, 0x0205	; 0x800205 <tick+0x1>
+ 21c:	01 96       	adiw	r24, 0x01	; 1
+ 21e:	90 93 05 02 	sts	0x0205, r25	; 0x800205 <tick+0x1>
+ 222:	80 93 04 02 	sts	0x0204, r24	; 0x800204 <tick>
 }
- 1f2:	9f 91       	pop	r25
- 1f4:	8f 91       	pop	r24
- 1f6:	0f 90       	pop	r0
- 1f8:	0f be       	out	0x3f, r0	; 63
- 1fa:	0f 90       	pop	r0
- 1fc:	1f 90       	pop	r1
- 1fe:	18 95       	reti
+ 226:	9f 91       	pop	r25
+ 228:	8f 91       	pop	r24
+ 22a:	0f 90       	pop	r0
+ 22c:	0f be       	out	0x3f, r0	; 63
+ 22e:	0f 90       	pop	r0
+ 230:	1f 90       	pop	r1
+ 232:	18 95       	reti
 
-00000200 <ENC_init>:
+00000234 <ENC_init>:
 }
 
 uint8_t ENC_getValue(void)
 {
     return value;
 }
- 200:	8a b1       	in	r24, 0x0a	; 10
- 202:	86 60       	ori	r24, 0x06	; 6
- 204:	8a b9       	out	0x0a, r24	; 10
- 206:	8b b1       	in	r24, 0x0b	; 11
- 208:	86 60       	ori	r24, 0x06	; 6
- 20a:	8b b9       	out	0x0b, r24	; 11
- 20c:	8d b3       	in	r24, 0x1d	; 29
- 20e:	84 60       	ori	r24, 0x04	; 4
- 210:	8d bb       	out	0x1d, r24	; 29
- 212:	e9 e6       	ldi	r30, 0x69	; 105
- 214:	f0 e0       	ldi	r31, 0x00	; 0
- 216:	80 81       	ld	r24, Z
- 218:	80 62       	ori	r24, 0x20	; 32
- 21a:	80 83       	st	Z, r24
- 21c:	08 95       	ret
+ 234:	8a b1       	in	r24, 0x0a	; 10
+ 236:	86 60       	ori	r24, 0x06	; 6
+ 238:	8a b9       	out	0x0a, r24	; 10
+ 23a:	8b b1       	in	r24, 0x0b	; 11
+ 23c:	86 60       	ori	r24, 0x06	; 6
+ 23e:	8b b9       	out	0x0b, r24	; 11
+ 240:	8d b3       	in	r24, 0x1d	; 29
+ 242:	84 60       	ori	r24, 0x04	; 4
+ 244:	8d bb       	out	0x1d, r24	; 29
+ 246:	e9 e6       	ldi	r30, 0x69	; 105
+ 248:	f0 e0       	ldi	r31, 0x00	; 0
+ 24a:	80 81       	ld	r24, Z
+ 24c:	80 62       	ori	r24, 0x20	; 32
+ 24e:	80 83       	st	Z, r24
+ 250:	08 95       	ret
 
-0000021e <ENC_getDirection>:
+00000252 <ENC_getDirection>:
 
 uint8_t ENC_getDirection(void)
 {
     // cache the flag state
     uint8_t dir = direction;
- 21e:	80 91 04 02 	lds	r24, 0x0204	; 0x800204 <direction>
+ 252:	80 91 06 02 	lds	r24, 0x0206	; 0x800206 <direction>
 
     // reset the flag in the global
     direction = 0x00;
- 222:	10 92 04 02 	sts	0x0204, r1	; 0x800204 <direction>
+ 256:	10 92 06 02 	sts	0x0206, r1	; 0x800206 <direction>
 
     // return the cached state
     return dir;
 }
- 226:	08 95       	ret
+ 25a:	08 95       	ret
 
-00000228 <__vector_3>:
+0000025c <__vector_3>:
 
 ISR(INT2_vect)
 {
- 228:	1f 92       	push	r1
- 22a:	0f 92       	push	r0
- 22c:	0f b6       	in	r0, 0x3f	; 63
- 22e:	0f 92       	push	r0
- 230:	11 24       	eor	r1, r1
- 232:	8f 93       	push	r24
+ 25c:	1f 92       	push	r1
+ 25e:	0f 92       	push	r0
+ 260:	0f b6       	in	r0, 0x3f	; 63
+ 262:	0f 92       	push	r0
+ 264:	11 24       	eor	r1, r1
+ 266:	8f 93       	push	r24
     // if pin is high
     if(PIND & 0x02)
- 234:	49 9b       	sbis	0x09, 1	; 9
- 236:	0b c0       	rjmp	.+22     	; 0x24e <__vector_3+0x26>
+ 268:	49 9b       	sbis	0x09, 1	; 9
+ 26a:	0b c0       	rjmp	.+22     	; 0x282 <__vector_3+0x26>
     {
         // set the flag
         direction = 0x11;
- 238:	81 e1       	ldi	r24, 0x11	; 17
- 23a:	80 93 04 02 	sts	0x0204, r24	; 0x800204 <direction>
+ 26c:	81 e1       	ldi	r24, 0x11	; 17
+ 26e:	80 93 06 02 	sts	0x0206, r24	; 0x800206 <direction>
 
         // increment if it won't overflow
         if(value < 255)
- 23e:	80 91 05 02 	lds	r24, 0x0205	; 0x800205 <value>
- 242:	8f 3f       	cpi	r24, 0xFF	; 255
- 244:	71 f0       	breq	.+28     	; 0x262 <__vector_3+0x3a>
+ 272:	80 91 07 02 	lds	r24, 0x0207	; 0x800207 <value>
+ 276:	8f 3f       	cpi	r24, 0xFF	; 255
+ 278:	71 f0       	breq	.+28     	; 0x296 <__vector_3+0x3a>
         {
             value++;
- 246:	8f 5f       	subi	r24, 0xFF	; 255
- 248:	80 93 05 02 	sts	0x0205, r24	; 0x800205 <value>
- 24c:	0a c0       	rjmp	.+20     	; 0x262 <__vector_3+0x3a>
+ 27a:	8f 5f       	subi	r24, 0xFF	; 255
+ 27c:	80 93 07 02 	sts	0x0207, r24	; 0x800207 <value>
+ 280:	0a c0       	rjmp	.+20     	; 0x296 <__vector_3+0x3a>
         }
     }
     else
     {
         // set the flag
         direction = 0x10;
- 24e:	80 e1       	ldi	r24, 0x10	; 16
- 250:	80 93 04 02 	sts	0x0204, r24	; 0x800204 <direction>
+ 282:	80 e1       	ldi	r24, 0x10	; 16
+ 284:	80 93 06 02 	sts	0x0206, r24	; 0x800206 <direction>
 
         // decrement if it won't overflow
         if(value > 0)
- 254:	80 91 05 02 	lds	r24, 0x0205	; 0x800205 <value>
- 258:	88 23       	and	r24, r24
- 25a:	19 f0       	breq	.+6      	; 0x262 <__vector_3+0x3a>
+ 288:	80 91 07 02 	lds	r24, 0x0207	; 0x800207 <value>
+ 28c:	88 23       	and	r24, r24
+ 28e:	19 f0       	breq	.+6      	; 0x296 <__vector_3+0x3a>
         {
             value--;
- 25c:	81 50       	subi	r24, 0x01	; 1
- 25e:	80 93 05 02 	sts	0x0205, r24	; 0x800205 <value>
+ 290:	81 50       	subi	r24, 0x01	; 1
+ 292:	80 93 07 02 	sts	0x0207, r24	; 0x800207 <value>
         }
     }
- 262:	8f 91       	pop	r24
- 264:	0f 90       	pop	r0
- 266:	0f be       	out	0x3f, r0	; 63
- 268:	0f 90       	pop	r0
- 26a:	1f 90       	pop	r1
- 26c:	18 95       	reti
+ 296:	8f 91       	pop	r24
+ 298:	0f 90       	pop	r0
+ 29a:	0f be       	out	0x3f, r0	; 63
+ 29c:	0f 90       	pop	r0
+ 29e:	1f 90       	pop	r1
+ 2a0:	18 95       	reti
 
-0000026e <__vector_4>:
+000002a2 <__vector_4>:
     }
 }
 
 // the mode button interupt
 ISR(INT3_vect)
 {
- 26e:	1f 92       	push	r1
- 270:	0f 92       	push	r0
- 272:	0f b6       	in	r0, 0x3f	; 63
- 274:	0f 92       	push	r0
- 276:	11 24       	eor	r1, r1
- 278:	8f 93       	push	r24
+ 2a2:	1f 92       	push	r1
+ 2a4:	0f 92       	push	r0
+ 2a6:	0f b6       	in	r0, 0x3f	; 63
+ 2a8:	0f 92       	push	r0
+ 2aa:	11 24       	eor	r1, r1
+ 2ac:	8f 93       	push	r24
     if(modeFlag < 2)
- 27a:	80 91 06 02 	lds	r24, 0x0206	; 0x800206 <modeFlag>
- 27e:	82 30       	cpi	r24, 0x02	; 2
- 280:	20 f4       	brcc	.+8      	; 0x28a <__vector_4+0x1c>
+ 2ae:	80 91 08 02 	lds	r24, 0x0208	; 0x800208 <modeFlag>
+ 2b2:	82 30       	cpi	r24, 0x02	; 2
+ 2b4:	20 f4       	brcc	.+8      	; 0x2be <__vector_4+0x1c>
     {
         modeFlag++;
- 282:	8f 5f       	subi	r24, 0xFF	; 255
- 284:	80 93 06 02 	sts	0x0206, r24	; 0x800206 <modeFlag>
- 288:	02 c0       	rjmp	.+4      	; 0x28e <__vector_4+0x20>
+ 2b6:	8f 5f       	subi	r24, 0xFF	; 255
+ 2b8:	80 93 08 02 	sts	0x0208, r24	; 0x800208 <modeFlag>
+ 2bc:	02 c0       	rjmp	.+4      	; 0x2c2 <__vector_4+0x20>
     }
     else
     {
         modeFlag = 0;
- 28a:	10 92 06 02 	sts	0x0206, r1	; 0x800206 <modeFlag>
+ 2be:	10 92 08 02 	sts	0x0208, r1	; 0x800208 <modeFlag>
     }
 
     PORTA = 0x00;
- 28e:	12 b8       	out	0x02, r1	; 2
+ 2c2:	12 b8       	out	0x02, r1	; 2
 }
- 290:	8f 91       	pop	r24
- 292:	0f 90       	pop	r0
- 294:	0f be       	out	0x3f, r0	; 63
- 296:	0f 90       	pop	r0
- 298:	1f 90       	pop	r1
- 29a:	18 95       	reti
+ 2c4:	8f 91       	pop	r24
+ 2c6:	0f 90       	pop	r0
+ 2c8:	0f be       	out	0x3f, r0	; 63
+ 2ca:	0f 90       	pop	r0
+ 2cc:	1f 90       	pop	r1
+ 2ce:	18 95       	reti
 
-0000029c <IO_init>:
+000002d0 <IO_init>:
 
 /* NOTE: Function implementations */
 void IO_init(void)
 {
     // set port B.7 as an output
     DDRB  = 0x80;
- 29c:	80 e8       	ldi	r24, 0x80	; 128
- 29e:	84 b9       	out	0x04, r24	; 4
+ 2d0:	80 e8       	ldi	r24, 0x80	; 128
+ 2d2:	84 b9       	out	0x04, r24	; 4
     PORTB = 0x00;
- 2a0:	15 b8       	out	0x05, r1	; 5
+ 2d4:	15 b8       	out	0x05, r1	; 5
 
     // set port A.7 as an output
     DDRA  = 0xFF;
- 2a2:	9f ef       	ldi	r25, 0xFF	; 255
- 2a4:	91 b9       	out	0x01, r25	; 1
+ 2d6:	9f ef       	ldi	r25, 0xFF	; 255
+ 2d8:	91 b9       	out	0x01, r25	; 1
     PORTA = 0x00;
- 2a6:	12 b8       	out	0x02, r1	; 2
+ 2da:	12 b8       	out	0x02, r1	; 2
 
     // set port D.3 as an input
     DDRD  = 0x00;
- 2a8:	1a b8       	out	0x0a, r1	; 10
+ 2dc:	1a b8       	out	0x0a, r1	; 10
     PORTD = 0x08;
- 2aa:	98 e0       	ldi	r25, 0x08	; 8
- 2ac:	9b b9       	out	0x0b, r25	; 11
+ 2de:	98 e0       	ldi	r25, 0x08	; 8
+ 2e0:	9b b9       	out	0x0b, r25	; 11
 
     // set interrupt 3 to on rising edge
     EIMSK = (1 << INT3);
- 2ae:	9d bb       	out	0x1d, r25	; 29
+ 2e2:	9d bb       	out	0x1d, r25	; 29
     EICRA = (1 << ISC31);
- 2b0:	80 93 69 00 	sts	0x0069, r24	; 0x800069 <__TEXT_REGION_LENGTH__+0x7c0069>
- 2b4:	08 95       	ret
+ 2e4:	80 93 69 00 	sts	0x0069, r24	; 0x800069 <__TEXT_REGION_LENGTH__+0x7c0069>
+ 2e8:	08 95       	ret
 
-000002b6 <main>:
+000002ea <main>:
 
 /* NOTE: Application implementation */
 // the main loop of the function, provided to us
 int main(void)
 {
     IO_init();
- 2b6:	f2 df       	rcall	.-28     	; 0x29c <IO_init>
+ 2ea:	f2 df       	rcall	.-28     	; 0x2d0 <IO_init>
     
     ENC_init();
- 2b8:	a3 df       	rcall	.-186    	; 0x200 <ENC_init>
+ 2ec:	a3 df       	rcall	.-186    	; 0x234 <ENC_init>
     ADC_initInterrupt();
- 2ba:	30 df       	rcall	.-416    	; 0x11c <ADC_initInterrupt>
+ 2ee:	16 df       	rcall	.-468    	; 0x11c <ADC_initInterrupt>
     DLY_initInterrupt();
- 2bc:	75 df       	rcall	.-278    	; 0x1a8 <DLY_initInterrupt>
- 2be:	78 94       	sei
+ 2f0:	75 df       	rcall	.-278    	; 0x1dc <DLY_initInterrupt>
+ 2f2:	78 94       	sei
 
     sei();
- 2c0:	7d df       	rcall	.-262    	; 0x1bc <DLY_getTick>
+ 2f4:	7d df       	rcall	.-262    	; 0x1f0 <DLY_getTick>
 
     while(1)
     {
         // the watchdog led
         if(DLY_getTick() > 500)
- 2c2:	85 3f       	cpi	r24, 0xF5	; 245
- 2c4:	91 40       	sbci	r25, 0x01	; 1
- 2c6:	80 f0       	brcs	.+32     	; 0x2e8 <main+0x32>
- 2c8:	85 b1       	in	r24, 0x05	; 5
- 2ca:	80 95       	com	r24
+ 2f6:	85 3f       	cpi	r24, 0xF5	; 245
+ 2f8:	91 40       	sbci	r25, 0x01	; 1
+ 2fa:	80 f0       	brcs	.+32     	; 0x31c <main+0x32>
+ 2fc:	85 b1       	in	r24, 0x05	; 5
+ 2fe:	80 95       	com	r24
         {
             PORTB = ~PORTB & 0x80;
- 2cc:	80 78       	andi	r24, 0x80	; 128
- 2ce:	85 b9       	out	0x05, r24	; 5
- 2d0:	80 91 06 02 	lds	r24, 0x0206	; 0x800206 <modeFlag>
+ 300:	80 78       	andi	r24, 0x80	; 128
+ 302:	85 b9       	out	0x05, r24	; 5
+ 304:	80 91 08 02 	lds	r24, 0x0208	; 0x800208 <modeFlag>
 
             if(modeFlag == 0)
- 2d4:	81 11       	cpse	r24, r1
- 2d6:	05 c0       	rjmp	.+10     	; 0x2e2 <main+0x2c>
- 2d8:	92 b1       	in	r25, 0x02	; 2
- 2da:	81 e0       	ldi	r24, 0x01	; 1
+ 308:	81 11       	cpse	r24, r1
+ 30a:	05 c0       	rjmp	.+10     	; 0x316 <main+0x2c>
+ 30c:	92 b1       	in	r25, 0x02	; 2
+ 30e:	81 e0       	ldi	r24, 0x01	; 1
             {
                 PORTA = ~PORTA & 0x01;
- 2dc:	89 27       	eor	r24, r25
- 2de:	81 70       	andi	r24, 0x01	; 1
- 2e0:	82 b9       	out	0x02, r24	; 2
- 2e2:	80 e0       	ldi	r24, 0x00	; 0
+ 310:	89 27       	eor	r24, r25
+ 312:	81 70       	andi	r24, 0x01	; 1
+ 314:	82 b9       	out	0x02, r24	; 2
+ 316:	80 e0       	ldi	r24, 0x00	; 0
             }
 
             DLY_setTick(0);
- 2e4:	90 e0       	ldi	r25, 0x00	; 0
- 2e6:	6f df       	rcall	.-290    	; 0x1c6 <DLY_setTick>
- 2e8:	80 91 06 02 	lds	r24, 0x0206	; 0x800206 <modeFlag>
+ 318:	90 e0       	ldi	r25, 0x00	; 0
+ 31a:	6f df       	rcall	.-290    	; 0x1fa <DLY_setTick>
+ 31c:	80 91 08 02 	lds	r24, 0x0208	; 0x800208 <modeFlag>
         }
 
         // the mode switcher
         if(modeFlag == 1)
- 2ec:	81 30       	cpi	r24, 0x01	; 1
- 2ee:	49 f4       	brne	.+18     	; 0x302 <main+0x4c>
- 2f0:	80 e0       	ldi	r24, 0x00	; 0
+ 320:	81 30       	cpi	r24, 0x01	; 1
+ 322:	49 f4       	brne	.+18     	; 0x336 <main+0x4c>
+ 324:	80 e0       	ldi	r24, 0x00	; 0
         {
             // get the value and bit shift it right 2
             PORTA = ADC_getTenBitValueInterrupt(0) >> 2;
- 2f2:	90 e0       	ldi	r25, 0x00	; 0
- 2f4:	1a df       	rcall	.-460    	; 0x12a <ADC_getTenBitValueInterrupt>
- 2f6:	96 95       	lsr	r25
- 2f8:	87 95       	ror	r24
- 2fa:	96 95       	lsr	r25
- 2fc:	87 95       	ror	r24
- 2fe:	82 b9       	out	0x02, r24	; 2
- 300:	df cf       	rjmp	.-66     	; 0x2c0 <main+0xa>
- 302:	82 30       	cpi	r24, 0x02	; 2
+ 326:	90 e0       	ldi	r25, 0x00	; 0
+ 328:	00 df       	rcall	.-512    	; 0x12a <ADC_getTenBitValueInterrupt>
+ 32a:	96 95       	lsr	r25
+ 32c:	87 95       	ror	r24
+ 32e:	96 95       	lsr	r25
+ 330:	87 95       	ror	r24
+ 332:	82 b9       	out	0x02, r24	; 2
+ 334:	df cf       	rjmp	.-66     	; 0x2f4 <main+0xa>
+ 336:	82 30       	cpi	r24, 0x02	; 2
         }
         else if(modeFlag == 2)
- 304:	e9 f6       	brne	.-70     	; 0x2c0 <main+0xa>
- 306:	8b df       	rcall	.-234    	; 0x21e <ENC_getDirection>
+ 338:	e9 f6       	brne	.-70     	; 0x2f4 <main+0xa>
+ 33a:	8b df       	rcall	.-234    	; 0x252 <ENC_getDirection>
         {
             // get the flagged byte
             uint8_t directionFlag = ENC_getDirection();
- 308:	84 ff       	sbrs	r24, 4
- 30a:	da cf       	rjmp	.-76     	; 0x2c0 <main+0xa>
+ 33c:	84 ff       	sbrs	r24, 4
+ 33e:	da cf       	rjmp	.-76     	; 0x2f4 <main+0xa>
 
             // if the flag has been set
             if(directionFlag & 0x10)
- 30c:	80 ff       	sbrs	r24, 0
- 30e:	07 c0       	rjmp	.+14     	; 0x31e <main+0x68>
+ 340:	80 ff       	sbrs	r24, 0
+ 342:	07 c0       	rjmp	.+14     	; 0x352 <main+0x68>
             {
                 // get the driection flag
                 if((directionFlag & 0x01))
- 310:	82 b1       	in	r24, 0x02	; 2
- 312:	90 e0       	ldi	r25, 0x00	; 0
+ 344:	82 b1       	in	r24, 0x02	; 2
+ 346:	90 e0       	ldi	r25, 0x00	; 0
                 {
                     // move the bar left one
                     PORTA = PORTA << 1 | 0x01;
- 314:	88 0f       	add	r24, r24
- 316:	99 1f       	adc	r25, r25
- 318:	81 60       	ori	r24, 0x01	; 1
- 31a:	82 b9       	out	0x02, r24	; 2
- 31c:	d1 cf       	rjmp	.-94     	; 0x2c0 <main+0xa>
- 31e:	82 b1       	in	r24, 0x02	; 2
- 320:	86 95       	lsr	r24
+ 348:	88 0f       	add	r24, r24
+ 34a:	99 1f       	adc	r25, r25
+ 34c:	81 60       	ori	r24, 0x01	; 1
+ 34e:	82 b9       	out	0x02, r24	; 2
+ 350:	d1 cf       	rjmp	.-94     	; 0x2f4 <main+0xa>
+ 352:	82 b1       	in	r24, 0x02	; 2
+ 354:	86 95       	lsr	r24
                 }
                 else
                 {
                     // move the bar right one
                     PORTA = PORTA >> 1;
- 322:	82 b9       	out	0x02, r24	; 2
- 324:	cd cf       	rjmp	.-102    	; 0x2c0 <main+0xa>
+ 356:	82 b9       	out	0x02, r24	; 2
+ 358:	cd cf       	rjmp	.-102    	; 0x2f4 <main+0xa>
 
-00000326 <_exit>:
- 326:	f8 94       	cli
+0000035a <_exit>:
+ 35a:	f8 94       	cli
 
-00000328 <__stop_program>:
- 328:	ff cf       	rjmp	.-2      	; 0x328 <__stop_program>
+0000035c <__stop_program>:
+ 35c:	ff cf       	rjmp	.-2      	; 0x35c <__stop_program>

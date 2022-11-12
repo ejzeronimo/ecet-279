@@ -17,7 +17,10 @@
 // TODO: None
 
 /* NOTE: Global Variables */
+// value from the interruput
 static uint16_t readInterrupt = 0;
+
+static AnalogAsyncGetHandler_t interruptCallback;
 
 /* NOTE: Local function implementations */
 void ADC_init(void)
@@ -74,8 +77,16 @@ uint16_t ADC_getTenBitValueInterrupt(uint16_t channel)
     return readInterrupt;
 }
 
+void ADC_setInterruptHandler(AnalogAsyncGetHandler_t cb)
+{
+    interruptCallback = cb;
+}
+
+/* NOTE: Local function implementations */
 ISR(ADC_vect)
 {
     readInterrupt = ADCL;
     readInterrupt = readInterrupt | (ADCH << 8);
+
+    interruptCallback(readInterrupt);
 }

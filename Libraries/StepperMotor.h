@@ -33,17 +33,17 @@ extern "C" {
 typedef enum StepperMotorRunMode_t
 {
     // wave step mode
-    Wave = 0,
+    wave = 0,
     // full step mode
-    Full = 1,
+    full = 1,
     // half step mode
-    Half = 2,
+    half = 2,
 } StepperMotorRunMode_t;
 
 /* NOTE: Function prototypes */
 // inits IO for the stepper motor
 // takes a pointer to the port to use, assumes botom nibble
-void SM_init(volatile uint8_t * pRegister, volatile uint8_t * pPort);
+void SM_init(uint8_t volatile * const pRegister, uint8_t volatile * const pPort);
 
 // moves the motor in the given mode to the given distance
 // distance is in units of rotation

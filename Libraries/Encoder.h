@@ -17,8 +17,7 @@ extern "C" {
 
 #pragma message("WARNING: this module uses PORTD1:2 for interrupt")
 
-#include <avr/interrupt.h>
-#include <stdio.h>
+#include <stdint.h>
 
 /* NOTE: Custom Types */
 // TODO: None

@@ -12,6 +12,7 @@
 #include "Encoder.h"
 
 #include <avr/io.h>
+#include <avr/interrupt.h>
 
 /* NOTE: Local declarations */
 // TODO: None

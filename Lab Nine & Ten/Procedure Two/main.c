@@ -15,6 +15,7 @@
 
 /* NOTE: Includes */
 #include <avr/io.h>
+#include <avr/interrupt.h>
 
 #include "Serial.h"
 
@@ -37,15 +38,14 @@ int main(void)
     IO_init();
 
     // init async uart and bind an interrupt handler
-    SERIAL_uartInitAsync();
-    SERIAL_uartAsyncGetHandler(&asyncGetHandler);
+    SERIAL_uartInitAsync(USART0, 9600);
+    SERIAL_uartAsyncGetHandler(USART0, &asyncGetHandler);
 
     sei();
 
     while(1)
     {
-        char foo[2] = {PINC, '\0'};
-        SERIAL_uartSend((char const * const)&foo);
+        SERIAL_uartSendFixed(USART0, (char const * const)&PINC, 1);
     }
 }
 

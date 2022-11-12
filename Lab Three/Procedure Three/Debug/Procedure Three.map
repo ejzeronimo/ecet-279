@@ -656,19 +656,19 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x175e
+.debug_info     0x00000000     0x1758
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0xbbc C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega2560/avr6/crtatmega2560.o
  .debug_info    0x00000bbc      0x53d Debugger.o
- .debug_info    0x000010f9      0x4da StepperMotor.o
- .debug_info    0x000015d3      0x18b main.o
+ .debug_info    0x000010f9      0x4d4 StepperMotor.o
+ .debug_info    0x000015cd      0x18b main.o
 
-.debug_abbrev   0x00000000      0xf6d
+.debug_abbrev   0x00000000      0xf66
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0xb1a C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega2560/avr6/crtatmega2560.o
  .debug_abbrev  0x00000b1a      0x19b Debugger.o
- .debug_abbrev  0x00000cb5      0x1ed StepperMotor.o
- .debug_abbrev  0x00000ea2       0xcb main.o
+ .debug_abbrev  0x00000cb5      0x1e6 StepperMotor.o
+ .debug_abbrev  0x00000e9b       0xcb main.o
 
 .debug_line     0x00000000      0xace
  *(.debug_line .debug_line.* .debug_line_end)

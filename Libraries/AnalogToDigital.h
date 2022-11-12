@@ -21,7 +21,8 @@ extern "C" {
 #define F_CPU 16000000UL
 
 /* NOTE: Custom Types */
-// TODO: None
+// typing for the handler function
+typedef void (*AnalogAsyncGetHandler_t)(uint16_t);
 
 /* NOTE: Function prototypes */
 // init registers for adc
@@ -30,7 +31,7 @@ void   ADC_init(void);
 void   ADC_initInterrupt(void);
 // returns the value of the given channel
 double ADC_getTenBitValue(uint16_t channel);
-// gets the 10 bit value on channel o
+// gets the 10 bit value on the channel
 uint16_t ADC_getTenBitValueInterrupt(uint16_t channel);
 
 #if defined(__cplusplus)

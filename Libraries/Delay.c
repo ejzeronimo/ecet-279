@@ -12,6 +12,9 @@
 #include "Delay.h"
 
 #include <avr/io.h>
+#include <avr/interrupt.h>
+
+#define F_CPU 16000000UL
 
 /* NOTE: Local declarations */
 // TODO: None
@@ -44,7 +47,7 @@ void DLY_initInterrupt(void)
 
 void DLY_ms(double ms)
 {
-    size_t time = (((ms / 1000.0) * F_CPU) / 1024);
+    uint32_t time = (((ms / 1000.0) * F_CPU) / 1024);
 
     if(ms <= 16)
     {
@@ -69,7 +72,7 @@ void DLY_ms(double ms)
     {
         OCR0A = (((1 / 1000.0) * F_CPU) / 1024);
 
-        for(size_t i = 0; i < ms; i++)
+        for(uint32_t i = 0; i < ms; i++)
         {
             // prescalar of 1024
             TCCR0B = 0x05;

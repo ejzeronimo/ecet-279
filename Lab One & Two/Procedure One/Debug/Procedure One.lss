@@ -21,11 +21,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   8 .debug_frame  00000034  00000000  00000000  00001e2c  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    0000056a  00000000  00000000  00001e60  2**0
+  9 .debug_str    00000570  00000000  00000000  00001e60  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00000048  00000000  00000000  000023ca  2**0
+ 10 .debug_loc    00000048  00000000  00000000  000023d0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000018  00000000  00000000  00002412  2**0
+ 11 .debug_ranges 00000018  00000000  00000000  00002418  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -161,10 +161,10 @@ Disassembly of section .text:
 000000f8 <__bad_interrupt>:
   f8:	83 cf       	rjmp	.-250    	; 0x0 <__vectors>
 
-000000fa <io_init>:
+000000fa <IO_init>:
 
 /* NOTE: Function implementations */
-void io_init(void)
+void IO_init(void)
 {
     // set led 13 as output
     DDRB  = 0x80;
@@ -176,13 +176,13 @@ void io_init(void)
  100:	08 95       	ret
 
 00000102 <main>:
-// inits IO ports
-void io_init(void);
 
+/* NOTE: Application implementation */
+// the main loop of the function, provided to us
 int main(void)
 {
-    io_init();
- 102:	fb df       	rcall	.-10     	; 0xfa <io_init>
+    IO_init();
+ 102:	fb df       	rcall	.-10     	; 0xfa <IO_init>
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));

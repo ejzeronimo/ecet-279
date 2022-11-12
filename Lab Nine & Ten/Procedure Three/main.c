@@ -17,6 +17,7 @@
 
 /* NOTE: Includes */
 #include <avr/io.h>
+#include <avr/interrupt.h>
 
 #include "LiquidCrystalDisplay.h"
 #include "Serial.h"
@@ -44,8 +45,8 @@ int main(void)
     LCD_init();
 
     // init async uart and bind an interrupt handler
-    SERIAL_uartInitAsync();
-    SERIAL_uartAsyncGetHandler(&asyncGetHandler);
+    SERIAL_uartInitAsync(USART0, 9600);
+    SERIAL_uartAsyncGetHandler(USART0, &asyncGetHandler);
 
     sei();
 
