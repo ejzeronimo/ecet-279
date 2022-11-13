@@ -1,5 +1,5 @@
 /*
- * FileName: Delay.c
+ * FileName: Serial.c
  * Version: 1
  *
  * Created: 11/2/2022 1:41 PM
@@ -108,7 +108,7 @@ void SERIAL_uartSend(SerialPortSelector_t port, char const * const pTransmitStri
     char const * pWorker = (char const *)pTransmitString;
 
     // while we are not at the end of the string
-    while(*pWorker != '\n')
+    while(*pWorker != '\0')
     {
         // wait for uart tx to be ready then send out uart
         sendCharHelper(port, pWorker);
