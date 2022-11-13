@@ -27,14 +27,15 @@
 // TODO: None
 
 /* NOTE: Global Variables */
-uint8_t custom[] = {
-    0b01000000,
-    0b01001010,
-    0b01000000,
-    0b01000000,
-    0b01000000,
-    0b01010001,
-    0b01001110,
+LcdCustomCharacter_t smile = {
+    0b00000,
+    0b01010,
+    0b00000,
+    0b00000,
+    0b00000,
+    0b10001,
+    0b01110,
+    0b00000,
 };
 
 /* NOTE: Function prototypes */
@@ -46,18 +47,15 @@ void IO_init(void);
 int main(void)
 {
     IO_init();
-    LCD_init();
+    LCD_init(&DDRG, &PORTG, &DDRL, &PORTL);
 
-    // set to accept in cgram
-    LCD_instruction(0x40);
-
-    LCD_sendString(custom);
+    LCD_createCharacter(lcdFirstSlot, smile);
 
     // clear and home
-    LCD_instruction(0x01);
-    LCD_instruction(0x02);
+    LCD_sendInstruction(0x01);
+    LCD_sendInstruction(0x02);
 
-    LCD_sendChar(0x00);
+    LCD_sendChar(LCD_getCharacter(lcdFirstSlot));
 
     while(1)
     {
@@ -67,10 +65,5 @@ int main(void)
 /* NOTE: Function implementations */
 void IO_init(void)
 {
-    // port l all out
-    DDRL  = 0xFF;
-    PORTL = 0x00;
-
-    // port d just out on the first three pins
-    DDRD = 0x07;
+    // do nothing
 }

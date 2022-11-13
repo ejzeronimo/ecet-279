@@ -436,11 +436,11 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0xdc0
+.debug_info     0x00000000      0xdb2
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0xbbc C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega2560/avr6/crtatmega2560.o
- .debug_info    0x00000bbc      0x108 Encoder.o
- .debug_info    0x00000cc4       0xfc main.o
+ .debug_info    0x00000bbc      0x101 Encoder.o
+ .debug_info    0x00000cbd       0xf5 main.o
 
 .debug_abbrev   0x00000000      0xc7e
  *(.debug_abbrev)
@@ -463,9 +463,9 @@ END GROUP
  *(.debug_str)
  .debug_str     0x00000000      0x3e6 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega2560/avr6/crtatmega2560.o
  .debug_str     0x000003e6      0x183 Encoder.o
-                                0x1bc (size before relaxing)
+                                0x1b7 (size before relaxing)
  .debug_str     0x00000569       0x27 main.o
-                                0x19e (size before relaxing)
+                                0x199 (size before relaxing)
 
 .debug_loc      0x00000000       0x5a
  *(.debug_loc)

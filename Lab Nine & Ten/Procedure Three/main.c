@@ -17,6 +17,7 @@
 
 /* NOTE: Includes */
 #include <avr/io.h>
+#include <avr/interrupt.h>
 
 #include "LiquidCrystalDisplay.h"
 #include "Serial.h"
@@ -41,23 +42,23 @@ void asyncGetHandler(char c);
 int main(void)
 {
     IO_init();
-    LCD_init();
+    LCD_init(&DDRD, &PORTD, &DDRL, &PORTL);
 
     // init async uart and bind an interrupt handler
-    SERIAL_uartInitAsync();
-    SERIAL_uartAsyncGetHandler(&asyncGetHandler);
+    SERIAL_uartInitAsync(USART0, 9600);
+    SERIAL_uartAsyncGetHandler(USART0, &asyncGetHandler);
 
     sei();
 
-    LCD_instruction(0x01);
-    LCD_instruction(0x02);
+    LCD_sendInstruction(0x01);
+    LCD_sendInstruction(0x02);
 
     while(1)
     {
         if(readFlag)
         {
-            LCD_instruction(0x01);
-            LCD_instruction(0x02);
+            LCD_sendInstruction(0x01);
+            LCD_sendInstruction(0x02);
             LCD_sendString(message);
 
             readFlag = 0;
@@ -68,12 +69,7 @@ int main(void)
 /* NOTE: Function implementations */
 void IO_init(void)
 {
-    // port l all out
-    DDRL  = 0xFF;
-    PORTL = 0x00;
-
-    // port d just out on the first three pins
-    DDRD = 0x07;
+    // do nothing
 }
 
 void asyncGetHandler(char c)

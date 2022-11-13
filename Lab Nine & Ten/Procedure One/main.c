@@ -38,21 +38,21 @@ void IO_init(void);
 int main(void)
 {
     IO_init();
-    LCD_init();
+    LCD_init(&DDRD, &PORTD, &DDRL, &PORTL);
 
-    LCD_instruction(0x01);
+    LCD_sendInstruction(0x01);
     _delay_ms(2); // can remove if use Busy Flag check
 
-    LCD_instruction(0x02);
+    LCD_sendInstruction(0x02);
     _delay_ms(2); // can remove if use Busy Flag check
 
-    LCD_instruction(0x86);
+    LCD_sendInstruction(0x86);
     _delay_ms(50);
 
     LCD_sendString(message);
     _delay_ms(50);
 
-    LCD_instruction(0xC6);
+    LCD_sendInstruction(0xC6);
     _delay_us(50); // can remove if use Busy Flag check
 
     LCD_sendString(message);
@@ -65,10 +65,5 @@ int main(void)
 /* NOTE: Function implementations */
 void IO_init(void)
 {
-    // port l all out
-    DDRL  = 0xFF;
-    PORTL = 0x00;
-
-    // port d just out on the first three pins
-    DDRD = 0x07;
+    // do nothing
 }

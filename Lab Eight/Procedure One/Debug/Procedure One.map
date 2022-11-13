@@ -51,7 +51,7 @@ Discarded input sections
  .bss           0x00000000        0x0 Delay.o
  .text.DLY_init
                 0x00000000        0xa Delay.o
- .text.DLY_ms   0x00000000       0xae Delay.o
+ .text.DLY_ms   0x00000000       0xbe Delay.o
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
@@ -633,12 +633,12 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x138a
+.debug_info     0x00000000     0x1383
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0xbbc C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega2560/avr6/crtatmega2560.o
  .debug_info    0x00000bbc      0x53d Debugger.o
- .debug_info    0x000010f9      0x17b Delay.o
- .debug_info    0x00001274      0x116 main.o
+ .debug_info    0x000010f9      0x174 Delay.o
+ .debug_info    0x0000126d      0x116 main.o
 
 .debug_abbrev   0x00000000      0xe62
  *(.debug_abbrev)
@@ -647,33 +647,33 @@ END GROUP
  .debug_abbrev  0x00000cb5      0x109 Delay.o
  .debug_abbrev  0x00000dbe       0xa4 main.o
 
-.debug_line     0x00000000      0x95a
+.debug_line     0x00000000      0x8ea
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x1fa C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega2560/avr6/crtatmega2560.o
  .debug_line    0x000001fa      0x3fc Debugger.o
- .debug_line    0x000005f6      0x257 Delay.o
- .debug_line    0x0000084d      0x10d main.o
+ .debug_line    0x000005f6      0x1e7 Delay.o
+ .debug_line    0x000007dd      0x10d main.o
 
-.debug_frame    0x00000000      0x240
+.debug_frame    0x00000000      0x248
  *(.debug_frame)
  .debug_frame   0x00000000      0x164 Debugger.o
- .debug_frame   0x00000164       0xa8 Delay.o
- .debug_frame   0x0000020c       0x34 main.o
+ .debug_frame   0x00000164       0xb0 Delay.o
+ .debug_frame   0x00000214       0x34 main.o
 
-.debug_str      0x00000000      0x6b5
+.debug_str      0x00000000      0x6b7
  *(.debug_str)
  .debug_str     0x00000000      0x3e6 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega2560/avr6/crtatmega2560.o
  .debug_str     0x000003e6      0x237 Debugger.o
                                 0x270 (size before relaxing)
- .debug_str     0x0000061d       0x7f Delay.o
-                                0x1e3 (size before relaxing)
- .debug_str     0x0000069c       0x19 main.o
+ .debug_str     0x0000061d       0x81 Delay.o
+                                0x1e0 (size before relaxing)
+ .debug_str     0x0000069e       0x19 main.o
                                 0x1a8 (size before relaxing)
 
-.debug_loc      0x00000000      0x3e5
+.debug_loc      0x00000000      0x405
  *(.debug_loc)
  .debug_loc     0x00000000      0x2d1 Debugger.o
- .debug_loc     0x000002d1      0x114 Delay.o
+ .debug_loc     0x000002d1      0x134 Delay.o
 
 .debug_macinfo
  *(.debug_macinfo)

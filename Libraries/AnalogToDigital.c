@@ -13,11 +13,11 @@
 
 #include <avr/io.h>
 
-/* NOTE: Local declarations */
-// TODO: None
-
 /* NOTE: Global Variables */
-static uint16_t readInterrupt = 0;
+// value from the interruput
+static uint16_t                readInterrupt = 0;
+// callback for the interrupt
+static AnalogAsyncGetHandler_t interruptCallback;
 
 /* NOTE: Local function implementations */
 void ADC_init(void)
@@ -74,8 +74,16 @@ uint16_t ADC_getTenBitValueInterrupt(uint16_t channel)
     return readInterrupt;
 }
 
+void ADC_setInterruptHandler(AnalogAsyncGetHandler_t cb)
+{
+    interruptCallback = cb;
+}
+
+/* NOTE: Local function implementations */
 ISR(ADC_vect)
 {
     readInterrupt = ADCL;
     readInterrupt = readInterrupt | (ADCH << 8);
+
+    interruptCallback(readInterrupt);
 }

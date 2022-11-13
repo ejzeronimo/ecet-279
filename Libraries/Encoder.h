@@ -17,20 +17,15 @@ extern "C" {
 
 #pragma message("WARNING: this module uses PORTD1:2 for interrupt")
 
-#include <avr/interrupt.h>
-#include <stdio.h>
-
-/* NOTE: Custom Types */
-// TODO: None
+#include <stdint.h>
 
 /* NOTE: Function prototypes */
 // init for the encoder
-void ENC_init(void);
+void    ENC_init(void);
 // gets the raw value for the port
 uint8_t ENC_getValue(void);
 // returns the flagged direction
 uint8_t ENC_getDirection(void);
-
 
 #if defined(__cplusplus)
 } /* extern "C" */

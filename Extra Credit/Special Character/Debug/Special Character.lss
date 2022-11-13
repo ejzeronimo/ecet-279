@@ -1,0 +1,728 @@
+
+Special Character.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000008  00800200  0000034c  000003e0  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         0000034c  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          00000004  00800208  00800208  000003e8  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000003e8  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000418  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000070  00000000  00000000  00000458  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   0000139e  00000000  00000000  000004c8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00000dbe  00000000  00000000  00001866  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00000614  00000000  00000000  00002624  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  000000b8  00000000  00000000  00002c38  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    0000072b  00000000  00000000  00002cf0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    0000055b  00000000  00000000  0000341b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000050  00000000  00000000  00003976  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	71 c0       	rjmp	.+226    	; 0xe4 <__ctors_end>
+   2:	00 00       	nop
+   4:	8e c0       	rjmp	.+284    	; 0x122 <__bad_interrupt>
+   6:	00 00       	nop
+   8:	8c c0       	rjmp	.+280    	; 0x122 <__bad_interrupt>
+   a:	00 00       	nop
+   c:	8a c0       	rjmp	.+276    	; 0x122 <__bad_interrupt>
+   e:	00 00       	nop
+  10:	88 c0       	rjmp	.+272    	; 0x122 <__bad_interrupt>
+  12:	00 00       	nop
+  14:	86 c0       	rjmp	.+268    	; 0x122 <__bad_interrupt>
+  16:	00 00       	nop
+  18:	84 c0       	rjmp	.+264    	; 0x122 <__bad_interrupt>
+  1a:	00 00       	nop
+  1c:	82 c0       	rjmp	.+260    	; 0x122 <__bad_interrupt>
+  1e:	00 00       	nop
+  20:	80 c0       	rjmp	.+256    	; 0x122 <__bad_interrupt>
+  22:	00 00       	nop
+  24:	7e c0       	rjmp	.+252    	; 0x122 <__bad_interrupt>
+  26:	00 00       	nop
+  28:	7c c0       	rjmp	.+248    	; 0x122 <__bad_interrupt>
+  2a:	00 00       	nop
+  2c:	7a c0       	rjmp	.+244    	; 0x122 <__bad_interrupt>
+  2e:	00 00       	nop
+  30:	78 c0       	rjmp	.+240    	; 0x122 <__bad_interrupt>
+  32:	00 00       	nop
+  34:	76 c0       	rjmp	.+236    	; 0x122 <__bad_interrupt>
+  36:	00 00       	nop
+  38:	74 c0       	rjmp	.+232    	; 0x122 <__bad_interrupt>
+  3a:	00 00       	nop
+  3c:	72 c0       	rjmp	.+228    	; 0x122 <__bad_interrupt>
+  3e:	00 00       	nop
+  40:	70 c0       	rjmp	.+224    	; 0x122 <__bad_interrupt>
+  42:	00 00       	nop
+  44:	6e c0       	rjmp	.+220    	; 0x122 <__bad_interrupt>
+  46:	00 00       	nop
+  48:	6c c0       	rjmp	.+216    	; 0x122 <__bad_interrupt>
+  4a:	00 00       	nop
+  4c:	6a c0       	rjmp	.+212    	; 0x122 <__bad_interrupt>
+  4e:	00 00       	nop
+  50:	68 c0       	rjmp	.+208    	; 0x122 <__bad_interrupt>
+  52:	00 00       	nop
+  54:	66 c0       	rjmp	.+204    	; 0x122 <__bad_interrupt>
+  56:	00 00       	nop
+  58:	64 c0       	rjmp	.+200    	; 0x122 <__bad_interrupt>
+  5a:	00 00       	nop
+  5c:	62 c0       	rjmp	.+196    	; 0x122 <__bad_interrupt>
+  5e:	00 00       	nop
+  60:	60 c0       	rjmp	.+192    	; 0x122 <__bad_interrupt>
+  62:	00 00       	nop
+  64:	5e c0       	rjmp	.+188    	; 0x122 <__bad_interrupt>
+  66:	00 00       	nop
+  68:	5c c0       	rjmp	.+184    	; 0x122 <__bad_interrupt>
+  6a:	00 00       	nop
+  6c:	5a c0       	rjmp	.+180    	; 0x122 <__bad_interrupt>
+  6e:	00 00       	nop
+  70:	58 c0       	rjmp	.+176    	; 0x122 <__bad_interrupt>
+  72:	00 00       	nop
+  74:	56 c0       	rjmp	.+172    	; 0x122 <__bad_interrupt>
+  76:	00 00       	nop
+  78:	54 c0       	rjmp	.+168    	; 0x122 <__bad_interrupt>
+  7a:	00 00       	nop
+  7c:	52 c0       	rjmp	.+164    	; 0x122 <__bad_interrupt>
+  7e:	00 00       	nop
+  80:	50 c0       	rjmp	.+160    	; 0x122 <__bad_interrupt>
+  82:	00 00       	nop
+  84:	4e c0       	rjmp	.+156    	; 0x122 <__bad_interrupt>
+  86:	00 00       	nop
+  88:	4c c0       	rjmp	.+152    	; 0x122 <__bad_interrupt>
+  8a:	00 00       	nop
+  8c:	4a c0       	rjmp	.+148    	; 0x122 <__bad_interrupt>
+  8e:	00 00       	nop
+  90:	48 c0       	rjmp	.+144    	; 0x122 <__bad_interrupt>
+  92:	00 00       	nop
+  94:	46 c0       	rjmp	.+140    	; 0x122 <__bad_interrupt>
+  96:	00 00       	nop
+  98:	44 c0       	rjmp	.+136    	; 0x122 <__bad_interrupt>
+  9a:	00 00       	nop
+  9c:	42 c0       	rjmp	.+132    	; 0x122 <__bad_interrupt>
+  9e:	00 00       	nop
+  a0:	40 c0       	rjmp	.+128    	; 0x122 <__bad_interrupt>
+  a2:	00 00       	nop
+  a4:	3e c0       	rjmp	.+124    	; 0x122 <__bad_interrupt>
+  a6:	00 00       	nop
+  a8:	3c c0       	rjmp	.+120    	; 0x122 <__bad_interrupt>
+  aa:	00 00       	nop
+  ac:	3a c0       	rjmp	.+116    	; 0x122 <__bad_interrupt>
+  ae:	00 00       	nop
+  b0:	38 c0       	rjmp	.+112    	; 0x122 <__bad_interrupt>
+  b2:	00 00       	nop
+  b4:	36 c0       	rjmp	.+108    	; 0x122 <__bad_interrupt>
+  b6:	00 00       	nop
+  b8:	34 c0       	rjmp	.+104    	; 0x122 <__bad_interrupt>
+  ba:	00 00       	nop
+  bc:	32 c0       	rjmp	.+100    	; 0x122 <__bad_interrupt>
+  be:	00 00       	nop
+  c0:	30 c0       	rjmp	.+96     	; 0x122 <__bad_interrupt>
+  c2:	00 00       	nop
+  c4:	2e c0       	rjmp	.+92     	; 0x122 <__bad_interrupt>
+  c6:	00 00       	nop
+  c8:	2c c0       	rjmp	.+88     	; 0x122 <__bad_interrupt>
+  ca:	00 00       	nop
+  cc:	2a c0       	rjmp	.+84     	; 0x122 <__bad_interrupt>
+  ce:	00 00       	nop
+  d0:	28 c0       	rjmp	.+80     	; 0x122 <__bad_interrupt>
+  d2:	00 00       	nop
+  d4:	26 c0       	rjmp	.+76     	; 0x122 <__bad_interrupt>
+  d6:	00 00       	nop
+  d8:	24 c0       	rjmp	.+72     	; 0x122 <__bad_interrupt>
+  da:	00 00       	nop
+  dc:	22 c0       	rjmp	.+68     	; 0x122 <__bad_interrupt>
+  de:	00 00       	nop
+  e0:	20 c0       	rjmp	.+64     	; 0x122 <__bad_interrupt>
+	...
+
+000000e4 <__ctors_end>:
+  e4:	11 24       	eor	r1, r1
+  e6:	1f be       	out	0x3f, r1	; 63
+  e8:	cf ef       	ldi	r28, 0xFF	; 255
+  ea:	d1 e2       	ldi	r29, 0x21	; 33
+  ec:	de bf       	out	0x3e, r29	; 62
+  ee:	cd bf       	out	0x3d, r28	; 61
+  f0:	00 e0       	ldi	r16, 0x00	; 0
+  f2:	0c bf       	out	0x3c, r16	; 60
+
+000000f4 <__do_copy_data>:
+  f4:	12 e0       	ldi	r17, 0x02	; 2
+  f6:	a0 e0       	ldi	r26, 0x00	; 0
+  f8:	b2 e0       	ldi	r27, 0x02	; 2
+  fa:	ec e4       	ldi	r30, 0x4C	; 76
+  fc:	f3 e0       	ldi	r31, 0x03	; 3
+  fe:	00 e0       	ldi	r16, 0x00	; 0
+ 100:	0b bf       	out	0x3b, r16	; 59
+ 102:	02 c0       	rjmp	.+4      	; 0x108 <__do_copy_data+0x14>
+ 104:	07 90       	elpm	r0, Z+
+ 106:	0d 92       	st	X+, r0
+ 108:	a8 30       	cpi	r26, 0x08	; 8
+ 10a:	b1 07       	cpc	r27, r17
+ 10c:	d9 f7       	brne	.-10     	; 0x104 <__do_copy_data+0x10>
+
+0000010e <__do_clear_bss>:
+ 10e:	22 e0       	ldi	r18, 0x02	; 2
+ 110:	a8 e0       	ldi	r26, 0x08	; 8
+ 112:	b2 e0       	ldi	r27, 0x02	; 2
+ 114:	01 c0       	rjmp	.+2      	; 0x118 <.do_clear_bss_start>
+
+00000116 <.do_clear_bss_loop>:
+ 116:	1d 92       	st	X+, r1
+
+00000118 <.do_clear_bss_start>:
+ 118:	ac 30       	cpi	r26, 0x0C	; 12
+ 11a:	b2 07       	cpc	r27, r18
+ 11c:	e1 f7       	brne	.-8      	; 0x116 <.do_clear_bss_loop>
+ 11e:	ff d0       	rcall	.+510    	; 0x31e <main>
+ 120:	13 c1       	rjmp	.+550    	; 0x348 <_exit>
+
+00000122 <__bad_interrupt>:
+ 122:	6e cf       	rjmp	.-292    	; 0x0 <__vectors>
+
+00000124 <LCD_sendInstruction>:
+}
+
+void LCD_sendInstruction(uint8_t input)
+{
+    // set controls to RS = 0 E = 0, R/!W=0 then take E high
+    *sContolPort = (*sContolPort & 0xf8) | 0x00;
+ 124:	e0 91 0a 02 	lds	r30, 0x020A	; 0x80020a <sContolPort>
+ 128:	f0 91 0b 02 	lds	r31, 0x020B	; 0x80020b <sContolPort+0x1>
+ 12c:	90 81       	ld	r25, Z
+ 12e:	98 7f       	andi	r25, 0xF8	; 248
+    *sContolPort |= 0x04;
+ 130:	94 60       	ori	r25, 0x04	; 4
+ 132:	90 83       	st	Z, r25
+
+    // send data then delay for at least 50us
+    *sDataPort = input;
+ 134:	e0 91 08 02 	lds	r30, 0x0208	; 0x800208 <__data_end>
+ 138:	f0 91 09 02 	lds	r31, 0x0209	; 0x800209 <__data_end+0x1>
+ 13c:	80 83       	st	Z, r24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 13e:	87 ec       	ldi	r24, 0xC7	; 199
+ 140:	90 e0       	ldi	r25, 0x00	; 0
+ 142:	01 97       	sbiw	r24, 0x01	; 1
+ 144:	f1 f7       	brne	.-4      	; 0x142 <LCD_sendInstruction+0x1e>
+ 146:	00 c0       	rjmp	.+0      	; 0x148 <LCD_sendInstruction+0x24>
+ 148:	00 00       	nop
+    _delay_us(50);
+
+    // take E low
+    *sContolPort = *sContolPort & 0xf9;
+ 14a:	e0 91 0a 02 	lds	r30, 0x020A	; 0x80020a <sContolPort>
+ 14e:	f0 91 0b 02 	lds	r31, 0x020B	; 0x80020b <sContolPort+0x1>
+ 152:	80 81       	ld	r24, Z
+ 154:	89 7f       	andi	r24, 0xF9	; 249
+ 156:	80 83       	st	Z, r24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 158:	8f e1       	ldi	r24, 0x1F	; 31
+ 15a:	9e e4       	ldi	r25, 0x4E	; 78
+ 15c:	01 97       	sbiw	r24, 0x01	; 1
+ 15e:	f1 f7       	brne	.-4      	; 0x15c <LCD_sendInstruction+0x38>
+ 160:	00 c0       	rjmp	.+0      	; 0x162 <LCD_sendInstruction+0x3e>
+ 162:	00 00       	nop
+ 164:	08 95       	ret
+
+00000166 <LCD_init>:
+// instance pointer to the data port
+static uint8_t * sDataPort;
+
+/* NOTE: Local function implementations */
+void LCD_init(uint8_t volatile * const pControlRegister, uint8_t volatile * const pControlPort, uint8_t volatile * const pDataRegister, uint8_t volatile * const pDataPort)
+{
+ 166:	fc 01       	movw	r30, r24
+    // configure port register and turn off port
+    *pDataRegister |= 0xff;
+ 168:	da 01       	movw	r26, r20
+ 16a:	8c 91       	ld	r24, X
+ 16c:	8f ef       	ldi	r24, 0xFF	; 255
+ 16e:	8c 93       	st	X, r24
+    *pDataPort = 0x00;
+ 170:	d9 01       	movw	r26, r18
+ 172:	1c 92       	st	X, r1
+
+    // configure port register and turn off port
+    *pControlRegister |= 0x07;
+ 174:	90 81       	ld	r25, Z
+ 176:	97 60       	ori	r25, 0x07	; 7
+ 178:	90 83       	st	Z, r25
+    *pControlPort = (*pControlPort & 0xf8) | 0x00;
+ 17a:	fb 01       	movw	r30, r22
+ 17c:	80 81       	ld	r24, Z
+ 17e:	88 7f       	andi	r24, 0xF8	; 248
+ 180:	80 83       	st	Z, r24
+
+    sContolPort = (uint8_t *)pControlPort;
+ 182:	70 93 0b 02 	sts	0x020B, r23	; 0x80020b <sContolPort+0x1>
+ 186:	60 93 0a 02 	sts	0x020A, r22	; 0x80020a <sContolPort>
+    sDataPort   = (uint8_t *)pDataPort;
+ 18a:	30 93 09 02 	sts	0x0209, r19	; 0x800209 <__data_end+0x1>
+ 18e:	20 93 08 02 	sts	0x0208, r18	; 0x800208 <__data_end>
+ 192:	ff e7       	ldi	r31, 0x7F	; 127
+ 194:	25 eb       	ldi	r18, 0xB5	; 181
+ 196:	81 e0       	ldi	r24, 0x01	; 1
+ 198:	f1 50       	subi	r31, 0x01	; 1
+ 19a:	20 40       	sbci	r18, 0x00	; 0
+ 19c:	80 40       	sbci	r24, 0x00	; 0
+ 19e:	e1 f7       	brne	.-8      	; 0x198 <LCD_init+0x32>
+ 1a0:	00 c0       	rjmp	.+0      	; 0x1a2 <LCD_init+0x3c>
+ 1a2:	00 00       	nop
+
+    // wait for lcd to power up
+    _delay_ms(35);
+
+    // set lcd to 8 bits, 2 lines, display off
+    LCD_sendInstruction(0x38);
+ 1a4:	88 e3       	ldi	r24, 0x38	; 56
+ 1a6:	be df       	rcall	.-132    	; 0x124 <LCD_sendInstruction>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 1a8:	a7 ec       	ldi	r26, 0xC7	; 199
+ 1aa:	b0 e0       	ldi	r27, 0x00	; 0
+ 1ac:	11 97       	sbiw	r26, 0x01	; 1
+ 1ae:	f1 f7       	brne	.-4      	; 0x1ac <LCD_init+0x46>
+ 1b0:	00 c0       	rjmp	.+0      	; 0x1b2 <LCD_init+0x4c>
+ 1b2:	00 00       	nop
+    _delay_us(50);
+
+    // set lcd to display on, cursor off, blink off
+    LCD_sendInstruction(0x0C);
+ 1b4:	8c e0       	ldi	r24, 0x0C	; 12
+ 1b6:	b6 df       	rcall	.-148    	; 0x124 <LCD_sendInstruction>
+ 1b8:	e7 ec       	ldi	r30, 0xC7	; 199
+ 1ba:	f0 e0       	ldi	r31, 0x00	; 0
+ 1bc:	31 97       	sbiw	r30, 0x01	; 1
+ 1be:	f1 f7       	brne	.-4      	; 0x1bc <LCD_init+0x56>
+ 1c0:	00 c0       	rjmp	.+0      	; 0x1c2 <LCD_init+0x5c>
+    _delay_us(50);
+
+    // clear the display
+    LCD_sendInstruction(0x01);
+ 1c2:	00 00       	nop
+ 1c4:	81 e0       	ldi	r24, 0x01	; 1
+ 1c6:	ae df       	rcall	.-164    	; 0x124 <LCD_sendInstruction>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 1c8:	8f e3       	ldi	r24, 0x3F	; 63
+ 1ca:	9f e1       	ldi	r25, 0x1F	; 31
+ 1cc:	01 97       	sbiw	r24, 0x01	; 1
+ 1ce:	f1 f7       	brne	.-4      	; 0x1cc <LCD_init+0x66>
+ 1d0:	00 c0       	rjmp	.+0      	; 0x1d2 <LCD_init+0x6c>
+    _delay_ms(2);
+
+    // incrmement mode
+    LCD_sendInstruction(0x06);
+ 1d2:	00 00       	nop
+ 1d4:	86 e0       	ldi	r24, 0x06	; 6
+ 1d6:	a6 cf       	rjmp	.-180    	; 0x124 <LCD_sendInstruction>
+ 1d8:	08 95       	ret
+
+000001da <LCD_sendChar>:
+}
+
+void LCD_sendChar(char c)
+{
+    // set controls to RS = 1 E = 0, R/!W=0 then take E high
+    *sContolPort = (*sContolPort & 0xf8) | 0x01;
+ 1da:	e0 91 0a 02 	lds	r30, 0x020A	; 0x80020a <sContolPort>
+ 1de:	f0 91 0b 02 	lds	r31, 0x020B	; 0x80020b <sContolPort+0x1>
+ 1e2:	90 81       	ld	r25, Z
+ 1e4:	98 7f       	andi	r25, 0xF8	; 248
+    *sContolPort = *sContolPort | 0x04;
+ 1e6:	95 60       	ori	r25, 0x05	; 5
+ 1e8:	90 83       	st	Z, r25
+
+    // send data then delay for at least 50us
+    *sDataPort = c;
+ 1ea:	e0 91 08 02 	lds	r30, 0x0208	; 0x800208 <__data_end>
+ 1ee:	f0 91 09 02 	lds	r31, 0x0209	; 0x800209 <__data_end+0x1>
+ 1f2:	80 83       	st	Z, r24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 1f4:	87 ec       	ldi	r24, 0xC7	; 199
+ 1f6:	90 e0       	ldi	r25, 0x00	; 0
+ 1f8:	01 97       	sbiw	r24, 0x01	; 1
+ 1fa:	f1 f7       	brne	.-4      	; 0x1f8 <LCD_sendChar+0x1e>
+ 1fc:	00 c0       	rjmp	.+0      	; 0x1fe <LCD_sendChar+0x24>
+ 1fe:	00 00       	nop
+    _delay_us(50);
+
+    // take E low
+    *sContolPort = (*sContolPort & 0xf8) | 0x01;
+ 200:	e0 91 0a 02 	lds	r30, 0x020A	; 0x80020a <sContolPort>
+ 204:	f0 91 0b 02 	lds	r31, 0x020B	; 0x80020b <sContolPort+0x1>
+ 208:	80 81       	ld	r24, Z
+ 20a:	88 7f       	andi	r24, 0xF8	; 248
+ 20c:	81 60       	ori	r24, 0x01	; 1
+ 20e:	80 83       	st	Z, r24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 210:	8f e1       	ldi	r24, 0x1F	; 31
+ 212:	9e e4       	ldi	r25, 0x4E	; 78
+ 214:	01 97       	sbiw	r24, 0x01	; 1
+ 216:	f1 f7       	brne	.-4      	; 0x214 <LCD_sendChar+0x3a>
+ 218:	00 c0       	rjmp	.+0      	; 0x21a <LCD_sendChar+0x40>
+ 21a:	00 00       	nop
+ 21c:	08 95       	ret
+
+0000021e <LCD_sendString>:
+void LCD_sendString(char const * const pData)
+{
+    char * localPointer = (char * const)pData;
+
+    // set controls to RS = 1 E = 0, R/!W=0
+    *sContolPort = (*sContolPort & 0xf8) | 0x01;
+ 21e:	e0 91 0a 02 	lds	r30, 0x020A	; 0x80020a <sContolPort>
+ 222:	f0 91 0b 02 	lds	r31, 0x020B	; 0x80020b <sContolPort+0x1>
+ 226:	20 81       	ld	r18, Z
+ 228:	28 7f       	andi	r18, 0xF8	; 248
+ 22a:	21 60       	ori	r18, 0x01	; 1
+ 22c:	20 83       	st	Z, r18
+    _delay_ms(5);
+}
+
+void LCD_sendString(char const * const pData)
+{
+    char * localPointer = (char * const)pData;
+ 22e:	fc 01       	movw	r30, r24
+
+    // set controls to RS = 1 E = 0, R/!W=0
+    *sContolPort = (*sContolPort & 0xf8) | 0x01;
+
+    while(*localPointer != '\0')
+ 230:	25 c0       	rjmp	.+74     	; 0x27c <LCD_sendString+0x5e>
+    {
+        // take E high
+        *sContolPort = *sContolPort | 0x04;
+ 232:	a0 91 0a 02 	lds	r26, 0x020A	; 0x80020a <sContolPort>
+ 236:	b0 91 0b 02 	lds	r27, 0x020B	; 0x80020b <sContolPort+0x1>
+ 23a:	8c 91       	ld	r24, X
+ 23c:	84 60       	ori	r24, 0x04	; 4
+ 23e:	8c 93       	st	X, r24
+
+        // send data then delay for at least 50us
+        *sDataPort = *localPointer++;
+ 240:	a0 91 08 02 	lds	r26, 0x0208	; 0x800208 <__data_end>
+ 244:	b0 91 09 02 	lds	r27, 0x0209	; 0x800209 <__data_end+0x1>
+ 248:	9f 01       	movw	r18, r30
+ 24a:	2f 5f       	subi	r18, 0xFF	; 255
+ 24c:	3f 4f       	sbci	r19, 0xFF	; 255
+ 24e:	80 81       	ld	r24, Z
+ 250:	8c 93       	st	X, r24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 252:	87 ec       	ldi	r24, 0xC7	; 199
+ 254:	90 e0       	ldi	r25, 0x00	; 0
+ 256:	01 97       	sbiw	r24, 0x01	; 1
+ 258:	f1 f7       	brne	.-4      	; 0x256 <LCD_sendString+0x38>
+ 25a:	00 c0       	rjmp	.+0      	; 0x25c <LCD_sendString+0x3e>
+ 25c:	00 00       	nop
+        _delay_us(50);
+
+        // take E low
+        *sContolPort = (*sContolPort & 0xf8) | 0x01;
+ 25e:	e0 91 0a 02 	lds	r30, 0x020A	; 0x80020a <sContolPort>
+ 262:	f0 91 0b 02 	lds	r31, 0x020B	; 0x80020b <sContolPort+0x1>
+ 266:	80 81       	ld	r24, Z
+ 268:	88 7f       	andi	r24, 0xF8	; 248
+ 26a:	81 60       	ori	r24, 0x01	; 1
+ 26c:	80 83       	st	Z, r24
+ 26e:	87 ec       	ldi	r24, 0xC7	; 199
+ 270:	90 e0       	ldi	r25, 0x00	; 0
+ 272:	01 97       	sbiw	r24, 0x01	; 1
+ 274:	f1 f7       	brne	.-4      	; 0x272 <LCD_sendString+0x54>
+ 276:	00 c0       	rjmp	.+0      	; 0x278 <LCD_sendString+0x5a>
+ 278:	00 00       	nop
+    {
+        // take E high
+        *sContolPort = *sContolPort | 0x04;
+
+        // send data then delay for at least 50us
+        *sDataPort = *localPointer++;
+ 27a:	f9 01       	movw	r30, r18
+    char * localPointer = (char * const)pData;
+
+    // set controls to RS = 1 E = 0, R/!W=0
+    *sContolPort = (*sContolPort & 0xf8) | 0x01;
+
+    while(*localPointer != '\0')
+ 27c:	80 81       	ld	r24, Z
+ 27e:	81 11       	cpse	r24, r1
+ 280:	d8 cf       	rjmp	.-80     	; 0x232 <LCD_sendString+0x14>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 282:	8f e1       	ldi	r24, 0x1F	; 31
+ 284:	9e e4       	ldi	r25, 0x4E	; 78
+ 286:	01 97       	sbiw	r24, 0x01	; 1
+ 288:	f1 f7       	brne	.-4      	; 0x286 <LCD_sendString+0x68>
+ 28a:	00 c0       	rjmp	.+0      	; 0x28c <LCD_sendString+0x6e>
+ 28c:	00 00       	nop
+ 28e:	08 95       	ret
+
+00000290 <LCD_createCharacter>:
+
+    _delay_ms(5);
+}
+
+void LCD_createCharacter(LcdCharacterAddress_t address, LcdCustomCharacter_t custom)
+{
+ 290:	cf 93       	push	r28
+ 292:	df 93       	push	r29
+ 294:	cd b7       	in	r28, 0x3d	; 61
+ 296:	de b7       	in	r29, 0x3e	; 62
+ 298:	28 97       	sbiw	r28, 0x08	; 8
+ 29a:	0f b6       	in	r0, 0x3f	; 63
+ 29c:	f8 94       	cli
+ 29e:	de bf       	out	0x3e, r29	; 62
+ 2a0:	0f be       	out	0x3f, r0	; 63
+ 2a2:	cd bf       	out	0x3d, r28	; 61
+ 2a4:	fb 01       	movw	r30, r22
+    // make sure that the character is correct and valid
+    LcdCustomCharacter_t safety = {
+        0x40 | (custom[0] & 0x1f),
+ 2a6:	90 81       	ld	r25, Z
+}
+
+void LCD_createCharacter(LcdCharacterAddress_t address, LcdCustomCharacter_t custom)
+{
+    // make sure that the character is correct and valid
+    LcdCustomCharacter_t safety = {
+ 2a8:	9f 71       	andi	r25, 0x1F	; 31
+ 2aa:	90 64       	ori	r25, 0x40	; 64
+ 2ac:	99 83       	std	Y+1, r25	; 0x01
+        0x40 | (custom[0] & 0x1f),
+        0x40 | (custom[1] & 0x1f),
+ 2ae:	91 81       	ldd	r25, Z+1	; 0x01
+}
+
+void LCD_createCharacter(LcdCharacterAddress_t address, LcdCustomCharacter_t custom)
+{
+    // make sure that the character is correct and valid
+    LcdCustomCharacter_t safety = {
+ 2b0:	9f 71       	andi	r25, 0x1F	; 31
+ 2b2:	90 64       	ori	r25, 0x40	; 64
+ 2b4:	9a 83       	std	Y+2, r25	; 0x02
+        0x40 | (custom[0] & 0x1f),
+        0x40 | (custom[1] & 0x1f),
+        0x40 | (custom[2] & 0x1f),
+ 2b6:	92 81       	ldd	r25, Z+2	; 0x02
+}
+
+void LCD_createCharacter(LcdCharacterAddress_t address, LcdCustomCharacter_t custom)
+{
+    // make sure that the character is correct and valid
+    LcdCustomCharacter_t safety = {
+ 2b8:	9f 71       	andi	r25, 0x1F	; 31
+ 2ba:	90 64       	ori	r25, 0x40	; 64
+ 2bc:	9b 83       	std	Y+3, r25	; 0x03
+        0x40 | (custom[0] & 0x1f),
+        0x40 | (custom[1] & 0x1f),
+        0x40 | (custom[2] & 0x1f),
+        0x40 | (custom[3] & 0x1f),
+ 2be:	93 81       	ldd	r25, Z+3	; 0x03
+}
+
+void LCD_createCharacter(LcdCharacterAddress_t address, LcdCustomCharacter_t custom)
+{
+    // make sure that the character is correct and valid
+    LcdCustomCharacter_t safety = {
+ 2c0:	9f 71       	andi	r25, 0x1F	; 31
+ 2c2:	90 64       	ori	r25, 0x40	; 64
+ 2c4:	9c 83       	std	Y+4, r25	; 0x04
+        0x40 | (custom[0] & 0x1f),
+        0x40 | (custom[1] & 0x1f),
+        0x40 | (custom[2] & 0x1f),
+        0x40 | (custom[3] & 0x1f),
+        0x40 | (custom[4] & 0x1f),
+ 2c6:	94 81       	ldd	r25, Z+4	; 0x04
+}
+
+void LCD_createCharacter(LcdCharacterAddress_t address, LcdCustomCharacter_t custom)
+{
+    // make sure that the character is correct and valid
+    LcdCustomCharacter_t safety = {
+ 2c8:	9f 71       	andi	r25, 0x1F	; 31
+ 2ca:	90 64       	ori	r25, 0x40	; 64
+ 2cc:	9d 83       	std	Y+5, r25	; 0x05
+        0x40 | (custom[0] & 0x1f),
+        0x40 | (custom[1] & 0x1f),
+        0x40 | (custom[2] & 0x1f),
+        0x40 | (custom[3] & 0x1f),
+        0x40 | (custom[4] & 0x1f),
+        0x40 | (custom[5] & 0x1f),
+ 2ce:	95 81       	ldd	r25, Z+5	; 0x05
+}
+
+void LCD_createCharacter(LcdCharacterAddress_t address, LcdCustomCharacter_t custom)
+{
+    // make sure that the character is correct and valid
+    LcdCustomCharacter_t safety = {
+ 2d0:	9f 71       	andi	r25, 0x1F	; 31
+ 2d2:	90 64       	ori	r25, 0x40	; 64
+ 2d4:	9e 83       	std	Y+6, r25	; 0x06
+        0x40 | (custom[1] & 0x1f),
+        0x40 | (custom[2] & 0x1f),
+        0x40 | (custom[3] & 0x1f),
+        0x40 | (custom[4] & 0x1f),
+        0x40 | (custom[5] & 0x1f),
+        0x40 | (custom[6] & 0x1f),
+ 2d6:	96 81       	ldd	r25, Z+6	; 0x06
+}
+
+void LCD_createCharacter(LcdCharacterAddress_t address, LcdCustomCharacter_t custom)
+{
+    // make sure that the character is correct and valid
+    LcdCustomCharacter_t safety = {
+ 2d8:	9f 71       	andi	r25, 0x1F	; 31
+ 2da:	90 64       	ori	r25, 0x40	; 64
+ 2dc:	9f 83       	std	Y+7, r25	; 0x07
+        0x40 | (custom[2] & 0x1f),
+        0x40 | (custom[3] & 0x1f),
+        0x40 | (custom[4] & 0x1f),
+        0x40 | (custom[5] & 0x1f),
+        0x40 | (custom[6] & 0x1f),
+        0x40 | (custom[7] & 0x1f),
+ 2de:	97 81       	ldd	r25, Z+7	; 0x07
+}
+
+void LCD_createCharacter(LcdCharacterAddress_t address, LcdCustomCharacter_t custom)
+{
+    // make sure that the character is correct and valid
+    LcdCustomCharacter_t safety = {
+ 2e0:	9f 71       	andi	r25, 0x1F	; 31
+ 2e2:	90 64       	ori	r25, 0x40	; 64
+ 2e4:	98 87       	std	Y+8, r25	; 0x08
+        0x40 | (custom[6] & 0x1f),
+        0x40 | (custom[7] & 0x1f),
+    };
+
+    // set the address of the cgram (must be between 64 - 127)
+    LCD_sendInstruction(address);
+ 2e6:	1e df       	rcall	.-452    	; 0x124 <LCD_sendInstruction>
+
+    // send the sterile character
+    LCD_sendString((char const * const)safety);
+ 2e8:	ce 01       	movw	r24, r28
+ 2ea:	01 96       	adiw	r24, 0x01	; 1
+ 2ec:	98 df       	rcall	.-208    	; 0x21e <LCD_sendString>
+}
+ 2ee:	28 96       	adiw	r28, 0x08	; 8
+ 2f0:	0f b6       	in	r0, 0x3f	; 63
+ 2f2:	f8 94       	cli
+ 2f4:	de bf       	out	0x3e, r29	; 62
+ 2f6:	0f be       	out	0x3f, r0	; 63
+ 2f8:	cd bf       	out	0x3d, r28	; 61
+ 2fa:	df 91       	pop	r29
+ 2fc:	cf 91       	pop	r28
+ 2fe:	08 95       	ret
+
+00000300 <LCD_getCharacter>:
+
+char LCD_getCharacter(LcdCharacterAddress_t address){
+    return (address - 64) /8;
+ 300:	28 2f       	mov	r18, r24
+ 302:	30 e0       	ldi	r19, 0x00	; 0
+ 304:	20 54       	subi	r18, 0x40	; 64
+ 306:	31 09       	sbc	r19, r1
+ 308:	c9 01       	movw	r24, r18
+ 30a:	99 23       	and	r25, r25
+ 30c:	0c f4       	brge	.+2      	; 0x310 <LCD_getCharacter+0x10>
+ 30e:	07 96       	adiw	r24, 0x07	; 7
+ 310:	95 95       	asr	r25
+ 312:	87 95       	ror	r24
+ 314:	95 95       	asr	r25
+ 316:	87 95       	ror	r24
+ 318:	95 95       	asr	r25
+ 31a:	87 95       	ror	r24
+ 31c:	08 95       	ret
+
+0000031e <main>:
+/* NOTE: Application implementation */
+// the main loop of the function, provided to us
+int main(void)
+{
+    IO_init();
+    LCD_init(&DDRG, &PORTG, &DDRL, &PORTL);
+ 31e:	2b e0       	ldi	r18, 0x0B	; 11
+ 320:	31 e0       	ldi	r19, 0x01	; 1
+ 322:	4a e0       	ldi	r20, 0x0A	; 10
+ 324:	51 e0       	ldi	r21, 0x01	; 1
+ 326:	64 e3       	ldi	r22, 0x34	; 52
+ 328:	70 e0       	ldi	r23, 0x00	; 0
+ 32a:	83 e3       	ldi	r24, 0x33	; 51
+ 32c:	90 e0       	ldi	r25, 0x00	; 0
+ 32e:	1b df       	rcall	.-458    	; 0x166 <LCD_init>
+
+    LCD_createCharacter(lcdFirstSlot, smile);
+ 330:	60 e0       	ldi	r22, 0x00	; 0
+ 332:	72 e0       	ldi	r23, 0x02	; 2
+ 334:	80 e4       	ldi	r24, 0x40	; 64
+ 336:	ac df       	rcall	.-168    	; 0x290 <LCD_createCharacter>
+
+    // clear and home
+    LCD_sendInstruction(0x01);
+ 338:	81 e0       	ldi	r24, 0x01	; 1
+ 33a:	f4 de       	rcall	.-536    	; 0x124 <LCD_sendInstruction>
+    LCD_sendInstruction(0x02);
+ 33c:	82 e0       	ldi	r24, 0x02	; 2
+
+    LCD_sendChar(LCD_getCharacter(lcdFirstSlot));
+ 33e:	f2 de       	rcall	.-540    	; 0x124 <LCD_sendInstruction>
+ 340:	80 e4       	ldi	r24, 0x40	; 64
+ 342:	de df       	rcall	.-68     	; 0x300 <LCD_getCharacter>
+ 344:	4a df       	rcall	.-364    	; 0x1da <LCD_sendChar>
+ 346:	ff cf       	rjmp	.-2      	; 0x346 <main+0x28>
+
+00000348 <_exit>:
+ 348:	f8 94       	cli
+
+0000034a <__stop_program>:
+ 34a:	ff cf       	rjmp	.-2      	; 0x34a <__stop_program>

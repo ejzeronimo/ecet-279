@@ -3,31 +3,31 @@ Procedure Two.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800200  00800200  00000240  2**0
+  0 .data         00000000  00800200  00800200  00000274  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         000001cc  00000000  00000000  00000074  2**1
+  1 .text         00000200  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000002  00800200  00800200  00000240  2**0
+  2 .bss          00000004  00800200  00800200  00000274  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  00000240  2**0
+  3 .comment      00000030  00000000  00000000  00000274  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000270  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000002a4  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000068  00000000  00000000  000002b0  2**0
+  5 .debug_aranges 00000070  00000000  00000000  000002e4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000df8  00000000  00000000  00000318  2**0
+  6 .debug_info   00000e52  00000000  00000000  00000354  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000cb1  00000000  00000000  00001110  2**0
+  7 .debug_abbrev 00000cd9  00000000  00000000  000011a6  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000463  00000000  00000000  00001dc1  2**0
+  8 .debug_line   00000495  00000000  00000000  00001e7f  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000000b8  00000000  00000000  00002224  2**2
+  9 .debug_frame  000000f0  00000000  00000000  00002314  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000005c9  00000000  00000000  000022dc  2**0
+ 10 .debug_str    0000060b  00000000  00000000  00002404  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    000000e3  00000000  00000000  000028a5  2**0
+ 11 .debug_loc    0000014b  00000000  00000000  00002a0f  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000048  00000000  00000000  00002988  2**0
+ 12 .debug_ranges 00000050  00000000  00000000  00002b5a  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -168,22 +168,22 @@ Disassembly of section .text:
   fc:	1d 92       	st	X+, r1
 
 000000fe <.do_clear_bss_start>:
-  fe:	a2 30       	cpi	r26, 0x02	; 2
+  fe:	a4 30       	cpi	r26, 0x04	; 4
  100:	b2 07       	cpc	r27, r18
  102:	e1 f7       	brne	.-8      	; 0xfc <.do_clear_bss_loop>
- 104:	55 d0       	rcall	.+170    	; 0x1b0 <main>
- 106:	60 c0       	rjmp	.+192    	; 0x1c8 <_exit>
+ 104:	6f d0       	rcall	.+222    	; 0x1e4 <main>
+ 106:	7a c0       	rjmp	.+244    	; 0x1fc <_exit>
 
 00000108 <__bad_interrupt>:
  108:	7b cf       	rjmp	.-266    	; 0x0 <__vectors>
 
 0000010a <ADC_init>:
-    // save result
-    result = ADCL;
-    result = result | (ADCH << 8);
-
-    return result / 1024.0;
+    return readInterrupt;
 }
+
+void ADC_setInterruptHandler(AnalogAsyncGetHandler_t cb)
+{
+    interruptCallback = cb;
  10a:	83 e8       	ldi	r24, 0x83	; 131
  10c:	80 93 7a 00 	sts	0x007A, r24	; 0x80007a <__TEXT_REGION_LENGTH__+0x7c007a>
  110:	80 e4       	ldi	r24, 0x40	; 64
@@ -201,18 +201,12 @@ Disassembly of section .text:
  128:	08 95       	ret
 
 0000012a <ADC_getTenBitValueInterrupt>:
-
-uint16_t ADC_getTenBitValueInterrupt(uint16_t channel)
-{
-    // select the channel
-    ADMUX  = (ADMUX & 0xe0) | channel;
  12a:	ec e7       	ldi	r30, 0x7C	; 124
  12c:	f0 e0       	ldi	r31, 0x00	; 0
  12e:	20 81       	ld	r18, Z
  130:	20 7e       	andi	r18, 0xE0	; 224
  132:	28 2b       	or	r18, r24
  134:	20 83       	st	Z, r18
-    ADCSRB = (ADCSRB & 0xf7) | (channel >> 2);
  136:	eb e7       	ldi	r30, 0x7B	; 123
  138:	f0 e0       	ldi	r31, 0x00	; 0
  13a:	20 81       	ld	r18, Z
@@ -224,23 +218,19 @@ uint16_t ADC_getTenBitValueInterrupt(uint16_t channel)
  146:	97 7f       	andi	r25, 0xF7	; 247
  148:	89 2b       	or	r24, r25
  14a:	80 83       	st	Z, r24
-
-    // start conversion
-    ADCSRA |= (1 << ADSC);
  14c:	ea e7       	ldi	r30, 0x7A	; 122
  14e:	f0 e0       	ldi	r31, 0x00	; 0
  150:	80 81       	ld	r24, Z
  152:	80 64       	ori	r24, 0x40	; 64
  154:	80 83       	st	Z, r24
-
-    return readInterrupt;
-}
- 156:	80 91 00 02 	lds	r24, 0x0200	; 0x800200 <__DATA_REGION_ORIGIN__>
- 15a:	90 91 01 02 	lds	r25, 0x0201	; 0x800201 <__DATA_REGION_ORIGIN__+0x1>
+ 156:	80 91 02 02 	lds	r24, 0x0202	; 0x800202 <readInterrupt>
+ 15a:	90 91 03 02 	lds	r25, 0x0203	; 0x800203 <readInterrupt+0x1>
  15e:	08 95       	ret
 
 00000160 <__vector_29>:
+}
 
+/* NOTE: Local function implementations */
 ISR(ADC_vect)
 {
  160:	1f 92       	push	r1
@@ -248,77 +238,104 @@ ISR(ADC_vect)
  164:	0f b6       	in	r0, 0x3f	; 63
  166:	0f 92       	push	r0
  168:	11 24       	eor	r1, r1
- 16a:	2f 93       	push	r18
- 16c:	3f 93       	push	r19
- 16e:	8f 93       	push	r24
- 170:	9f 93       	push	r25
+ 16a:	0b b6       	in	r0, 0x3b	; 59
+ 16c:	0f 92       	push	r0
+ 16e:	2f 93       	push	r18
+ 170:	3f 93       	push	r19
+ 172:	4f 93       	push	r20
+ 174:	5f 93       	push	r21
+ 176:	6f 93       	push	r22
+ 178:	7f 93       	push	r23
+ 17a:	8f 93       	push	r24
+ 17c:	9f 93       	push	r25
+ 17e:	af 93       	push	r26
+ 180:	bf 93       	push	r27
+ 182:	ef 93       	push	r30
+ 184:	ff 93       	push	r31
     readInterrupt = ADCL;
- 172:	80 91 78 00 	lds	r24, 0x0078	; 0x800078 <__TEXT_REGION_LENGTH__+0x7c0078>
- 176:	90 e0       	ldi	r25, 0x00	; 0
- 178:	90 93 01 02 	sts	0x0201, r25	; 0x800201 <__DATA_REGION_ORIGIN__+0x1>
- 17c:	80 93 00 02 	sts	0x0200, r24	; 0x800200 <__DATA_REGION_ORIGIN__>
+ 186:	80 91 78 00 	lds	r24, 0x0078	; 0x800078 <__TEXT_REGION_LENGTH__+0x7c0078>
+ 18a:	28 2f       	mov	r18, r24
+ 18c:	30 e0       	ldi	r19, 0x00	; 0
+ 18e:	30 93 03 02 	sts	0x0203, r19	; 0x800203 <readInterrupt+0x1>
+ 192:	20 93 02 02 	sts	0x0202, r18	; 0x800202 <readInterrupt>
     readInterrupt = readInterrupt | (ADCH << 8);
- 180:	20 91 79 00 	lds	r18, 0x0079	; 0x800079 <__TEXT_REGION_LENGTH__+0x7c0079>
- 184:	30 e0       	ldi	r19, 0x00	; 0
- 186:	32 2f       	mov	r19, r18
- 188:	22 27       	eor	r18, r18
- 18a:	82 2b       	or	r24, r18
- 18c:	93 2b       	or	r25, r19
- 18e:	90 93 01 02 	sts	0x0201, r25	; 0x800201 <__DATA_REGION_ORIGIN__+0x1>
- 192:	80 93 00 02 	sts	0x0200, r24	; 0x800200 <__DATA_REGION_ORIGIN__>
- 196:	9f 91       	pop	r25
- 198:	8f 91       	pop	r24
- 19a:	3f 91       	pop	r19
- 19c:	2f 91       	pop	r18
- 19e:	0f 90       	pop	r0
- 1a0:	0f be       	out	0x3f, r0	; 63
- 1a2:	0f 90       	pop	r0
- 1a4:	1f 90       	pop	r1
- 1a6:	18 95       	reti
+ 196:	80 91 79 00 	lds	r24, 0x0079	; 0x800079 <__TEXT_REGION_LENGTH__+0x7c0079>
+ 19a:	90 e0       	ldi	r25, 0x00	; 0
+ 19c:	98 2f       	mov	r25, r24
+ 19e:	88 27       	eor	r24, r24
+ 1a0:	82 2b       	or	r24, r18
+ 1a2:	93 2b       	or	r25, r19
+ 1a4:	90 93 03 02 	sts	0x0203, r25	; 0x800203 <readInterrupt+0x1>
+ 1a8:	80 93 02 02 	sts	0x0202, r24	; 0x800202 <readInterrupt>
 
-000001a8 <IO_init>:
+    interruptCallback(readInterrupt);
+ 1ac:	e0 91 00 02 	lds	r30, 0x0200	; 0x800200 <__DATA_REGION_ORIGIN__>
+ 1b0:	f0 91 01 02 	lds	r31, 0x0201	; 0x800201 <__DATA_REGION_ORIGIN__+0x1>
+ 1b4:	19 95       	eicall
+ 1b6:	ff 91       	pop	r31
+ 1b8:	ef 91       	pop	r30
+ 1ba:	bf 91       	pop	r27
+ 1bc:	af 91       	pop	r26
+ 1be:	9f 91       	pop	r25
+ 1c0:	8f 91       	pop	r24
+ 1c2:	7f 91       	pop	r23
+ 1c4:	6f 91       	pop	r22
+ 1c6:	5f 91       	pop	r21
+ 1c8:	4f 91       	pop	r20
+ 1ca:	3f 91       	pop	r19
+ 1cc:	2f 91       	pop	r18
+ 1ce:	0f 90       	pop	r0
+ 1d0:	0b be       	out	0x3b, r0	; 59
+ 1d2:	0f 90       	pop	r0
+ 1d4:	0f be       	out	0x3f, r0	; 63
+ 1d6:	0f 90       	pop	r0
+ 1d8:	1f 90       	pop	r1
+ 1da:	18 95       	reti
+
+000001dc <IO_init>:
 
 /* NOTE: Function implementations */
 void IO_init(void)
 {
     // set portA as an output
     DDRA  = 0xFF;
- 1a8:	8f ef       	ldi	r24, 0xFF	; 255
- 1aa:	81 b9       	out	0x01, r24	; 1
+ 1dc:	8f ef       	ldi	r24, 0xFF	; 255
+ 1de:	81 b9       	out	0x01, r24	; 1
     PORTA = 0x00;
- 1ac:	12 b8       	out	0x02, r1	; 2
- 1ae:	08 95       	ret
+ 1e0:	12 b8       	out	0x02, r1	; 2
+ 1e2:	08 95       	ret
 
-000001b0 <main>:
+000001e4 <main>:
 
 /* NOTE: Application implementation */
 // the main loop of the function, provided to us
 int main(void)
 {
     ADC_initInterrupt();
- 1b0:	b5 df       	rcall	.-150    	; 0x11c <ADC_initInterrupt>
+ 1e4:	9b df       	rcall	.-202    	; 0x11c <ADC_initInterrupt>
 
     IO_init();
- 1b2:	fa df       	rcall	.-12     	; 0x1a8 <IO_init>
- 1b4:	78 94       	sei
+ 1e6:	fa df       	rcall	.-12     	; 0x1dc <IO_init>
+ 1e8:	78 94       	sei
 
     sei();
- 1b6:	80 e0       	ldi	r24, 0x00	; 0
+ 1ea:	80 e0       	ldi	r24, 0x00	; 0
 
     while(1)
     {
+        // get the value and bit shift it right 2
         PORTA = ADC_getTenBitValueInterrupt(0) >> 2;
- 1b8:	90 e0       	ldi	r25, 0x00	; 0
- 1ba:	b7 df       	rcall	.-146    	; 0x12a <ADC_getTenBitValueInterrupt>
- 1bc:	96 95       	lsr	r25
- 1be:	87 95       	ror	r24
- 1c0:	96 95       	lsr	r25
- 1c2:	87 95       	ror	r24
- 1c4:	82 b9       	out	0x02, r24	; 2
- 1c6:	f7 cf       	rjmp	.-18     	; 0x1b6 <main+0x6>
+ 1ec:	90 e0       	ldi	r25, 0x00	; 0
+ 1ee:	9d df       	rcall	.-198    	; 0x12a <ADC_getTenBitValueInterrupt>
+ 1f0:	96 95       	lsr	r25
+ 1f2:	87 95       	ror	r24
+ 1f4:	96 95       	lsr	r25
+ 1f6:	87 95       	ror	r24
+ 1f8:	82 b9       	out	0x02, r24	; 2
+ 1fa:	f7 cf       	rjmp	.-18     	; 0x1ea <main+0x6>
 
-000001c8 <_exit>:
- 1c8:	f8 94       	cli
+000001fc <_exit>:
+ 1fc:	f8 94       	cli
 
-000001ca <__stop_program>:
- 1ca:	ff cf       	rjmp	.-2      	; 0x1ca <__stop_program>
+000001fe <__stop_program>:
+ 1fe:	ff cf       	rjmp	.-2      	; 0x1fe <__stop_program>

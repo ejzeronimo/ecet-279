@@ -11,22 +11,25 @@
 /* NOTE: Includes */
 #include "StepperMotor.h"
 
+#if !defined(F_CPU)
+    #define F_CPU 16000000UL
+#endif
 // allows for variable delay
 #define __DELAY_BACKWARD_COMPATIBLE__
-#define F_CPU 16000000UL
+
 #include <util/delay.h>
 
 /* NOTE: Local declarations */
+// local struct for function return
 typedef struct StepperMotorModeData_t
 {
     // size of the array
-    size_t                arraySize;
+    uint8_t               arraySize;
     // pointer to the array
     uint8_t const * const pArray;
     // number of steps to take for desired rotation
     uint32_t              steps;
 } StepperMotorModeData_t;
-
 // returns the amount of steps needed for the given mode
 // rotation is in radians (I think)
 StepperMotorModeData_t getModeAndSteps(StepperMotorRunMode_t mode, double rotation);
@@ -39,7 +42,6 @@ static uint8_t sWaveStepMap[4] = {
     0x04,
     0x08,
 };
-
 // implementation of the full step map
 static uint8_t sFullStepMap[4] = {
     0x03,
@@ -47,7 +49,6 @@ static uint8_t sFullStepMap[4] = {
     0x0c,
     0x09,
 };
-
 // implementation of the wave step map
 static uint8_t sHalfStepMap[8] = {
     0x09,
@@ -59,12 +60,11 @@ static uint8_t sHalfStepMap[8] = {
     0x0c,
     0x08,
 };
-
 // instance pointer to the motor port
-static volatile uint8_t * sMotorPort;
+static uint8_t * sMotorPort;
 
 /* NOTE: Function implementations */
-void SM_init(volatile uint8_t * pRegister, volatile uint8_t * pPort)
+void SM_init(uint8_t volatile * const pRegister, uint8_t volatile * const pPort)
 {
     // configure port register
     *pRegister |= 0x0f;
@@ -73,7 +73,7 @@ void SM_init(volatile uint8_t * pRegister, volatile uint8_t * pPort)
     *pPort = (*pPort & 0xf0) | 0x00;
 
     // save the port pointer to the static var
-    sMotorPort = pPort;
+    sMotorPort = (uint8_t *)pPort;
 }
 
 void SM_move(StepperMotorRunMode_t mode, double distance)
@@ -122,27 +122,27 @@ void SM_moveTime(StepperMotorRunMode_t mode, bool direction, double time, double
 /* NOTE: Local function implementations */
 StepperMotorModeData_t getModeAndSteps(StepperMotorRunMode_t mode, double rotation)
 {
-    uint8_t * pArray = NULL;
-    uint8_t   size   = 0;
-    uint32_t  steps  = 0;
+    uint8_t * pArray;
+    uint8_t   size  = 0;
+    uint32_t  steps = 0;
 
     switch(mode)
     {
-        case Wave:
+        case stepperModeWave:
         {
             pArray = sWaveStepMap;
             size   = sizeof(sWaveStepMap) / sizeof(sWaveStepMap[0]);
             steps  = (rotation * 2048);
         }
         break;
-        case Full:
+        case stepperModeFull:
         {
             pArray = sFullStepMap;
             size   = sizeof(sFullStepMap) / sizeof(sFullStepMap[0]);
             steps  = (rotation * 2048);
         }
         break;
-        case Half:
+        case stepperModeHalf:
         {
             pArray = sHalfStepMap;
             size   = sizeof(sHalfStepMap) / sizeof(sHalfStepMap[0]);

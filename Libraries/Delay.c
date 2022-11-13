@@ -11,12 +11,15 @@
 /* NOTE: Includes */
 #include "Delay.h"
 
-#include <avr/io.h>
+#if !defined(F_CPU)
+    #define F_CPU 16000000UL
+#endif
 
-/* NOTE: Local declarations */
-// TODO: None
+#include <avr/io.h>
+#include <avr/interrupt.h>
 
 /* NOTE: Global Variables */
+// internal tick tracker
 static uint16_t tick = 0;
 
 /* NOTE: Local function implementations */
@@ -44,7 +47,7 @@ void DLY_initInterrupt(void)
 
 void DLY_ms(double ms)
 {
-    size_t time = (((ms / 1000.0) * F_CPU) / 1024);
+    uint32_t time = (((ms / 1000.0) * F_CPU) / 1024);
 
     if(ms <= 16)
     {
@@ -69,7 +72,7 @@ void DLY_ms(double ms)
     {
         OCR0A = (((1 / 1000.0) * F_CPU) / 1024);
 
-        for(size_t i = 0; i < ms; i++)
+        for(uint32_t i = 0; i < ms; i++)
         {
             // prescalar of 1024
             TCCR0B = 0x05;
@@ -95,7 +98,8 @@ uint16_t DLY_getTick(void)
     return tick;
 }
 
-void DLY_setTick(uint16_t t){
+void DLY_setTick(uint16_t t)
+{
     tick = t;
 }
 

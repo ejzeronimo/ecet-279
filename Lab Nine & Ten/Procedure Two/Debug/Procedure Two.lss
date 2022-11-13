@@ -3,31 +3,31 @@ Procedure Two.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800200  00800200  0000026e  2**0
+  0 .data         00000000  00800200  00800200  000004da  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         000001fa  00000000  00000000  00000074  2**1
+  1 .text         00000466  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000002  00800200  00800200  0000026e  2**0
+  2 .bss          00000008  00800200  00800200  000004da  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  0000026e  2**0
+  3 .comment      00000030  00000000  00000000  000004da  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000002a0  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  0000050c  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000078  00000000  00000000  000002e0  2**0
+  5 .debug_aranges 000000a8  00000000  00000000  0000054c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000ee9  00000000  00000000  00000358  2**0
+  6 .debug_info   000012f5  00000000  00000000  000005f4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000d1d  00000000  00000000  00001241  2**0
+  7 .debug_abbrev 00000d98  00000000  00000000  000018e9  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000533  00000000  00000000  00001f5e  2**0
+  8 .debug_line   00000655  00000000  00000000  00002681  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000110  00000000  00000000  00002494  2**2
+  9 .debug_frame  0000028c  00000000  00000000  00002cd8  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000617  00000000  00000000  000025a4  2**0
+ 10 .debug_str    000006e7  00000000  00000000  00002f64  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    0000015f  00000000  00000000  00002bbb  2**0
+ 11 .debug_loc    000007de  00000000  00000000  0000364b  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000058  00000000  00000000  00002d1a  2**0
+ 12 .debug_ranges 00000088  00000000  00000000  00003e29  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -83,7 +83,7 @@ Disassembly of section .text:
   5e:	00 00       	nop
   60:	53 c0       	rjmp	.+166    	; 0x108 <__bad_interrupt>
   62:	00 00       	nop
-  64:	80 c0       	rjmp	.+256    	; 0x166 <__vector_25>
+  64:	0d c1       	rjmp	.+538    	; 0x280 <__vector_25>
   66:	00 00       	nop
   68:	4f c0       	rjmp	.+158    	; 0x108 <__bad_interrupt>
   6a:	00 00       	nop
@@ -105,7 +105,7 @@ Disassembly of section .text:
   8a:	00 00       	nop
   8c:	3d c0       	rjmp	.+122    	; 0x108 <__bad_interrupt>
   8e:	00 00       	nop
-  90:	3b c0       	rjmp	.+118    	; 0x108 <__bad_interrupt>
+  90:	24 c1       	rjmp	.+584    	; 0x2da <__vector_36>
   92:	00 00       	nop
   94:	39 c0       	rjmp	.+114    	; 0x108 <__bad_interrupt>
   96:	00 00       	nop
@@ -135,13 +135,13 @@ Disassembly of section .text:
   c6:	00 00       	nop
   c8:	1f c0       	rjmp	.+62     	; 0x108 <__bad_interrupt>
   ca:	00 00       	nop
-  cc:	1d c0       	rjmp	.+58     	; 0x108 <__bad_interrupt>
+  cc:	33 c1       	rjmp	.+614    	; 0x334 <__vector_51>
   ce:	00 00       	nop
   d0:	1b c0       	rjmp	.+54     	; 0x108 <__bad_interrupt>
   d2:	00 00       	nop
   d4:	19 c0       	rjmp	.+50     	; 0x108 <__bad_interrupt>
   d6:	00 00       	nop
-  d8:	17 c0       	rjmp	.+46     	; 0x108 <__bad_interrupt>
+  d8:	5a c1       	rjmp	.+692    	; 0x38e <__vector_54>
   da:	00 00       	nop
   dc:	15 c0       	rjmp	.+42     	; 0x108 <__bad_interrupt>
   de:	00 00       	nop
@@ -168,188 +168,520 @@ Disassembly of section .text:
   fc:	1d 92       	st	X+, r1
 
 000000fe <.do_clear_bss_start>:
-  fe:	a2 30       	cpi	r26, 0x02	; 2
+  fe:	a8 30       	cpi	r26, 0x08	; 8
  100:	b2 07       	cpc	r27, r18
  102:	e1 f7       	brne	.-8      	; 0xfc <.do_clear_bss_loop>
- 104:	65 d0       	rcall	.+202    	; 0x1d0 <main>
- 106:	77 c0       	rjmp	.+238    	; 0x1f6 <_exit>
+ 104:	79 d1       	rcall	.+754    	; 0x3f8 <main>
+ 106:	ad c1       	rjmp	.+858    	; 0x462 <_exit>
 
 00000108 <__bad_interrupt>:
  108:	7b cf       	rjmp	.-266    	; 0x0 <__vectors>
 
-0000010a <SERIAL_uartInitAsync>:
+0000010a <SERIAL_uartInit>:
+        // wait for uart tx to be ready then send out uart
+        sendCharHelper(port, pWorker);
 
-    // save to the char
-    ch = UDR0;
-
-    return ch;
+        pWorker++;
+    }
 }
- 10a:	10 92 c0 00 	sts	0x00C0, r1	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7c00c0>
- 10e:	88 e9       	ldi	r24, 0x98	; 152
- 110:	80 93 c1 00 	sts	0x00C1, r24	; 0x8000c1 <__TEXT_REGION_LENGTH__+0x7c00c1>
- 114:	86 e0       	ldi	r24, 0x06	; 6
- 116:	80 93 c2 00 	sts	0x00C2, r24	; 0x8000c2 <__TEXT_REGION_LENGTH__+0x7c00c2>
- 11a:	87 e6       	ldi	r24, 0x67	; 103
- 11c:	80 93 c4 00 	sts	0x00C4, r24	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7c00c4>
- 120:	10 92 c5 00 	sts	0x00C5, r1	; 0x8000c5 <__TEXT_REGION_LENGTH__+0x7c00c5>
- 124:	08 95       	ret
+ 10a:	cf 93       	push	r28
+ 10c:	c8 2f       	mov	r28, r24
+ 10e:	9a 01       	movw	r18, r20
+ 110:	ab 01       	movw	r20, r22
+ 112:	60 e4       	ldi	r22, 0x40	; 64
+ 114:	72 e4       	ldi	r23, 0x42	; 66
+ 116:	8f e0       	ldi	r24, 0x0F	; 15
+ 118:	90 e0       	ldi	r25, 0x00	; 0
+ 11a:	81 d1       	rcall	.+770    	; 0x41e <__udivmodsi4>
+ 11c:	21 50       	subi	r18, 0x01	; 1
+ 11e:	31 09       	sbc	r19, r1
+ 120:	c2 30       	cpi	r28, 0x02	; 2
+ 122:	11 f1       	breq	.+68     	; 0x168 <SERIAL_uartInit+0x5e>
+ 124:	c3 30       	cpi	r28, 0x03	; 3
+ 126:	79 f1       	breq	.+94     	; 0x186 <SERIAL_uartInit+0x7c>
+ 128:	c1 30       	cpi	r28, 0x01	; 1
+ 12a:	79 f0       	breq	.+30     	; 0x14a <SERIAL_uartInit+0x40>
+ 12c:	10 92 c0 00 	sts	0x00C0, r1	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7c00c0>
+ 130:	88 e1       	ldi	r24, 0x18	; 24
+ 132:	80 93 c1 00 	sts	0x00C1, r24	; 0x8000c1 <__TEXT_REGION_LENGTH__+0x7c00c1>
+ 136:	86 e0       	ldi	r24, 0x06	; 6
+ 138:	80 93 c2 00 	sts	0x00C2, r24	; 0x8000c2 <__TEXT_REGION_LENGTH__+0x7c00c2>
+ 13c:	20 93 c4 00 	sts	0x00C4, r18	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7c00c4>
+ 140:	83 2f       	mov	r24, r19
+ 142:	8f 70       	andi	r24, 0x0F	; 15
+ 144:	80 93 c5 00 	sts	0x00C5, r24	; 0x8000c5 <__TEXT_REGION_LENGTH__+0x7c00c5>
+ 148:	2c c0       	rjmp	.+88     	; 0x1a2 <SERIAL_uartInit+0x98>
+ 14a:	10 92 c8 00 	sts	0x00C8, r1	; 0x8000c8 <__TEXT_REGION_LENGTH__+0x7c00c8>
+ 14e:	88 e1       	ldi	r24, 0x18	; 24
+ 150:	80 93 c9 00 	sts	0x00C9, r24	; 0x8000c9 <__TEXT_REGION_LENGTH__+0x7c00c9>
+ 154:	86 e0       	ldi	r24, 0x06	; 6
+ 156:	80 93 ca 00 	sts	0x00CA, r24	; 0x8000ca <__TEXT_REGION_LENGTH__+0x7c00ca>
+ 15a:	20 93 cc 00 	sts	0x00CC, r18	; 0x8000cc <__TEXT_REGION_LENGTH__+0x7c00cc>
+ 15e:	83 2f       	mov	r24, r19
+ 160:	8f 70       	andi	r24, 0x0F	; 15
+ 162:	80 93 cd 00 	sts	0x00CD, r24	; 0x8000cd <__TEXT_REGION_LENGTH__+0x7c00cd>
+ 166:	1d c0       	rjmp	.+58     	; 0x1a2 <SERIAL_uartInit+0x98>
+ 168:	10 92 d0 00 	sts	0x00D0, r1	; 0x8000d0 <__TEXT_REGION_LENGTH__+0x7c00d0>
+ 16c:	88 e1       	ldi	r24, 0x18	; 24
+ 16e:	80 93 d1 00 	sts	0x00D1, r24	; 0x8000d1 <__TEXT_REGION_LENGTH__+0x7c00d1>
+ 172:	86 e0       	ldi	r24, 0x06	; 6
+ 174:	80 93 d2 00 	sts	0x00D2, r24	; 0x8000d2 <__TEXT_REGION_LENGTH__+0x7c00d2>
+ 178:	20 93 d4 00 	sts	0x00D4, r18	; 0x8000d4 <__TEXT_REGION_LENGTH__+0x7c00d4>
+ 17c:	83 2f       	mov	r24, r19
+ 17e:	8f 70       	andi	r24, 0x0F	; 15
+ 180:	80 93 d5 00 	sts	0x00D5, r24	; 0x8000d5 <__TEXT_REGION_LENGTH__+0x7c00d5>
+ 184:	0e c0       	rjmp	.+28     	; 0x1a2 <SERIAL_uartInit+0x98>
+ 186:	10 92 30 01 	sts	0x0130, r1	; 0x800130 <__TEXT_REGION_LENGTH__+0x7c0130>
+ 18a:	88 e1       	ldi	r24, 0x18	; 24
+ 18c:	80 93 31 01 	sts	0x0131, r24	; 0x800131 <__TEXT_REGION_LENGTH__+0x7c0131>
+ 190:	86 e0       	ldi	r24, 0x06	; 6
+ 192:	80 93 32 01 	sts	0x0132, r24	; 0x800132 <__TEXT_REGION_LENGTH__+0x7c0132>
+ 196:	20 93 34 01 	sts	0x0134, r18	; 0x800134 <__TEXT_REGION_LENGTH__+0x7c0134>
+ 19a:	83 2f       	mov	r24, r19
+ 19c:	8f 70       	andi	r24, 0x0F	; 15
+ 19e:	80 93 35 01 	sts	0x0135, r24	; 0x800135 <__TEXT_REGION_LENGTH__+0x7c0135>
+ 1a2:	cf 91       	pop	r28
+ 1a4:	08 95       	ret
 
-00000126 <SERIAL_uartSend>:
- 126:	dc 01       	movw	r26, r24
- 128:	20 e0       	ldi	r18, 0x00	; 0
- 12a:	30 e0       	ldi	r19, 0x00	; 0
- 12c:	0c c0       	rjmp	.+24     	; 0x146 <SERIAL_uartSend+0x20>
- 12e:	90 91 c0 00 	lds	r25, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7c00c0>
- 132:	95 ff       	sbrs	r25, 5
- 134:	fc cf       	rjmp	.-8      	; 0x12e <SERIAL_uartSend+0x8>
- 136:	fd 01       	movw	r30, r26
- 138:	e2 0f       	add	r30, r18
- 13a:	f3 1f       	adc	r31, r19
- 13c:	80 81       	ld	r24, Z
- 13e:	80 93 c6 00 	sts	0x00C6, r24	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7c00c6>
- 142:	2f 5f       	subi	r18, 0xFF	; 255
- 144:	3f 4f       	sbci	r19, 0xFF	; 255
- 146:	fd 01       	movw	r30, r26
- 148:	01 90       	ld	r0, Z+
- 14a:	00 20       	and	r0, r0
- 14c:	e9 f7       	brne	.-6      	; 0x148 <SERIAL_uartSend+0x22>
- 14e:	31 97       	sbiw	r30, 0x01	; 1
- 150:	ea 1b       	sub	r30, r26
- 152:	fb 0b       	sbc	r31, r27
- 154:	2e 17       	cp	r18, r30
- 156:	3f 07       	cpc	r19, r31
- 158:	50 f3       	brcs	.-44     	; 0x12e <SERIAL_uartSend+0x8>
- 15a:	08 95       	ret
+000001a6 <SERIAL_uartInitAsync>:
+ 1a6:	cf 93       	push	r28
+ 1a8:	c8 2f       	mov	r28, r24
+ 1aa:	af df       	rcall	.-162    	; 0x10a <SERIAL_uartInit>
+ 1ac:	c2 30       	cpi	r28, 0x02	; 2
+ 1ae:	61 f0       	breq	.+24     	; 0x1c8 <SERIAL_uartInitAsync+0x22>
+ 1b0:	c3 30       	cpi	r28, 0x03	; 3
+ 1b2:	71 f0       	breq	.+28     	; 0x1d0 <SERIAL_uartInitAsync+0x2a>
+ 1b4:	c1 30       	cpi	r28, 0x01	; 1
+ 1b6:	21 f0       	breq	.+8      	; 0x1c0 <SERIAL_uartInitAsync+0x1a>
+ 1b8:	88 e9       	ldi	r24, 0x98	; 152
+ 1ba:	80 93 c1 00 	sts	0x00C1, r24	; 0x8000c1 <__TEXT_REGION_LENGTH__+0x7c00c1>
+ 1be:	0b c0       	rjmp	.+22     	; 0x1d6 <SERIAL_uartInitAsync+0x30>
+ 1c0:	88 e9       	ldi	r24, 0x98	; 152
+ 1c2:	80 93 c9 00 	sts	0x00C9, r24	; 0x8000c9 <__TEXT_REGION_LENGTH__+0x7c00c9>
+ 1c6:	07 c0       	rjmp	.+14     	; 0x1d6 <SERIAL_uartInitAsync+0x30>
+ 1c8:	88 e9       	ldi	r24, 0x98	; 152
+ 1ca:	80 93 d1 00 	sts	0x00D1, r24	; 0x8000d1 <__TEXT_REGION_LENGTH__+0x7c00d1>
+ 1ce:	03 c0       	rjmp	.+6      	; 0x1d6 <SERIAL_uartInitAsync+0x30>
+ 1d0:	88 e9       	ldi	r24, 0x98	; 152
+ 1d2:	80 93 31 01 	sts	0x0131, r24	; 0x800131 <__TEXT_REGION_LENGTH__+0x7c0131>
+ 1d6:	cf 91       	pop	r28
+ 1d8:	08 95       	ret
 
-0000015c <SERIAL_uartAsyncGetHandler>:
+000001da <SERIAL_uartAsyncGetHandler>:
+ 1da:	e8 2f       	mov	r30, r24
+ 1dc:	f0 e0       	ldi	r31, 0x00	; 0
+ 1de:	ee 0f       	add	r30, r30
+ 1e0:	ff 1f       	adc	r31, r31
+ 1e2:	e0 50       	subi	r30, 0x00	; 0
+ 1e4:	fe 4f       	sbci	r31, 0xFE	; 254
+ 1e6:	71 83       	std	Z+1, r23	; 0x01
+ 1e8:	60 83       	st	Z, r22
+ 1ea:	08 95       	ret
 
-void SERIAL_uartAsyncGetHandler(asyncGetHandler_t cb)
+000001ec <pollThenSetHelper>:
+ 1ec:	fc 01       	movw	r30, r24
+ 1ee:	90 81       	ld	r25, Z
+ 1f0:	96 23       	and	r25, r22
+ 1f2:	e9 f3       	breq	.-6      	; 0x1ee <pollThenSetHelper+0x2>
+ 1f4:	f9 01       	movw	r30, r18
+ 1f6:	80 81       	ld	r24, Z
+ 1f8:	fa 01       	movw	r30, r20
+ 1fa:	80 83       	st	Z, r24
+ 1fc:	08 95       	ret
+
+000001fe <sendCharHelper>:
+ 1fe:	9b 01       	movw	r18, r22
+ 200:	82 30       	cpi	r24, 0x02	; 2
+ 202:	91 f0       	breq	.+36     	; 0x228 <sendCharHelper+0x2a>
+ 204:	83 30       	cpi	r24, 0x03	; 3
+ 206:	b9 f0       	breq	.+46     	; 0x236 <sendCharHelper+0x38>
+ 208:	81 30       	cpi	r24, 0x01	; 1
+ 20a:	39 f0       	breq	.+14     	; 0x21a <sendCharHelper+0x1c>
+ 20c:	46 ec       	ldi	r20, 0xC6	; 198
+ 20e:	50 e0       	ldi	r21, 0x00	; 0
+ 210:	60 e2       	ldi	r22, 0x20	; 32
+ 212:	80 ec       	ldi	r24, 0xC0	; 192
+ 214:	90 e0       	ldi	r25, 0x00	; 0
+ 216:	ea cf       	rjmp	.-44     	; 0x1ec <pollThenSetHelper>
+ 218:	08 95       	ret
+ 21a:	4e ec       	ldi	r20, 0xCE	; 206
+ 21c:	50 e0       	ldi	r21, 0x00	; 0
+ 21e:	60 e2       	ldi	r22, 0x20	; 32
+ 220:	88 ec       	ldi	r24, 0xC8	; 200
+ 222:	90 e0       	ldi	r25, 0x00	; 0
+ 224:	e3 cf       	rjmp	.-58     	; 0x1ec <pollThenSetHelper>
+ 226:	08 95       	ret
+ 228:	46 ed       	ldi	r20, 0xD6	; 214
+ 22a:	50 e0       	ldi	r21, 0x00	; 0
+ 22c:	60 e2       	ldi	r22, 0x20	; 32
+ 22e:	80 ed       	ldi	r24, 0xD0	; 208
+ 230:	90 e0       	ldi	r25, 0x00	; 0
+ 232:	dc cf       	rjmp	.-72     	; 0x1ec <pollThenSetHelper>
+ 234:	08 95       	ret
+ 236:	46 e3       	ldi	r20, 0x36	; 54
+ 238:	51 e0       	ldi	r21, 0x01	; 1
+ 23a:	60 e2       	ldi	r22, 0x20	; 32
+ 23c:	80 e3       	ldi	r24, 0x30	; 48
+ 23e:	91 e0       	ldi	r25, 0x01	; 1
+ 240:	d5 cf       	rjmp	.-86     	; 0x1ec <pollThenSetHelper>
+ 242:	08 95       	ret
+
+00000244 <SERIAL_uartSendFixed>:
+
+void SERIAL_uartSendFixed(SerialPortSelector_t port, char const * const pTransmitString, uint16_t length)
 {
-    // set the interal callback pointer to the one we were given
-    interruptCallback = cb;
- 15c:	90 93 01 02 	sts	0x0201, r25	; 0x800201 <_edata+0x1>
- 160:	80 93 00 02 	sts	0x0200, r24	; 0x800200 <_edata>
- 164:	08 95       	ret
+ 244:	df 92       	push	r13
+ 246:	ef 92       	push	r14
+ 248:	ff 92       	push	r15
+ 24a:	0f 93       	push	r16
+ 24c:	1f 93       	push	r17
+ 24e:	cf 93       	push	r28
+ 250:	df 93       	push	r29
+ 252:	d8 2e       	mov	r13, r24
+ 254:	7b 01       	movw	r14, r22
+ 256:	8a 01       	movw	r16, r20
+    for(uint16_t i = 0; i < length; i++)
+ 258:	c0 e0       	ldi	r28, 0x00	; 0
+ 25a:	d0 e0       	ldi	r29, 0x00	; 0
+ 25c:	06 c0       	rjmp	.+12     	; 0x26a <SERIAL_uartSendFixed+0x26>
+    {
+        // wait for uart tx to be ready then send out uart
+        sendCharHelper(port, pTransmitString + i);
+ 25e:	b7 01       	movw	r22, r14
+ 260:	6c 0f       	add	r22, r28
+ 262:	7d 1f       	adc	r23, r29
+ 264:	8d 2d       	mov	r24, r13
+ 266:	cb df       	rcall	.-106    	; 0x1fe <sendCharHelper>
+    }
+}
 
-00000166 <__vector_25>:
+void SERIAL_uartSendFixed(SerialPortSelector_t port, char const * const pTransmitString, uint16_t length)
+{
+    for(uint16_t i = 0; i < length; i++)
+ 268:	21 96       	adiw	r28, 0x01	; 1
+ 26a:	c0 17       	cp	r28, r16
+ 26c:	d1 07       	cpc	r29, r17
+ 26e:	b8 f3       	brcs	.-18     	; 0x25e <SERIAL_uartSendFixed+0x1a>
+    {
+        // wait for uart tx to be ready then send out uart
+        sendCharHelper(port, pTransmitString + i);
+    }
+}
+ 270:	df 91       	pop	r29
+ 272:	cf 91       	pop	r28
+ 274:	1f 91       	pop	r17
+ 276:	0f 91       	pop	r16
+ 278:	ff 90       	pop	r15
+ 27a:	ef 90       	pop	r14
+ 27c:	df 90       	pop	r13
+ 27e:	08 95       	ret
+
+00000280 <__vector_25>:
+            break;
+    }
 }
 
 ISR(USART0_RX_vect)
 {
- 166:	1f 92       	push	r1
- 168:	0f 92       	push	r0
- 16a:	0f b6       	in	r0, 0x3f	; 63
- 16c:	0f 92       	push	r0
- 16e:	11 24       	eor	r1, r1
- 170:	0b b6       	in	r0, 0x3b	; 59
- 172:	0f 92       	push	r0
- 174:	2f 93       	push	r18
- 176:	3f 93       	push	r19
- 178:	4f 93       	push	r20
- 17a:	5f 93       	push	r21
- 17c:	6f 93       	push	r22
- 17e:	7f 93       	push	r23
- 180:	8f 93       	push	r24
- 182:	9f 93       	push	r25
- 184:	af 93       	push	r26
- 186:	bf 93       	push	r27
- 188:	ef 93       	push	r30
- 18a:	ff 93       	push	r31
-    interruptCallback(UDR0);
- 18c:	80 91 c6 00 	lds	r24, 0x00C6	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7c00c6>
- 190:	e0 91 00 02 	lds	r30, 0x0200	; 0x800200 <_edata>
- 194:	f0 91 01 02 	lds	r31, 0x0201	; 0x800201 <_edata+0x1>
- 198:	19 95       	eicall
- 19a:	ff 91       	pop	r31
- 19c:	ef 91       	pop	r30
- 19e:	bf 91       	pop	r27
- 1a0:	af 91       	pop	r26
- 1a2:	9f 91       	pop	r25
- 1a4:	8f 91       	pop	r24
- 1a6:	7f 91       	pop	r23
- 1a8:	6f 91       	pop	r22
- 1aa:	5f 91       	pop	r21
- 1ac:	4f 91       	pop	r20
- 1ae:	3f 91       	pop	r19
- 1b0:	2f 91       	pop	r18
- 1b2:	0f 90       	pop	r0
- 1b4:	0b be       	out	0x3b, r0	; 59
- 1b6:	0f 90       	pop	r0
- 1b8:	0f be       	out	0x3f, r0	; 63
- 1ba:	0f 90       	pop	r0
- 1bc:	1f 90       	pop	r1
- 1be:	18 95       	reti
+ 280:	1f 92       	push	r1
+ 282:	0f 92       	push	r0
+ 284:	0f b6       	in	r0, 0x3f	; 63
+ 286:	0f 92       	push	r0
+ 288:	11 24       	eor	r1, r1
+ 28a:	0b b6       	in	r0, 0x3b	; 59
+ 28c:	0f 92       	push	r0
+ 28e:	2f 93       	push	r18
+ 290:	3f 93       	push	r19
+ 292:	4f 93       	push	r20
+ 294:	5f 93       	push	r21
+ 296:	6f 93       	push	r22
+ 298:	7f 93       	push	r23
+ 29a:	8f 93       	push	r24
+ 29c:	9f 93       	push	r25
+ 29e:	af 93       	push	r26
+ 2a0:	bf 93       	push	r27
+ 2a2:	ef 93       	push	r30
+ 2a4:	ff 93       	push	r31
+    interruptCallback[usart_0](UDR0);
+ 2a6:	e0 91 00 02 	lds	r30, 0x0200	; 0x800200 <__DATA_REGION_ORIGIN__>
+ 2aa:	f0 91 01 02 	lds	r31, 0x0201	; 0x800201 <__DATA_REGION_ORIGIN__+0x1>
+ 2ae:	80 91 c6 00 	lds	r24, 0x00C6	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7c00c6>
+ 2b2:	19 95       	eicall
+}
+ 2b4:	ff 91       	pop	r31
+ 2b6:	ef 91       	pop	r30
+ 2b8:	bf 91       	pop	r27
+ 2ba:	af 91       	pop	r26
+ 2bc:	9f 91       	pop	r25
+ 2be:	8f 91       	pop	r24
+ 2c0:	7f 91       	pop	r23
+ 2c2:	6f 91       	pop	r22
+ 2c4:	5f 91       	pop	r21
+ 2c6:	4f 91       	pop	r20
+ 2c8:	3f 91       	pop	r19
+ 2ca:	2f 91       	pop	r18
+ 2cc:	0f 90       	pop	r0
+ 2ce:	0b be       	out	0x3b, r0	; 59
+ 2d0:	0f 90       	pop	r0
+ 2d2:	0f be       	out	0x3f, r0	; 63
+ 2d4:	0f 90       	pop	r0
+ 2d6:	1f 90       	pop	r1
+ 2d8:	18 95       	reti
 
-000001c0 <asyncGetHandler>:
+000002da <__vector_36>:
+
+ISR(USART1_RX_vect)
+{
+ 2da:	1f 92       	push	r1
+ 2dc:	0f 92       	push	r0
+ 2de:	0f b6       	in	r0, 0x3f	; 63
+ 2e0:	0f 92       	push	r0
+ 2e2:	11 24       	eor	r1, r1
+ 2e4:	0b b6       	in	r0, 0x3b	; 59
+ 2e6:	0f 92       	push	r0
+ 2e8:	2f 93       	push	r18
+ 2ea:	3f 93       	push	r19
+ 2ec:	4f 93       	push	r20
+ 2ee:	5f 93       	push	r21
+ 2f0:	6f 93       	push	r22
+ 2f2:	7f 93       	push	r23
+ 2f4:	8f 93       	push	r24
+ 2f6:	9f 93       	push	r25
+ 2f8:	af 93       	push	r26
+ 2fa:	bf 93       	push	r27
+ 2fc:	ef 93       	push	r30
+ 2fe:	ff 93       	push	r31
+    interruptCallback[usart_1](UDR1);
+ 300:	e0 91 02 02 	lds	r30, 0x0202	; 0x800202 <__DATA_REGION_ORIGIN__+0x2>
+ 304:	f0 91 03 02 	lds	r31, 0x0203	; 0x800203 <__DATA_REGION_ORIGIN__+0x3>
+ 308:	80 91 ce 00 	lds	r24, 0x00CE	; 0x8000ce <__TEXT_REGION_LENGTH__+0x7c00ce>
+ 30c:	19 95       	eicall
+}
+ 30e:	ff 91       	pop	r31
+ 310:	ef 91       	pop	r30
+ 312:	bf 91       	pop	r27
+ 314:	af 91       	pop	r26
+ 316:	9f 91       	pop	r25
+ 318:	8f 91       	pop	r24
+ 31a:	7f 91       	pop	r23
+ 31c:	6f 91       	pop	r22
+ 31e:	5f 91       	pop	r21
+ 320:	4f 91       	pop	r20
+ 322:	3f 91       	pop	r19
+ 324:	2f 91       	pop	r18
+ 326:	0f 90       	pop	r0
+ 328:	0b be       	out	0x3b, r0	; 59
+ 32a:	0f 90       	pop	r0
+ 32c:	0f be       	out	0x3f, r0	; 63
+ 32e:	0f 90       	pop	r0
+ 330:	1f 90       	pop	r1
+ 332:	18 95       	reti
+
+00000334 <__vector_51>:
+
+ISR(USART2_RX_vect)
+{
+ 334:	1f 92       	push	r1
+ 336:	0f 92       	push	r0
+ 338:	0f b6       	in	r0, 0x3f	; 63
+ 33a:	0f 92       	push	r0
+ 33c:	11 24       	eor	r1, r1
+ 33e:	0b b6       	in	r0, 0x3b	; 59
+ 340:	0f 92       	push	r0
+ 342:	2f 93       	push	r18
+ 344:	3f 93       	push	r19
+ 346:	4f 93       	push	r20
+ 348:	5f 93       	push	r21
+ 34a:	6f 93       	push	r22
+ 34c:	7f 93       	push	r23
+ 34e:	8f 93       	push	r24
+ 350:	9f 93       	push	r25
+ 352:	af 93       	push	r26
+ 354:	bf 93       	push	r27
+ 356:	ef 93       	push	r30
+ 358:	ff 93       	push	r31
+    interruptCallback[usart_2](UDR2);
+ 35a:	e0 91 04 02 	lds	r30, 0x0204	; 0x800204 <__DATA_REGION_ORIGIN__+0x4>
+ 35e:	f0 91 05 02 	lds	r31, 0x0205	; 0x800205 <__DATA_REGION_ORIGIN__+0x5>
+ 362:	80 91 d6 00 	lds	r24, 0x00D6	; 0x8000d6 <__TEXT_REGION_LENGTH__+0x7c00d6>
+ 366:	19 95       	eicall
+}
+ 368:	ff 91       	pop	r31
+ 36a:	ef 91       	pop	r30
+ 36c:	bf 91       	pop	r27
+ 36e:	af 91       	pop	r26
+ 370:	9f 91       	pop	r25
+ 372:	8f 91       	pop	r24
+ 374:	7f 91       	pop	r23
+ 376:	6f 91       	pop	r22
+ 378:	5f 91       	pop	r21
+ 37a:	4f 91       	pop	r20
+ 37c:	3f 91       	pop	r19
+ 37e:	2f 91       	pop	r18
+ 380:	0f 90       	pop	r0
+ 382:	0b be       	out	0x3b, r0	; 59
+ 384:	0f 90       	pop	r0
+ 386:	0f be       	out	0x3f, r0	; 63
+ 388:	0f 90       	pop	r0
+ 38a:	1f 90       	pop	r1
+ 38c:	18 95       	reti
+
+0000038e <__vector_54>:
+
+ISR(USART3_RX_vect)
+{
+ 38e:	1f 92       	push	r1
+ 390:	0f 92       	push	r0
+ 392:	0f b6       	in	r0, 0x3f	; 63
+ 394:	0f 92       	push	r0
+ 396:	11 24       	eor	r1, r1
+ 398:	0b b6       	in	r0, 0x3b	; 59
+ 39a:	0f 92       	push	r0
+ 39c:	2f 93       	push	r18
+ 39e:	3f 93       	push	r19
+ 3a0:	4f 93       	push	r20
+ 3a2:	5f 93       	push	r21
+ 3a4:	6f 93       	push	r22
+ 3a6:	7f 93       	push	r23
+ 3a8:	8f 93       	push	r24
+ 3aa:	9f 93       	push	r25
+ 3ac:	af 93       	push	r26
+ 3ae:	bf 93       	push	r27
+ 3b0:	ef 93       	push	r30
+ 3b2:	ff 93       	push	r31
+    interruptCallback[usart_3](UDR3);
+ 3b4:	e0 91 06 02 	lds	r30, 0x0206	; 0x800206 <__DATA_REGION_ORIGIN__+0x6>
+ 3b8:	f0 91 07 02 	lds	r31, 0x0207	; 0x800207 <__DATA_REGION_ORIGIN__+0x7>
+ 3bc:	80 91 36 01 	lds	r24, 0x0136	; 0x800136 <__TEXT_REGION_LENGTH__+0x7c0136>
+ 3c0:	19 95       	eicall
+ 3c2:	ff 91       	pop	r31
+ 3c4:	ef 91       	pop	r30
+ 3c6:	bf 91       	pop	r27
+ 3c8:	af 91       	pop	r26
+ 3ca:	9f 91       	pop	r25
+ 3cc:	8f 91       	pop	r24
+ 3ce:	7f 91       	pop	r23
+ 3d0:	6f 91       	pop	r22
+ 3d2:	5f 91       	pop	r21
+ 3d4:	4f 91       	pop	r20
+ 3d6:	3f 91       	pop	r19
+ 3d8:	2f 91       	pop	r18
+ 3da:	0f 90       	pop	r0
+ 3dc:	0b be       	out	0x3b, r0	; 59
+ 3de:	0f 90       	pop	r0
+ 3e0:	0f be       	out	0x3f, r0	; 63
+ 3e2:	0f 90       	pop	r0
+ 3e4:	1f 90       	pop	r1
+ 3e6:	18 95       	reti
+
+000003e8 <asyncGetHandler>:
     PORTC = 0xFF;
 }
 
 void asyncGetHandler(char c)
 {
     PORTA = c;
- 1c0:	82 b9       	out	0x02, r24	; 2
- 1c2:	08 95       	ret
+ 3e8:	82 b9       	out	0x02, r24	; 2
+ 3ea:	08 95       	ret
 
-000001c4 <IO_init>:
+000003ec <IO_init>:
 
 /* NOTE: Function implementations */
 void IO_init(void)
 {
     // set portA as an output
     DDRA  = 0xFF;
- 1c4:	8f ef       	ldi	r24, 0xFF	; 255
- 1c6:	81 b9       	out	0x01, r24	; 1
+ 3ec:	8f ef       	ldi	r24, 0xFF	; 255
+ 3ee:	81 b9       	out	0x01, r24	; 1
     PORTA = 0x00;
- 1c8:	12 b8       	out	0x02, r1	; 2
+ 3f0:	12 b8       	out	0x02, r1	; 2
 
     // set portC as an input
     DDRC  = 0x00;
- 1ca:	17 b8       	out	0x07, r1	; 7
+ 3f2:	17 b8       	out	0x07, r1	; 7
     PORTC = 0xFF;
- 1cc:	88 b9       	out	0x08, r24	; 8
- 1ce:	08 95       	ret
+ 3f4:	88 b9       	out	0x08, r24	; 8
+ 3f6:	08 95       	ret
 
-000001d0 <main>:
-void asyncGetHandler(char c);
+000003f8 <main>:
 
 /* NOTE: Application implementation */
 // the main loop of the function, provided to us
 int main(void)
 {
- 1d0:	cf 93       	push	r28
- 1d2:	df 93       	push	r29
- 1d4:	1f 92       	push	r1
- 1d6:	1f 92       	push	r1
- 1d8:	cd b7       	in	r28, 0x3d	; 61
- 1da:	de b7       	in	r29, 0x3e	; 62
     IO_init();
- 1dc:	f3 df       	rcall	.-26     	; 0x1c4 <IO_init>
+ 3f8:	f9 df       	rcall	.-14     	; 0x3ec <IO_init>
 
     // init async uart and bind an interrupt handler
-    SERIAL_uartInitAsync();
- 1de:	95 df       	rcall	.-214    	; 0x10a <SERIAL_uartInitAsync>
- 1e0:	80 ee       	ldi	r24, 0xE0	; 224
-    SERIAL_uartAsyncGetHandler(&asyncGetHandler);
- 1e2:	90 e0       	ldi	r25, 0x00	; 0
- 1e4:	bb df       	rcall	.-138    	; 0x15c <SERIAL_uartAsyncGetHandler>
- 1e6:	78 94       	sei
+    SERIAL_uartInitAsync(USART1, 9600);
+ 3fa:	40 e8       	ldi	r20, 0x80	; 128
+ 3fc:	55 e2       	ldi	r21, 0x25	; 37
+ 3fe:	60 e0       	ldi	r22, 0x00	; 0
+ 400:	70 e0       	ldi	r23, 0x00	; 0
+ 402:	81 e0       	ldi	r24, 0x01	; 1
+ 404:	d0 de       	rcall	.-608    	; 0x1a6 <SERIAL_uartInitAsync>
+    SERIAL_uartAsyncGetHandler(USART1, &asyncGetHandler);
+ 406:	64 ef       	ldi	r22, 0xF4	; 244
+ 408:	71 e0       	ldi	r23, 0x01	; 1
+ 40a:	81 e0       	ldi	r24, 0x01	; 1
+ 40c:	e6 de       	rcall	.-564    	; 0x1da <SERIAL_uartAsyncGetHandler>
 
     sei();
- 1e8:	86 b1       	in	r24, 0x06	; 6
+ 40e:	78 94       	sei
 
     while(1)
     {
-        char foo[2] = {PINC, '\0'};
- 1ea:	89 83       	std	Y+1, r24	; 0x01
- 1ec:	1a 82       	std	Y+2, r1	; 0x02
-        SERIAL_uartSend((char const * const)&foo);
- 1ee:	ce 01       	movw	r24, r28
- 1f0:	01 96       	adiw	r24, 0x01	; 1
- 1f2:	99 df       	rcall	.-206    	; 0x126 <SERIAL_uartSend>
- 1f4:	f9 cf       	rjmp	.-14     	; 0x1e8 <main+0x18>
+        SERIAL_uartSendFixed(USART1, (char const * const)&PINC, 1);
+ 410:	41 e0       	ldi	r20, 0x01	; 1
+ 412:	50 e0       	ldi	r21, 0x00	; 0
+ 414:	66 e2       	ldi	r22, 0x26	; 38
+ 416:	70 e0       	ldi	r23, 0x00	; 0
+ 418:	81 e0       	ldi	r24, 0x01	; 1
+ 41a:	14 df       	rcall	.-472    	; 0x244 <SERIAL_uartSendFixed>
+ 41c:	f9 cf       	rjmp	.-14     	; 0x410 <__LOCK_REGION_LENGTH__+0x10>
 
-000001f6 <_exit>:
- 1f6:	f8 94       	cli
+0000041e <__udivmodsi4>:
+ 41e:	a1 e2       	ldi	r26, 0x21	; 33
+ 420:	1a 2e       	mov	r1, r26
+ 422:	aa 1b       	sub	r26, r26
+ 424:	bb 1b       	sub	r27, r27
+ 426:	fd 01       	movw	r30, r26
+ 428:	0d c0       	rjmp	.+26     	; 0x444 <__udivmodsi4_ep>
 
-000001f8 <__stop_program>:
- 1f8:	ff cf       	rjmp	.-2      	; 0x1f8 <__stop_program>
+0000042a <__udivmodsi4_loop>:
+ 42a:	aa 1f       	adc	r26, r26
+ 42c:	bb 1f       	adc	r27, r27
+ 42e:	ee 1f       	adc	r30, r30
+ 430:	ff 1f       	adc	r31, r31
+ 432:	a2 17       	cp	r26, r18
+ 434:	b3 07       	cpc	r27, r19
+ 436:	e4 07       	cpc	r30, r20
+ 438:	f5 07       	cpc	r31, r21
+ 43a:	20 f0       	brcs	.+8      	; 0x444 <__udivmodsi4_ep>
+ 43c:	a2 1b       	sub	r26, r18
+ 43e:	b3 0b       	sbc	r27, r19
+ 440:	e4 0b       	sbc	r30, r20
+ 442:	f5 0b       	sbc	r31, r21
+
+00000444 <__udivmodsi4_ep>:
+ 444:	66 1f       	adc	r22, r22
+ 446:	77 1f       	adc	r23, r23
+ 448:	88 1f       	adc	r24, r24
+ 44a:	99 1f       	adc	r25, r25
+ 44c:	1a 94       	dec	r1
+ 44e:	69 f7       	brne	.-38     	; 0x42a <__udivmodsi4_loop>
+ 450:	60 95       	com	r22
+ 452:	70 95       	com	r23
+ 454:	80 95       	com	r24
+ 456:	90 95       	com	r25
+ 458:	9b 01       	movw	r18, r22
+ 45a:	ac 01       	movw	r20, r24
+ 45c:	bd 01       	movw	r22, r26
+ 45e:	cf 01       	movw	r24, r30
+ 460:	08 95       	ret
+
+00000462 <_exit>:
+ 462:	f8 94       	cli
+
+00000464 <__stop_program>:
+ 464:	ff cf       	rjmp	.-2      	; 0x464 <__stop_program>

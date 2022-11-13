@@ -3,6 +3,7 @@
         "io.h": "c",
         "intellisenseoverride.h": "c",
         "analogtodigital.h": "c",
-        "delay.h": "c"
+        "delay.h": "c",
+        "stdint.h": "c"
     }
 }

@@ -48,17 +48,17 @@ int main(void)
         {
             case 0x10:
             {
-                SM_move((StepperMotorRunMode_t)0, 2);
+                SM_move(stepperModeWave, 2);
             }
             break;
             case 0x20:
             {
-                SM_move((StepperMotorRunMode_t)1, 2);
+                SM_move(stepperModeFull, 2);
             }
             break;
             case 0x40:
             {
-                SM_move((StepperMotorRunMode_t)2, 2);
+                SM_move(stepperModeHalf, 2);
             }
             break;
             default:
