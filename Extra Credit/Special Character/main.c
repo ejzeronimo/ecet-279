@@ -10,9 +10,9 @@
  * Hardware:
  *   Atmega2560          micro controller
  *   PORTL               LCD data
- *   PORTD.0             LCD RS
- *   PORTD.1             LCD R/W
- *   PORTD.2             LCD E
+ *   PORTG.0             LCD RS
+ *   PORTG.1             LCD R/W
+ *   PORTG.2             LCD E
  */
 
 /* NOTE: Includes */
