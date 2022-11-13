@@ -13,16 +13,12 @@
 
 #include <avr/io.h>
 #include <stdlib.h>
-#include <string.h>
 
 /* NOTE: Local declarations */
 // reads blob from the given address
 uint8_t read(uint16_t address);
 // writes blob to the given address
 void    write(uint8_t data, uint16_t address);
-
-/* NOTE: Global Variables */
-// TODO: None
 
 /* NOTE: Function implementations */
 void EEPROM_writeChar(char in, uint16_t addr)
@@ -35,21 +31,25 @@ char EEPROM_readChar(uint16_t addr)
     return (char)read(addr);
 }
 
-void EEPROM_writeString(char * in, uint16_t addr)
+void EEPROM_writeString(char const * const in, uint16_t addr)
 {
-    for(size_t i = 0; i < strlen(in); i++)
+    uint16_t i = 0;
+
+    while(in[i] != '\0')
     {
         write(in[i], addr + i);
+
+        i++;
     }
 
     // add in a null terminator
-    write('\0', addr + strlen(in));
+    write('\0', addr + i);
 }
 
-char * EEPROM_readString(uint16_t addr)
+char const * const EEPROM_readString(uint16_t addr)
 {
     char * buf = malloc(sizeof(char) * 256);
-    size_t i   = 0;
+    uint16_t     i   = 0;
 
     while(read(addr + i) != '\0')
     {
@@ -61,7 +61,7 @@ char * EEPROM_readString(uint16_t addr)
 
     // add in the null terminator and resize
     buf[i] = '\0';
-    buf = realloc(buf, sizeof(char) * i);
+    buf    = realloc(buf, sizeof(char) * (i + 1));
 
     return buf;
 }

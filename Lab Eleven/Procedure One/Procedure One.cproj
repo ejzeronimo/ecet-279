@@ -144,6 +144,14 @@
       <SubType>compile</SubType>
       <Link>Eeprom.h</Link>
     </Compile>
+    <Compile Include="..\..\Libraries\LiquidCrystalDisplay.c">
+      <SubType>compile</SubType>
+      <Link>LiquidCrystalDisplay.c</Link>
+    </Compile>
+    <Compile Include="..\..\Libraries\LiquidCrystalDisplay.h">
+      <SubType>compile</SubType>
+      <Link>LiquidCrystalDisplay.h</Link>
+    </Compile>
     <Compile Include="..\..\Libraries\Serial.c">
       <SubType>compile</SubType>
       <Link>Serial.c</Link>

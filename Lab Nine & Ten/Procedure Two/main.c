@@ -38,14 +38,14 @@ int main(void)
     IO_init();
 
     // init async uart and bind an interrupt handler
-    SERIAL_uartInitAsync(USART0, 9600);
-    SERIAL_uartAsyncGetHandler(USART0, &asyncGetHandler);
+    SERIAL_uartInitAsync(serialUsart0, 9600);
+    SERIAL_uartAsyncGetHandler(serialUsart0, &asyncGetHandler);
 
     sei();
 
     while(1)
     {
-        SERIAL_uartSendFixed(USART0, (char const * const)&PINC, 1);
+        SERIAL_uartSendFixed(serialUsart0, (char const * const)&PINC, 1);
     }
 }
 

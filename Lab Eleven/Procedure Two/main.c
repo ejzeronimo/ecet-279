@@ -2,38 +2,37 @@
  * FileName: main.c
  * Version: 1
  *
- * Created: 11/9/2022 2:26:50 PM
+ * Created: 11/12/2022 8:19:38 PM
  * Author: Ethan Zeronik
  *
- * Operations: uart to lcd
+ * Operations: basic eeprom
  *
  * Hardware:
  *   Atmega2560          micro controller
- *   PORTL               LCD data
- *   PORTD.0             LCD RS
- *   PORTD.1             LCD R/W
- *   PORTD.2             LCD E
+ *   PORTG0:2            control for the lcd
+ *   PORTl               data buss for the lcd
  */
 
 /* NOTE: Includes */
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-#include "LiquidCrystalDisplay.h"
+#include "Eeprom.h"
 #include "Serial.h"
+#include "LiquidCrystalDisplay.h"
 
 /* NOTE: Custom Macros */
 // TODO: None
 
 /* NOTE: Global Variables */
+// address for the stored value
+uint16_t addr         = 0x0100;
 // buffer for uart
-char    message[24]  = {0};
-uint8_t messageIndex = 0;
-uint8_t readFlag     = 0;
+char     message[16]  = {0};
+uint8_t  messageIndex = 0;
+uint8_t  readFlag     = 0;
 
 /* NOTE: Function prototypes */
-// inits IO ports
-void IO_init(void);
 // handler
 void asyncGetHandler(char c);
 
@@ -41,25 +40,37 @@ void asyncGetHandler(char c);
 // the main loop of the function, provided to us
 int main(void)
 {
-    IO_init();
-    LCD_init(&DDRD, &PORTD, &DDRL, &PORTL);
+    LCD_init(&DDRG, &PORTG, &DDRL, &PORTL);
 
-    // init async uart and bind an interrupt handler
     SERIAL_uartInitAsync(serialUsart0, 9600);
     SERIAL_uartAsyncGetHandler(serialUsart0, &asyncGetHandler);
 
-    sei();
-
+    // clear, home, and move cursor
     LCD_sendInstruction(0x01);
     LCD_sendInstruction(0x02);
+    LCD_sendInstruction(0x80);
+
+    LCD_sendString("Last Saved:");
+
+    char const * const result = EEPROM_readString(addr);
+
+    // move to last line and print previous eeprom
+    LCD_sendInstruction(0xc0);
+    LCD_sendString(result);
+
+    sei();
+
+    SERIAL_uartSend(serialUsart0, "atmega booted!\n\r");
+    SERIAL_uartSend(serialUsart0, result);
 
     while(1)
     {
         if(readFlag)
         {
-            LCD_sendInstruction(0x01);
-            LCD_sendInstruction(0x02);
-            LCD_sendString(message);
+            EEPROM_writeString(message, addr);
+
+            SERIAL_uartSend(serialUsart0, "eeprom updated to:\n\r");
+            SERIAL_uartSend(serialUsart0, message);
 
             readFlag = 0;
         }
@@ -67,16 +78,11 @@ int main(void)
 }
 
 /* NOTE: Function implementations */
-void IO_init(void)
-{
-    // do nothing
-}
-
 void asyncGetHandler(char c)
 {
     if(c != 0x0d && c != 0x0a && c != '\0')
     {
-        if(messageIndex < 23)
+        if(messageIndex < 15)
         {
             // add to array
             message[messageIndex]     = c;
@@ -87,14 +93,10 @@ void asyncGetHandler(char c)
     }
     else
     {
-        for(uint8_t i = 0; i < 24; i++)
-        {
-            message[i] = '\0';
-        }
+        // set update flag
+        readFlag = 1;
 
+        // reset message
         messageIndex = 0;
     }
-
-    // set update flag
-    readFlag = 1;
 }

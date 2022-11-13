@@ -9,14 +9,13 @@
  *
  * Hardware:
  *   Atmega2560          micro controller
- *   PORTA               LED bar
- *   PORTC               Button/Switches
+ *   PORTG0:2            control for the lcd
+ *   PORTl               data buss for the lcd
  */
 
 /* NOTE: Includes */
 #include <avr/io.h>
 
-#include "Serial.h"
 #include "Eeprom.h"
 
 /* NOTE: Custom Macros */
@@ -32,10 +31,7 @@ uint16_t addr = 0x0100;
 // the main loop of the function, provided to us
 int main(void)
 {
-    // init async uart and bind an interrupt handler
-    SERIAL_uartInit();
-
-    char * result = EEPROM_readString(0x0100);
+    char const * const result = EEPROM_readString(addr);
 
     while(1)
     {
