@@ -18,12 +18,17 @@
 
 // adds stepper motor module (1/6)
 #include "StepperMotor.h"
+
 // adds adc for input potentiometers (2/6)
 #include "AnalogToDigital.h"
 // adds pwm for servo motors (3/6)
 #include "CraneServo.h"
-// adds UART for communication (4/6)
-#include "Serial.h"
+
+// adds UART and Bluetooth for communication (4/6)
+#include "CraneCommunication.h"
+
+// adds EEPROM read/write for persistant data storage (5/6)
+#include "CraneEeprom.h"
 
 /* NOTE: Custom Macros */
 // the three main states of the application
@@ -50,7 +55,7 @@ volatile uint8_t serialReadFlag    = 0;
 // inits IO ports
 void    IO_init(void);
 // handler
-void asyncSerialRxHandler(char c);
+void    asyncSerialRxHandler(char c);
 // compares to strings
 // if the match it returns one, else 0
 uint8_t stringCompare(char const * const pStrOne, char const * const pStrTwo);
@@ -70,9 +75,8 @@ int main(void)
     SM_init(&DDRC, &PORTC);
 
     // turn on the serial on port 0 at 9600 baud
-    SERIAL_uartInitAsync(serialUsart0, 9600);
-    SERIAL_uartAsyncGetHandler(serialUsart0, &asyncSerialRxHandler);
-    SERIAL_uartSend(serialUsart0, "Crane online\r\n");
+    CRANE_initSerial(9600);
+    CRANE_sendSerial("Crane online\r\n");
 
     sei();
 
@@ -92,7 +96,7 @@ int main(void)
         {
             if(stringCompare(serialBuffer, "password") && (applicationState != recordState))
             {
-                SERIAL_uartSend(serialUsart0, "Password entered, starting config mode...\r\n");
+                CRANE_sendSerial("Password entered, starting config mode...\r\n");
 
                 applicationState = recordState;
             }
@@ -151,6 +155,11 @@ int main(void)
             break;
         }
     }
+}
+
+ISR(serialInterrupt)
+{
+    asyncSerialRxHandler(serialData);
 }
 
 /* NOTE: Function implementations */

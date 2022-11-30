@@ -4,9 +4,11 @@
 
 ..\..\Libraries\AnalogToDigital.c
 
-..\..\Libraries\Serial.c
-
 ..\..\Libraries\StepperMotor.c
+
+CraneCommunication.c
+
+CraneEeprom.c
 
 CraneServo.c
 

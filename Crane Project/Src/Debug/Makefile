@@ -38,8 +38,9 @@ SUBDIRS :=
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../../../Libraries/AnalogToDigital.c \
-../../../Libraries/Serial.c \
 ../../../Libraries/StepperMotor.c \
+../CraneCommunication.c \
+../CraneEeprom.c \
 ../CraneServo.c \
 ../main.c
 
@@ -52,29 +53,33 @@ ASM_SRCS +=
 
 OBJS +=  \
 AnalogToDigital.o \
-Serial.o \
 StepperMotor.o \
+CraneCommunication.o \
+CraneEeprom.o \
 CraneServo.o \
 main.o
 
 OBJS_AS_ARGS +=  \
 AnalogToDigital.o \
-Serial.o \
 StepperMotor.o \
+CraneCommunication.o \
+CraneEeprom.o \
 CraneServo.o \
 main.o
 
 C_DEPS +=  \
 AnalogToDigital.d \
-Serial.d \
 StepperMotor.d \
+CraneCommunication.d \
+CraneEeprom.d \
 CraneServo.d \
 main.d
 
 C_DEPS_AS_ARGS +=  \
 AnalogToDigital.d \
-Serial.d \
 StepperMotor.d \
+CraneCommunication.d \
+CraneEeprom.d \
 CraneServo.d \
 main.d
 
@@ -99,14 +104,21 @@ LINKER_SCRIPT_DEP+=
 	@echo Finished building: $<
 	
 
-./Serial.o: ../../../Libraries/Serial.c
+./StepperMotor.o: ../../../Libraries/StepperMotor.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include" -I"../../../Libraries"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega2560 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega2560" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
-./StepperMotor.o: ../../../Libraries/StepperMotor.c
+./CraneCommunication.o: .././CraneCommunication.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include" -I"../../../Libraries"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega2560 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega2560" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+./CraneEeprom.o: .././CraneEeprom.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include" -I"../../../Libraries"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega2560 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega2560" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

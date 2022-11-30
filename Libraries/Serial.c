@@ -30,7 +30,7 @@ void sendCharHelper(SerialPortSelector_t port, char const * const value);
 // the handlers for each main uart channel
 static SerialAsyncGetHandler_t interruptCallback[4];
 
-/* NOTE: Local function implementations */
+/* NOTE: Global function implementations */
 void SERIAL_uartInit(SerialPortSelector_t port, uint32_t baud)
 {
     uint16_t baudCalc = ((F_CPU / baud) / 16) - 1;

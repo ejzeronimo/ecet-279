@@ -1,12 +1,14 @@
 ﻿/*
- * servo_motor.c
+ * CraneServo.c
  *
  * Created: 2022/11/17 下午 09:01:15
  *  Author: User
  */
 
+/* NOTE: Includes */
 #include "CraneServo.h"
 
+/* NOTE: Global function implementations */
 void CRANE_initServos(void)
 {
     // set up PORTB.5 as an output and 0V

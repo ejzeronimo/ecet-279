@@ -131,14 +131,6 @@
       <SubType>compile</SubType>
       <Link>AnalogToDigital.h</Link>
     </Compile>
-    <Compile Include="..\..\Libraries\Serial.c">
-      <SubType>compile</SubType>
-      <Link>Serial.c</Link>
-    </Compile>
-    <Compile Include="..\..\Libraries\Serial.h">
-      <SubType>compile</SubType>
-      <Link>Serial.h</Link>
-    </Compile>
     <Compile Include="..\..\Libraries\StepperMotor.c">
       <SubType>compile</SubType>
       <Link>StepperMotor.c</Link>
@@ -146,6 +138,22 @@
     <Compile Include="..\..\Libraries\StepperMotor.h">
       <SubType>compile</SubType>
       <Link>StepperMotor.h</Link>
+    </Compile>
+    <Compile Include="CraneCommunication.c">
+      <SubType>compile</SubType>
+      <Link>CraneCommunication.c</Link>
+    </Compile>
+    <Compile Include="CraneCommunication.h">
+      <SubType>compile</SubType>
+      <Link>CraneCommunication.h</Link>
+    </Compile>
+    <Compile Include="CraneEeprom.c">
+      <SubType>compile</SubType>
+      <Link>CraneEeprom.c</Link>
+    </Compile>
+    <Compile Include="CraneEeprom.h">
+      <SubType>compile</SubType>
+      <Link>CraneEeprom.h</Link>
     </Compile>
     <Compile Include="CraneServo.c">
       <SubType>compile</SubType>

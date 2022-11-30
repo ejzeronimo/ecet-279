@@ -1,13 +1,13 @@
 ﻿/*
- * servo_motor.h
+ * CraneServo.h
  *
  * Created: 2022/11/17 下午 09:01:37
  *  Author: User
  */ 
 
 
-#ifndef CraneServo_H_
-#define CraneServo_H_
+#ifndef CraneServo_H_INCLUDED
+#define CraneServo_H_INCLUDED
 
 #if defined(__cplusplus)
 extern "C" {
@@ -31,4 +31,4 @@ void CRANE_setServoPosition(uint8_t servo, uint8_t position);
 } /* extern "C" */
 #endif
 
-#endif /* CraneServo_H_ */
+#endif /* CraneServo_H_INCLUDED */
