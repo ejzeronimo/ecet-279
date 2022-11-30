@@ -4,6 +4,8 @@
         "intellisenseoverride.h": "c",
         "analogtodigital.h": "c",
         "delay.h": "c",
-        "stdint.h": "c"
+        "stdint.h": "c",
+        "craneservo.h": "c",
+        "pulsewidthmodulation.h": "c"
     }
 }

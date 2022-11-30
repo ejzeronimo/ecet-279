@@ -14,12 +14,16 @@
 /* NOTE: Includes */
 // standard include for the atmega program
 #include <avr/io.h>
+#include <avr/interrupt.h>
 
 // adds stepper motor module (1/6)
 #include "StepperMotor.h"
-
-// adds pwm for servo motors (2/6)
-#include "PulseWidthModulation.h"
+// adds adc for input potentiometers (2/6)
+#include "AnalogToDigital.h"
+// adds pwm for servo motors (3/6)
+#include "CraneServo.h"
+// adds UART for communication (4/6)
+#include "Serial.h"
 
 /* NOTE: Custom Macros */
 // the three main states of the application
@@ -34,11 +38,22 @@
 
 /* NOTE: Global Variables */
 // the state of the application
-uint8_t applicationState = calibrateState;
+uint8_t          applicationState  = calibrateState;
+// the input buffer for serial
+volatile char    serialBuffer[128] = {0};
+// the index of the last set char in the serial buffer
+volatile uint8_t serialBufferIndex = 0;
+// flag to show serial buffer is ready
+volatile uint8_t serialReadFlag    = 0;
 
 /* NOTE: Function prototypes */
 // inits IO ports
-void IO_init(void);
+void    IO_init(void);
+// handler
+void asyncSerialRxHandler(char c);
+// compares to strings
+// if the match it returns one, else 0
+uint8_t stringCompare(char const * const pStrOne, char const * const pStrTwo);
 
 /* NOTE: Application implementation */
 // the main loop of the function, provided to us
@@ -46,9 +61,20 @@ int main(void)
 {
     IO_init();
 
+    // init the ADC and the servo control
+    ADC_init();
+    CRANE_initServos();
+
     // in this case, 1 is CCW, and 0 is CW
     // pass in the port and register we want to use for the motor
     SM_init(&DDRC, &PORTC);
+
+    // turn on the serial on port 0 at 9600 baud
+    SERIAL_uartInitAsync(serialUsart0, 9600);
+    SERIAL_uartAsyncGetHandler(serialUsart0, &asyncSerialRxHandler);
+    SERIAL_uartSend(serialUsart0, "Crane online\r\n");
+
+    sei();
 
     while(1)
     {
@@ -61,6 +87,18 @@ int main(void)
 
             action needs to be able to move the crane
         */
+
+        if(serialReadFlag)
+        {
+            if(stringCompare(serialBuffer, "password") && (applicationState != recordState))
+            {
+                SERIAL_uartSend(serialUsart0, "Password entered, starting config mode...\r\n");
+
+                applicationState = recordState;
+            }
+
+            serialReadFlag = 0;
+        }
 
         switch(applicationState)
         {
@@ -76,6 +114,17 @@ int main(void)
                 {
                     SM_moveTime(stepperModeHalf, 1, 90, 3);
                 }
+
+                CRANE_startServos();
+
+                CRANE_setServoPosition(0, 255 * ADC_getTenBitValue(0));
+                CRANE_setServoPosition(1, 255 * ADC_getTenBitValue(1));
+            }
+            break;
+
+            // the record case
+            case recordState:
+            {
             }
             break;
 
@@ -94,7 +143,7 @@ int main(void)
                 }
 
                 // then move 30 degrees back to center the arm
-                SM_movePosition(stepperModeHalf, .0015);
+                SM_movePosition(stepperModeHalf, 30);
 
                 // then set it to action state
                 applicationState = actionState;
@@ -114,4 +163,46 @@ void IO_init(void)
     // port a.0-1 are for left and right
     DDRA  = 0x00;
     PORTA = 0x03;
+}
+
+void asyncSerialRxHandler(char c)
+{
+    if(c != '\r' && c != '\n' && c != '\0' && (serialBufferIndex < 127))
+    {
+        // add to array
+        serialBuffer[serialBufferIndex]     = c;
+        serialBuffer[serialBufferIndex + 1] = '\0';
+
+        serialBufferIndex++;
+    }
+    else
+    {
+        // set update flag
+        serialReadFlag    = 1;
+        // reset message index
+        serialBufferIndex = 0;
+    }
+}
+
+uint8_t stringCompare(char const * const pStrOne, char const * const pStrTwo)
+{
+    uint8_t i = 0;
+
+    // while string one still has data
+    do
+    {
+        if(*(pStrOne + i) == *(pStrTwo + i))
+        {
+            // increment
+            i++;
+        }
+        else
+        {
+            // exit
+            return 0;
+        }
+    } while((*(pStrOne + i) != '\0') && (*(pStrTwo + i) != '\0'));
+
+    // made it out of the loop
+    return 1;
 }

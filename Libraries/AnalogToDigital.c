@@ -12,6 +12,7 @@
 #include "AnalogToDigital.h"
 
 #include <avr/io.h>
+#include <avr/interrupt.h>
 
 /* NOTE: Global Variables */
 // value from the interruput
