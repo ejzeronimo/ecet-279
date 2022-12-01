@@ -2,7 +2,7 @@
  * CraneCommunication.h
  *
  * Created: 11/2/2022 8:32:52 AM
- *  Author: xiang82
+ *  Author: xiang82, Alex Weyer, Yu-Hung (Thomas) Wang
  */ 
 
 #ifndef CraneCommunication_H_INCLUDED

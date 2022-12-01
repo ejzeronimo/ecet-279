@@ -2,7 +2,7 @@
  * CraneCommunication.c
  *
  * Created: 2022/11/5 10:03:43 am
- * Author: xiang82, Alex Weyer
+ * Author: xiang82, Alex Weyer, Yu-Hung (Thomas) Wang
  */
 
 /* NOTE: Includes */
