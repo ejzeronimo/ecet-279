@@ -210,7 +210,7 @@ int main(void)
         if(doesBufferMatch(serialInputData, 0, getCommand) || doesBufferMatch(bluetoothInputData, 0, getCommand))
         {
             char response[96];
-            sprintf(response, "Motor is at %i, Plunger is at %u, Arm is at %u", craneState.motorTicks, craneState.plungerTicks, craneState.armTicks);
+            sprintf(response, "Motor is at %i, Plunger is at %u, Arm is at %u\r\n", craneState.motorTicks, craneState.plungerTicks, craneState.armTicks);
 
             serialInputData.readFlag    = 0;
             bluetoothInputData.readFlag = 0;
@@ -232,7 +232,7 @@ int main(void)
                     for(uint8_t i = 0; i < recordLength; i++)
                     {
                         char response[32];
-                        sprintf(response, "Running recorded step %u...", i + 1);
+                        sprintf(response, "Running recorded step %u...\r\n", i + 1);
 
                         CRANE_sendSerial(response);
                         CRANE_sendBluetooth(response);
@@ -291,11 +291,6 @@ int main(void)
                 int16_t moveSteps       = 8;
 
                 // display the step we are recording
-                char response[32];
-                sprintf(response, "Recording step %u out of 6...", currentMoveIndex + 1);
-
-                CRANE_sendSerial(response);
-                CRANE_sendBluetooth(response);
                 stateLed = (stateLed & 0x03) | 1 << (currentMoveIndex + 2);
 
                 // manually move the motor
@@ -330,7 +325,12 @@ int main(void)
                 if(recordButton || doesBufferMatch(serialInputData, 1, recordCommand) || doesBufferMatch(bluetoothInputData, 1, recordCommand))
                 {
                     char response[64];
-                    sprintf(response, "Recorded {%i,%u,%u}...", craneState.motorTicks, craneState.plungerTicks, craneState.armTicks);
+                    sprintf(response, "Recording step %u out of 6...\r\n", currentMoveIndex + 1);
+
+                    CRANE_sendSerial(response);
+                    CRANE_sendBluetooth(response);
+
+                    sprintf(response, "Recorded {%i,%u,%u}...\r\n", craneState.motorTicks, craneState.plungerTicks, craneState.armTicks);
 
                     CRANE_sendSerial(response);
                     CRANE_sendBluetooth(response);
