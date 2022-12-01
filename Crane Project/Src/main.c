@@ -225,9 +225,11 @@ int main(void)
             // DEBUG: the action case
             case actionState:
             {
-                if(leftButton || doesBufferMatch(serialInputData, 1, runCommand) || doesBufferMatch(serialInputData, 0, getCommand))
+                if(leftButton || doesBufferMatch(serialInputData, 0, runCommand) || doesBufferMatch(bluetoothInputData, 0, runCommand))
                 {
                     // HACK: potential multiple select
+                    serialInputData.readFlag    = 0;
+                    bluetoothInputData.readFlag = 0;
 
                     for(uint8_t i = 0; i < recordLength; i++)
                     {
@@ -322,8 +324,11 @@ int main(void)
                 craneState.plungerTicks = plungerPosition;
 
                 // if we press the record button save the position
-                if(recordButton || doesBufferMatch(serialInputData, 1, recordCommand) || doesBufferMatch(bluetoothInputData, 1, recordCommand))
+                if(recordButton || doesBufferMatch(serialInputData, 0, recordCommand) || doesBufferMatch(bluetoothInputData, 0, recordCommand))
                 {
+                    serialInputData.readFlag    = 0;
+                    bluetoothInputData.readFlag = 0;
+                    
                     char response[64];
                     sprintf(response, "Recording step %u out of 6...\r\n", currentMoveIndex + 1);
 
