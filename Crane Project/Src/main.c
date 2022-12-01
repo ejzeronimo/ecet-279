@@ -9,6 +9,11 @@
  *
  * Hardware:
  *   Atmega2560          micro controller
+ *   Port L              LED reposnse bar
+ *   Port C.4            stepper motor limit switch
+ *   Port C.0-3          stepper motor
+ *   Port A.0-3          button inputs
+ *   Port B.5-6          servo outputs       
  */
 
 /* NOTE: Includes */
@@ -328,7 +333,7 @@ int main(void)
                 {
                     serialInputData.readFlag    = 0;
                     bluetoothInputData.readFlag = 0;
-                    
+
                     char response[64];
                     sprintf(response, "Recording step %u out of 6...\r\n", currentMoveIndex + 1);
 
