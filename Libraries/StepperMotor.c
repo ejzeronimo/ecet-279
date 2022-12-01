@@ -119,6 +119,25 @@ void SM_moveTime(StepperMotorRunMode_t mode, bool direction, double time, double
     *sMotorPort = *sMotorPort & 0xf0;
 }
 
+void SM_moveStepsSigned(StepperMotorRunMode_t mode, bool direction, uint16_t distance)
+{
+    StepperMotorModeData_t data = getModeAndSteps(mode, 0);
+
+    for(uint32_t i = 0, j = (direction ? data.arraySize : 0); i < distance; i++)
+    {
+        *sMotorPort = (*sMotorPort & 0xf0) | data.pArray[(direction ? j-- : j++)];
+
+        if(j >= data.arraySize || j <= 0)
+        {
+            j = (direction ? data.arraySize : 0);
+        }
+
+        _delay_ms(3);
+    }
+
+    *sMotorPort = *sMotorPort & 0xf0;
+}
+
 /* NOTE: Local function implementations */
 StepperMotorModeData_t getModeAndSteps(StepperMotorRunMode_t mode, double rotation)
 {
