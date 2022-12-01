@@ -15,7 +15,7 @@
 /* NOTE: Local declarations */
 // Xiangs's serial send function
 void UART_out(uint8_t ch);
-// Alex and Yu-Hung's serial send function
+// Alex and Thomas's serial send function
 // transmit single byte of data
 void BLUETOOTH_out(uint8_t ch);
 

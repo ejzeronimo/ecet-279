@@ -17,9 +17,6 @@
 #include <avr/interrupt.h>
 
 #include <stdio.h>
-#define F_CPU 16000000UL
-
-#include <util/delay.h>
 
 // adds stepper motor module (1/6)
 #include "StepperMotor.h"
@@ -31,6 +28,8 @@
 #include "CraneCommunication.h"
 // adds EEPROM read/write for persistant data storage (5/6)
 #include "CraneEeprom.h"
+// adds custom delay functions (6/6)
+#include "CraneDelay.h"
 
 /* NOTE: Types and Structs */
 // type to hold data for serial connections
@@ -46,9 +45,11 @@ typedef struct connectionBuffer_t
 // type to hold the position of the servos and motor
 typedef struct cranePosition_t
 {
-    // TODO:
+    // motor position in steps
     int16_t motorTicks;
+    // arm position in 0-255 ticks
     uint8_t armTicks;
+    // plunger position in 0-255 ticks
     uint8_t plungerTicks;
 } cranePosition_t;
 
@@ -61,6 +62,9 @@ typedef struct cranePosition_t
 // command definition
 #define recordModeCommand    "Calibrate"
 #define calibrateModeCommand "Reset"
+#define runCommand           "Run"
+#define recordCommand        "Record"
+#define getCommand           "Get"
 
 // custom buttons & switches
 #define limitSwitch     (PINC & 0x10)
@@ -69,13 +73,16 @@ typedef struct cranePosition_t
 #define recordButton    (PINA & 0x04)
 #define calibrateButton (PINA & 0x08)
 
-// custom servos
+// custom led bar
+#define stateLed PORTL
+
+// custom servos ids
 #define armServo     0
 #define plungerServo 1
 
 // defined values for where default spots of the servo are
 #define armStartPosition     150
-#define plungerStartPosition 200
+#define plungerStartPosition 230
 
 // record information
 #define recordLength  6
@@ -84,23 +91,23 @@ typedef struct cranePosition_t
 /* NOTE: Global Variables */
 // the state of the application
 uint8_t         applicationState = calibrateState;
-// the EEPROM recorded moves to make
-cranePosition_t recordedMoves[recordLength];
-// the moves to save to eemprom
-cranePosition_t currentMoves[recordLength];
-// current spot in the instance moves
-uint8_t         currentMoveIndex = 0;
 // the state of all the moving parts of the crane
 cranePosition_t craneState       = {
           .motorTicks   = 0,
           .armTicks     = 0,
           .plungerTicks = 0,
 };
+// the EEPROM recorded moves to make
+cranePosition_t             recordedMoves[recordLength];
+// the moves to save to eemprom
+cranePosition_t             currentMoves[recordLength];
+// current spot in the instance moves
+uint8_t                     currentMoveIndex = 0;
 // the input buffer for serial
-volatile connectionBuffer_t serialInputData = {
-    .buffer   = {0},
-    .index    = 0,
-    .readFlag = 0,
+volatile connectionBuffer_t serialInputData  = {
+     .buffer   = {0},
+     .index    = 0,
+     .readFlag = 0,
 };
 // the input buffer for bluetooth
 volatile connectionBuffer_t bluetoothInputData = {
@@ -111,18 +118,18 @@ volatile connectionBuffer_t bluetoothInputData = {
 
 /* NOTE: Function prototypes */
 // inits IO ports
-void     IO_init(void);
-// checks the bt, serial, and buttons to see what needs to be done
-void     CRANE_getState(void);
+void    IO_init(void);
 // gets the saved values from the eeprom
-void     CRANE_getMovesFromEeprom(uint16_t addr);
+void    CRANE_getMovesFromEeprom(uint16_t addr);
 // saves the current recorded moves to eeprom
-void     CRANE_saveMovesToEeprom(uint16_t addr);
-// returns the time in ms needed to move the desired amount of degrees
-uint16_t timeAtThreeMsStep(uint16_t degrees);
+void    CRANE_saveMovesToEeprom(uint16_t addr);
+// takes a string and checks if the buffer matches the value exactly
+// strictmode resets readflag
+// returns 1 if true, else 0
+uint8_t doesBufferMatch(volatile connectionBuffer_t buf, uint8_t strictMode, char const * const pStr);
 // compares to strings
-// if the match it returns one, else 0
-uint8_t  stringCompare(char const * const pStrOne, char const * const pStrTwo);
+// if the match it returns 1, else 0
+uint8_t stringCompare(char const * const pStrOne, char const * const pStrTwo);
 
 /* NOTE: Application implementation */
 // the main loop of the function, provided to us
@@ -151,54 +158,122 @@ int main(void)
     CRANE_initBluetooth(9600);
     CRANE_sendBluetooth("Crane online\r\n");
 
+    // start the delay timer
+    CRANE_initTimer();
+
     // start global interrupts
     sei();
 
     while(1)
     {
-        // check to see if the state has changed
-        CRANE_getState();
+        if(bluetoothInputData.readFlag)
+        {
+            CRANE_sendSerial(bluetoothInputData.buffer);
+        }
 
-        // TODO: display state on leds
-        PORTK = applicationState;
+        // DEBUG: get the state
+        // if we get the command for record mode and we are not already in record mode
+        if((doesBufferMatch(serialInputData, 0, recordModeCommand) && (applicationState != recordState)) || (doesBufferMatch(bluetoothInputData, 0, recordModeCommand) && (applicationState != recordState)) || (recordButton && (applicationState != recordState)))
+        {
+            CRANE_sendSerial("Entering record mode...\r\n");
+            CRANE_sendBluetooth("Entering record mode...\r\n");
+
+            applicationState            = recordState;
+            serialInputData.readFlag    = 0;
+            bluetoothInputData.readFlag = 0;
+
+            while(recordButton)
+            {
+                // do nothing until we let go
+            }
+        }
+        // check for reset command
+        else if((doesBufferMatch(serialInputData, 0, calibrateModeCommand) && (applicationState != calibrateState)) || (doesBufferMatch(bluetoothInputData, 1, calibrateModeCommand) && (applicationState != calibrateState)) || (calibrateButton && (applicationState != calibrateState)))
+        {
+            CRANE_sendSerial("Resetting...\r\n");
+            CRANE_sendBluetooth("Resetting...\r\n");
+
+            applicationState            = calibrateState;
+            serialInputData.readFlag    = 0;
+            bluetoothInputData.readFlag = 0;
+
+            while(calibrateButton)
+            {
+                // do nothing until we let go
+            }
+        }
+
+        // display state on leds
+        stateLed = (stateLed & 0xfc) | applicationState;
+
+        // DEBUG: check for the get command
+        if(doesBufferMatch(serialInputData, 0, getCommand) || doesBufferMatch(bluetoothInputData, 0, getCommand))
+        {
+            char response[96];
+            sprintf(response, "Motor is at %i, Plunger is at %u, Arm is at %u", craneState.motorTicks, craneState.plungerTicks, craneState.armTicks);
+
+            serialInputData.readFlag    = 0;
+            bluetoothInputData.readFlag = 0;
+
+            CRANE_sendSerial(response);
+            CRANE_sendBluetooth(response);
+        }
 
         // main application switch case
         switch(applicationState)
         {
-            // the action case
+            // DEBUG: the action case
             case actionState:
             {
-                if(leftButton)
+                if(leftButton || doesBufferMatch(serialInputData, 1, runCommand) || doesBufferMatch(serialInputData, 0, getCommand))
                 {
+                    // HACK: potential multiple select
+
                     for(uint8_t i = 0; i < recordLength; i++)
                     {
-                        int16_t moveTicks = recordedMoves[i].motorTicks - craneState.motorTicks;
+                        char response[32];
+                        sprintf(response, "Running recorded step %u...", i + 1);
 
-                        char buf[256];
+                        CRANE_sendSerial(response);
+                        CRANE_sendBluetooth(response);
+                        stateLed = (stateLed & 0x03) | 1 << (i + 2);
 
-                        sprintf(&buf, "%i, %i, %u, %u\r\n", moveTicks, recordedMoves[i].motorTicks, recordedMoves[i].armTicks, recordedMoves[i].plungerTicks);
+                        // calculate the relative movement of the arm
+                        int16_t moveSteps = recordedMoves[i].motorTicks - craneState.motorTicks;
 
-                        CRANE_sendSerial(&buf);
                         // move motor
-                        if(moveTicks > 0)
+                        if(moveSteps > 0)
                         {
-                            SM_moveTime(stepperModeHalf, 0, moveTicks, 3);
+                            SM_moveStepsSigned(stepperModeHalf, 0, moveSteps);
                         }
-                        else if(moveTicks < 0)
+                        else if(moveSteps < 0)
                         {
-                            SM_moveTime(stepperModeHalf, 1, -1 * moveTicks, 3);
+                            SM_moveStepsSigned(stepperModeHalf, 1, -1 * moveSteps);
                         }
 
-                        CRANE_setServoPosition(armServo, recordedMoves[i].armTicks);
-                        CRANE_setServoPosition(plungerServo, recordedMoves[i].plungerTicks);
+                        // lerp!
+                        for(uint8_t j = 0; j < 101; j++)
+                        {
+                            CRANE_setServoPosition(armServo, craneState.armTicks + ((float)(recordedMoves[i].armTicks - craneState.armTicks) * ((float)j / 100)));
+                            CRANE_delayMs(10);
+                        }
+
+                        for(uint8_t j = 0; j < 101; j++)
+                        {
+                            CRANE_setServoPosition(plungerServo, craneState.plungerTicks + ((float)(recordedMoves[i].plungerTicks - craneState.plungerTicks) * ((float)j / 100)));
+                            CRANE_delayMs(10);
+                        }
 
                         // set our state
-                        craneState.motorTicks = recordedMoves[i].motorTicks;
+                        craneState.motorTicks   = recordedMoves[i].motorTicks;
                         craneState.armTicks     = recordedMoves[i].armTicks;
                         craneState.plungerTicks = recordedMoves[i].plungerTicks;
 
-                        _delay_ms(500);
+                        CRANE_delayMs(100);
                     }
+
+                    // reset state led
+                    stateLed = (stateLed & 0x03);
 
                     while(leftButton)
                     {
@@ -208,28 +283,38 @@ int main(void)
             }
             break;
 
-            // the record case
+            // DEBUG: the record case
             case recordState:
             {
                 uint8_t armPosition     = 255 * ADC_getTenBitValue(0);
                 uint8_t plungerPosition = 255 * ADC_getTenBitValue(1);
-                int16_t moveTicks       = timeAtThreeMsStep(3);
+                int16_t moveSteps       = 8;
+
+                // display the step we are recording
+                char response[32];
+                sprintf(response, "Recording step %u out of 6...", currentMoveIndex + 1);
+
+                CRANE_sendSerial(response);
+                CRANE_sendBluetooth(response);
+                stateLed = (stateLed & 0x03) | 1 << (currentMoveIndex + 2);
 
                 // manually move the motor
                 if(rightButton)
                 {
-                    SM_moveTime(stepperModeHalf, 0, moveTicks, 3);
+                    SM_moveStepsSigned(stepperModeHalf, 0, moveSteps);
+                    CRANE_delayMs(10);
                 }
                 else if(leftButton)
                 {
-                    SM_moveTime(stepperModeHalf, 1, moveTicks, 3);
+                    SM_moveStepsSigned(stepperModeHalf, 1, moveSteps);
+                    CRANE_delayMs(10);
 
                     // negate for current position
-                    moveTicks *= -1;
+                    moveSteps *= -1;
                 }
                 else
                 {
-                    moveTicks = 0;
+                    moveSteps = 0;
                 }
 
                 // manually move the servos
@@ -237,24 +322,34 @@ int main(void)
                 CRANE_setServoPosition(plungerServo, plungerPosition);
 
                 // update the current positions
-                craneState.motorTicks += moveTicks;
+                craneState.motorTicks += moveSteps;
                 craneState.armTicks     = armPosition;
                 craneState.plungerTicks = plungerPosition;
 
                 // if we press the record button save the position
-                if(recordButton)
+                if(recordButton || doesBufferMatch(serialInputData, 1, recordCommand) || doesBufferMatch(bluetoothInputData, 1, recordCommand))
                 {
-                    //TODO: give feedback
+                    char response[64];
+                    sprintf(response, "Recorded {%i,%u,%u}...", craneState.motorTicks, craneState.plungerTicks, craneState.armTicks);
+
+                    CRANE_sendSerial(response);
+                    CRANE_sendBluetooth(response);
+
+                    // reset state led
+                    stateLed = (stateLed & 0x03);
+
                     if(currentMoveIndex < recordLength)
                     {
                         currentMoves[currentMoveIndex++] = craneState;
                     }
-                    else
+
+                    if(currentMoveIndex >= recordLength)
                     {
                         CRANE_saveMovesToEeprom(eepromAddress);
                         currentMoveIndex = 0;
 
                         // done recording, back to action state after zeroing
+                        // home ---> action(play)
                         applicationState = calibrateState;
                     }
 
@@ -266,7 +361,7 @@ int main(void)
             }
             break;
 
-            // the default case will be the home case
+            // DEBUG: the default case will be the home case
             case calibrateState:
             default:
             {
@@ -282,11 +377,11 @@ int main(void)
                 while(!limitSwitch)
                 {
                     // then move CCW a bit at the time until we hit the limit switch
-                    SM_moveTime(stepperModeHalf, 1, 12, 3);
+                    SM_moveStepsSigned(stepperModeHalf, 1, 24);
                 }
 
                 // then move 30 degrees back to center the arm
-                SM_movePosition(stepperModeHalf, 30);
+                SM_movePosition(stepperModeHalf, 35);
 
                 // set the current position
                 craneState.motorTicks   = 0;
@@ -352,79 +447,8 @@ void IO_init(void)
     DDRA  = 0x00;
     PORTA = 0xff;
 
-    DDRK  = 0xFF;
-    PORTK = 0x00;
-}
-
-void CRANE_getState(void)
-{
-    // temp variables
-    uint8_t newApplicationState = applicationState;
-
-    // check the serial buffer
-    if(serialInputData.readFlag)
-    {
-        // if we get the command for record mode and we are not already in record mode
-        if(stringCompare(serialInputData.buffer, recordModeCommand) && (applicationState != recordState))
-        {
-            CRANE_sendSerial("Entering record mode...\r\n");
-
-            newApplicationState = recordState;
-        }
-        // check for reset command
-        else if(stringCompare(serialInputData.buffer, calibrateModeCommand) && (applicationState != calibrateState))
-        {
-            CRANE_sendBluetooth("Resetting...\r\n");
-
-            newApplicationState = calibrateState;
-        }
-
-        serialInputData.readFlag = 0;
-    }
-
-    // check the bluetooth buffer
-    if(bluetoothInputData.readFlag)
-    {
-        // if we get the command for record mode and we are not already in record mode
-        if(stringCompare(bluetoothInputData.buffer, recordModeCommand) && (applicationState != recordState))
-        {
-            CRANE_sendBluetooth("Entering record mode...\r\n");
-
-            newApplicationState = recordState;
-        }
-        // check for reset command
-        else if(stringCompare(bluetoothInputData.buffer, calibrateModeCommand) && (applicationState != calibrateState))
-        {
-            CRANE_sendBluetooth("Resetting...\r\n");
-
-            newApplicationState = calibrateState;
-        }
-
-        bluetoothInputData.readFlag = 0;
-    }
-
-    // finally check the physical buttons
-    if(recordButton && (applicationState != recordState))
-    {
-        newApplicationState = recordState;
-
-        while(recordButton)
-        {
-            // do nothing until we let go
-        }
-    }
-    else if(calibrateButton && (applicationState != calibrateState))
-    {
-        newApplicationState = calibrateState;
-
-        while(calibrateButton)
-        {
-            // do nothing until we let go
-        }
-    }
-
-    // then set our global state all at the end
-    applicationState = newApplicationState;
+    DDRL  = 0xff;
+    PORTL = 0x00;
 }
 
 void CRANE_getMovesFromEeprom(uint16_t addr)
@@ -455,7 +479,7 @@ void CRANE_saveMovesToEeprom(uint16_t addr)
 
     for(uint8_t i = 0; i < recordLength; i++)
     {
-        // cheat by directly moving into our recorded var
+        // cheat by directly moving into our recorded array
         recordedMoves[i] = currentMoves[i];
 
         // save the motor position
@@ -470,23 +494,17 @@ void CRANE_saveMovesToEeprom(uint16_t addr)
     }
 }
 
-uint16_t timeAtThreeMsStep(uint16_t degrees)
+uint8_t doesBufferMatch(volatile connectionBuffer_t buf, uint8_t strictMode, char const * const pStr)
 {
-    /*
-        (90 / 3) = 30 iterations trhough the array
+    if(buf.readFlag)
+    {
+        // reset read flag
+        buf.readFlag = strictMode ? 0 : buf.readFlag;
 
-        (4096 / 360) steps per degree
-        we move about ~3 degrees
+        return stringCompare(buf.buffer, pStr);
+    }
 
-        half has 8 positions
-    */
-
-    uint16_t requiredSteps = ((float)4096 / 360) * degrees;
-
-    // round to the closest full amount of steps
-    // requiredSteps = requiredSteps + (requiredSteps % 8);
-
-    return requiredSteps * 3;
+    return 0;
 }
 
 uint8_t stringCompare(char const * const pStrOne, char const * const pStrTwo)

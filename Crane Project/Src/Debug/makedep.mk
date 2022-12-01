@@ -8,6 +8,8 @@
 
 CraneCommunication.c
 
+CraneDelay.c
+
 CraneEeprom.c
 
 CraneServo.c

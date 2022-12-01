@@ -47,9 +47,9 @@ void SM_movePosition(StepperMotorRunMode_t mode, uint16_t distance);
 // both times are in ms
 void SM_moveTime(StepperMotorRunMode_t mode, bool direction, double time, double stepTime);
 // moves the motor in the given mode and the given direction for the given distance
-// distance is in units of degrees
+// distance is in steps
 // 1 is CW and 0 is CCW
-void SM_movePositionSigned(StepperMotorRunMode_t mode, bool direction, uint16_t distance);
+void SM_moveStepsSigned(StepperMotorRunMode_t mode, bool direction, uint16_t distance);
 
 #if defined(__cplusplus)
 } /* extern "C" */

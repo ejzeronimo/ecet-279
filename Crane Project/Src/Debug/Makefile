@@ -40,6 +40,7 @@ C_SRCS +=  \
 ../../../Libraries/AnalogToDigital.c \
 ../../../Libraries/StepperMotor.c \
 ../CraneCommunication.c \
+../CraneDelay.c \
 ../CraneEeprom.c \
 ../CraneServo.c \
 ../main.c
@@ -55,6 +56,7 @@ OBJS +=  \
 AnalogToDigital.o \
 StepperMotor.o \
 CraneCommunication.o \
+CraneDelay.o \
 CraneEeprom.o \
 CraneServo.o \
 main.o
@@ -63,6 +65,7 @@ OBJS_AS_ARGS +=  \
 AnalogToDigital.o \
 StepperMotor.o \
 CraneCommunication.o \
+CraneDelay.o \
 CraneEeprom.o \
 CraneServo.o \
 main.o
@@ -71,6 +74,7 @@ C_DEPS +=  \
 AnalogToDigital.d \
 StepperMotor.d \
 CraneCommunication.d \
+CraneDelay.d \
 CraneEeprom.d \
 CraneServo.d \
 main.d
@@ -79,6 +83,7 @@ C_DEPS_AS_ARGS +=  \
 AnalogToDigital.d \
 StepperMotor.d \
 CraneCommunication.d \
+CraneDelay.d \
 CraneEeprom.d \
 CraneServo.d \
 main.d
@@ -112,6 +117,13 @@ LINKER_SCRIPT_DEP+=
 	
 
 ./CraneCommunication.o: .././CraneCommunication.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include" -I"../../../Libraries"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega2560 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega2560" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+./CraneDelay.o: .././CraneDelay.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include" -I"../../../Libraries"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega2560 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega2560" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

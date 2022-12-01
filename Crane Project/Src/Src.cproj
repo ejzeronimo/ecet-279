@@ -147,6 +147,14 @@
       <SubType>compile</SubType>
       <Link>CraneCommunication.h</Link>
     </Compile>
+    <Compile Include="CraneDelay.c">
+      <SubType>compile</SubType>
+      <Link>CraneDelay.c</Link>
+    </Compile>
+    <Compile Include="CraneDelay.h">
+      <SubType>compile</SubType>
+      <Link>CraneDelay.h</Link>
+    </Compile>
     <Compile Include="CraneEeprom.c">
       <SubType>compile</SubType>
       <Link>CraneEeprom.c</Link>
