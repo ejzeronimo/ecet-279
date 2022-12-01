@@ -252,16 +252,16 @@ int main(void)
                         }
 
                         // lerp!
-                        for(uint8_t j = 0; j < 101; j++)
+                        for(uint8_t j = 1; j < 101; j++)
                         {
-                            CRANE_setServoPosition(armServo, craneState.armTicks + ((float)(recordedMoves[i].armTicks - craneState.armTicks) * ((float)j / 100)));
-                            CRANE_delayMs(10);
+                            CRANE_setServoPosition(armServo, craneState.armTicks + ((recordedMoves[i].armTicks - craneState.armTicks) * ((float)j / 100)));
+                            CRANE_delayMs(5);
                         }
 
-                        for(uint8_t j = 0; j < 101; j++)
+                        for(uint8_t j = 1; j < 101; j++)
                         {
-                            CRANE_setServoPosition(plungerServo, craneState.plungerTicks + ((float)(recordedMoves[i].plungerTicks - craneState.plungerTicks) * ((float)j / 100)));
-                            CRANE_delayMs(10);
+                            CRANE_setServoPosition(plungerServo, craneState.plungerTicks + ((recordedMoves[i].plungerTicks - craneState.plungerTicks) * ((float)j / 100)));
+                            CRANE_delayMs(5);
                         }
 
                         // set our state

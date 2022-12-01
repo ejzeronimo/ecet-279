@@ -2576,7 +2576,7 @@ int main(void)
      e5e:	cd bf       	out	0x3d, r28	; 61
      e60:	88 23       	and	r24, r24
      e62:	11 f0       	breq	.+4      	; 0xe68 <main+0x300>
-     e64:	d1 2c       	mov	r13, r1
+     e64:	b1 2c       	mov	r11, r1
      e66:	f9 c0       	rjmp	.+498    	; 0x105a <__EEPROM_REGION_LENGTH__+0x5a>
      e68:	88 e5       	ldi	r24, 0x58	; 88
      e6a:	92 e0       	ldi	r25, 0x02	; 2
@@ -2611,7 +2611,7 @@ int main(void)
      ea4:	81 11       	cpse	r24, r1
      ea6:	de cf       	rjmp	.-68     	; 0xe64 <main+0x2fc>
      ea8:	84 ce       	rjmp	.-760    	; 0xbb2 <main+0x4a>
-     eaa:	ed 2c       	mov	r14, r13
+     eaa:	eb 2c       	mov	r14, r11
                     // HACK: potential multiple select
 
                     for(uint8_t i = 0; i < recordLength; i++)
@@ -2704,64 +2704,64 @@ int main(void)
      f36:	61 e0       	ldi	r22, 0x01	; 1
      f38:	82 e0       	ldi	r24, 0x02	; 2
      f3a:	20 db       	rcall	.-2496   	; 0x57c <SM_moveStepsSigned>
-     f3c:	c1 2c       	mov	r12, r1
-     f3e:	35 c0       	rjmp	.+106    	; 0xfaa <main+0x442>
+     f3c:	aa 24       	eor	r10, r10
+     f3e:	a3 94       	inc	r10
 uint8_t stringCompare(char const * const pStrOne, char const * const pStrTwo);
 
 /* NOTE: Application implementation */
 // the main loop of the function, provided to us
 int main(void)
 {
-     f40:	00 91 fd 03 	lds	r16, 0x03FD	; 0x8003fd <craneState+0x2>
+     f40:	34 c0       	rjmp	.+104    	; 0xfaa <main+0x442>
+     f42:	60 91 fd 03 	lds	r22, 0x03FD	; 0x8003fd <craneState+0x2>
                         }
 
                         // lerp!
-                        for(uint8_t j = 0; j < 101; j++)
+                        for(uint8_t j = 1; j < 101; j++)
                         {
-                            CRANE_setServoPosition(armServo, craneState.armTicks + ((float)(recordedMoves[i].armTicks - craneState.armTicks) * ((float)j / 100)));
-     f44:	10 e0       	ldi	r17, 0x00	; 0
-     f46:	f7 01       	movw	r30, r14
-     f48:	ee 0f       	add	r30, r30
-     f4a:	ff 1f       	adc	r31, r31
+                            CRANE_setServoPosition(armServo, craneState.armTicks + ((recordedMoves[i].armTicks - craneState.armTicks) * ((float)j / 100)));
+     f46:	c6 2e       	mov	r12, r22
+     f48:	d1 2c       	mov	r13, r1
+     f4a:	f7 01       	movw	r30, r14
      f4c:	ee 0f       	add	r30, r30
      f4e:	ff 1f       	adc	r31, r31
-     f50:	ee 5f       	subi	r30, 0xFE	; 254
-     f52:	fb 4f       	sbci	r31, 0xFB	; 251
-     f54:	62 81       	ldd	r22, Z+2	; 0x02
-     f56:	70 e0       	ldi	r23, 0x00	; 0
-     f58:	60 1b       	sub	r22, r16
-     f5a:	71 0b       	sbc	r23, r17
-     f5c:	07 2e       	mov	r0, r23
-     f5e:	00 0c       	add	r0, r0
-     f60:	88 0b       	sbc	r24, r24
-     f62:	99 0b       	sbc	r25, r25
-     f64:	a4 d2       	rcall	.+1352   	; 0x14ae <__floatsisf>
-     f66:	4b 01       	movw	r8, r22
-     f68:	5c 01       	movw	r10, r24
-     f6a:	6c 2d       	mov	r22, r12
-     f6c:	70 e0       	ldi	r23, 0x00	; 0
-     f6e:	80 e0       	ldi	r24, 0x00	; 0
-     f70:	90 e0       	ldi	r25, 0x00	; 0
-     f72:	9b d2       	rcall	.+1334   	; 0x14aa <__floatunsisf>
-     f74:	20 e0       	ldi	r18, 0x00	; 0
-     f76:	30 e0       	ldi	r19, 0x00	; 0
-     f78:	48 ec       	ldi	r20, 0xC8	; 200
-     f7a:	52 e4       	ldi	r21, 0x42	; 66
-     f7c:	02 d2       	rcall	.+1028   	; 0x1382 <__divsf3>
-     f7e:	9b 01       	movw	r18, r22
-     f80:	ac 01       	movw	r20, r24
-     f82:	c5 01       	movw	r24, r10
-     f84:	b4 01       	movw	r22, r8
+     f50:	ee 0f       	add	r30, r30
+     f52:	ff 1f       	adc	r31, r31
+     f54:	ee 5f       	subi	r30, 0xFE	; 254
+     f56:	fb 4f       	sbci	r31, 0xFB	; 251
+     f58:	02 81       	ldd	r16, Z+2	; 0x02
+     f5a:	10 e0       	ldi	r17, 0x00	; 0
+     f5c:	0c 19       	sub	r16, r12
+     f5e:	1d 09       	sbc	r17, r13
+     f60:	6a 2d       	mov	r22, r10
+     f62:	70 e0       	ldi	r23, 0x00	; 0
+     f64:	80 e0       	ldi	r24, 0x00	; 0
+     f66:	90 e0       	ldi	r25, 0x00	; 0
+     f68:	a0 d2       	rcall	.+1344   	; 0x14aa <__floatunsisf>
+     f6a:	20 e0       	ldi	r18, 0x00	; 0
+     f6c:	30 e0       	ldi	r19, 0x00	; 0
+     f6e:	48 ec       	ldi	r20, 0xC8	; 200
+     f70:	52 e4       	ldi	r21, 0x42	; 66
+     f72:	07 d2       	rcall	.+1038   	; 0x1382 <__divsf3>
+     f74:	2b 01       	movw	r4, r22
+     f76:	3c 01       	movw	r6, r24
+     f78:	b8 01       	movw	r22, r16
+     f7a:	11 0f       	add	r17, r17
+     f7c:	88 0b       	sbc	r24, r24
+     f7e:	99 0b       	sbc	r25, r25
+     f80:	96 d2       	rcall	.+1324   	; 0x14ae <__floatsisf>
+     f82:	a3 01       	movw	r20, r6
+     f84:	92 01       	movw	r18, r4
      f86:	47 d3       	rcall	.+1678   	; 0x1616 <__mulsf3>
-     f88:	4b 01       	movw	r8, r22
-     f8a:	5c 01       	movw	r10, r24
-     f8c:	b8 01       	movw	r22, r16
-     f8e:	11 0f       	add	r17, r17
+     f88:	2b 01       	movw	r4, r22
+     f8a:	3c 01       	movw	r6, r24
+     f8c:	b6 01       	movw	r22, r12
+     f8e:	dd 0c       	add	r13, r13
      f90:	88 0b       	sbc	r24, r24
      f92:	99 0b       	sbc	r25, r25
      f94:	8c d2       	rcall	.+1304   	; 0x14ae <__floatsisf>
-     f96:	a5 01       	movw	r20, r10
-     f98:	94 01       	movw	r18, r8
+     f96:	a3 01       	movw	r20, r6
+     f98:	92 01       	movw	r18, r4
      f9a:	8b d1       	rcall	.+790    	; 0x12b2 <__addsf3>
      f9c:	5a d2       	rcall	.+1204   	; 0x1452 <__fixunssfsi>
      f9e:	80 e0       	ldi	r24, 0x00	; 0
@@ -2770,69 +2770,69 @@ int main(void)
      fa4:	90 e0       	ldi	r25, 0x00	; 0
                             CRANE_delayMs(10);
      fa6:	ff db       	rcall	.-2050   	; 0x7a6 <CRANE_delayMs>
-     fa8:	c3 94       	inc	r12
+     fa8:	a3 94       	inc	r10
      faa:	34 e6       	ldi	r19, 0x64	; 100
                         {
                             SM_moveStepsSigned(stepperModeHalf, 1, -1 * moveSteps);
                         }
 
                         // lerp!
-                        for(uint8_t j = 0; j < 101; j++)
-     fac:	3c 15       	cp	r19, r12
+                        for(uint8_t j = 1; j < 101; j++)
+     fac:	3a 15       	cp	r19, r10
      fae:	08 f0       	brcs	.+2      	; 0xfb2 <main+0x44a>
-     fb0:	c7 cf       	rjmp	.-114    	; 0xf40 <main+0x3d8>
-     fb2:	c1 2c       	mov	r12, r1
-     fb4:	35 c0       	rjmp	.+106    	; 0x1020 <__EEPROM_REGION_LENGTH__+0x20>
-     fb6:	00 91 fe 03 	lds	r16, 0x03FE	; 0x8003fe <craneState+0x3>
+     fb0:	c8 cf       	rjmp	.-112    	; 0xf42 <main+0x3da>
+     fb2:	aa 24       	eor	r10, r10
+     fb4:	a3 94       	inc	r10
+     fb6:	34 c0       	rjmp	.+104    	; 0x1020 <__EEPROM_REGION_LENGTH__+0x20>
+     fb8:	60 91 fe 03 	lds	r22, 0x03FE	; 0x8003fe <craneState+0x3>
                             CRANE_delayMs(10);
                         }
 
-                        for(uint8_t j = 0; j < 101; j++)
+                        for(uint8_t j = 1; j < 101; j++)
                         {
-                            CRANE_setServoPosition(plungerServo, craneState.plungerTicks + ((float)(recordedMoves[i].plungerTicks - craneState.plungerTicks) * ((float)j / 100)));
-     fba:	10 e0       	ldi	r17, 0x00	; 0
-     fbc:	f7 01       	movw	r30, r14
-     fbe:	ee 0f       	add	r30, r30
-     fc0:	ff 1f       	adc	r31, r31
+                            CRANE_setServoPosition(plungerServo, craneState.plungerTicks + ((recordedMoves[i].plungerTicks - craneState.plungerTicks) * ((float)j / 100)));
+     fbc:	c6 2e       	mov	r12, r22
+     fbe:	d1 2c       	mov	r13, r1
+     fc0:	f7 01       	movw	r30, r14
      fc2:	ee 0f       	add	r30, r30
      fc4:	ff 1f       	adc	r31, r31
-     fc6:	ee 5f       	subi	r30, 0xFE	; 254
-     fc8:	fb 4f       	sbci	r31, 0xFB	; 251
-     fca:	63 81       	ldd	r22, Z+3	; 0x03
-     fcc:	70 e0       	ldi	r23, 0x00	; 0
-     fce:	60 1b       	sub	r22, r16
-     fd0:	71 0b       	sbc	r23, r17
-     fd2:	07 2e       	mov	r0, r23
-     fd4:	00 0c       	add	r0, r0
-     fd6:	88 0b       	sbc	r24, r24
-     fd8:	99 0b       	sbc	r25, r25
-     fda:	69 d2       	rcall	.+1234   	; 0x14ae <__floatsisf>
-     fdc:	4b 01       	movw	r8, r22
-     fde:	5c 01       	movw	r10, r24
-     fe0:	6c 2d       	mov	r22, r12
-     fe2:	70 e0       	ldi	r23, 0x00	; 0
-     fe4:	80 e0       	ldi	r24, 0x00	; 0
-     fe6:	90 e0       	ldi	r25, 0x00	; 0
-     fe8:	60 d2       	rcall	.+1216   	; 0x14aa <__floatunsisf>
-     fea:	20 e0       	ldi	r18, 0x00	; 0
-     fec:	30 e0       	ldi	r19, 0x00	; 0
-     fee:	48 ec       	ldi	r20, 0xC8	; 200
-     ff0:	52 e4       	ldi	r21, 0x42	; 66
-     ff2:	c7 d1       	rcall	.+910    	; 0x1382 <__divsf3>
-     ff4:	9b 01       	movw	r18, r22
-     ff6:	ac 01       	movw	r20, r24
-     ff8:	c5 01       	movw	r24, r10
-     ffa:	b4 01       	movw	r22, r8
+     fc6:	ee 0f       	add	r30, r30
+     fc8:	ff 1f       	adc	r31, r31
+     fca:	ee 5f       	subi	r30, 0xFE	; 254
+     fcc:	fb 4f       	sbci	r31, 0xFB	; 251
+     fce:	03 81       	ldd	r16, Z+3	; 0x03
+     fd0:	10 e0       	ldi	r17, 0x00	; 0
+     fd2:	0c 19       	sub	r16, r12
+     fd4:	1d 09       	sbc	r17, r13
+     fd6:	6a 2d       	mov	r22, r10
+     fd8:	70 e0       	ldi	r23, 0x00	; 0
+     fda:	80 e0       	ldi	r24, 0x00	; 0
+     fdc:	90 e0       	ldi	r25, 0x00	; 0
+     fde:	65 d2       	rcall	.+1226   	; 0x14aa <__floatunsisf>
+     fe0:	20 e0       	ldi	r18, 0x00	; 0
+     fe2:	30 e0       	ldi	r19, 0x00	; 0
+     fe4:	48 ec       	ldi	r20, 0xC8	; 200
+     fe6:	52 e4       	ldi	r21, 0x42	; 66
+     fe8:	cc d1       	rcall	.+920    	; 0x1382 <__divsf3>
+     fea:	2b 01       	movw	r4, r22
+     fec:	3c 01       	movw	r6, r24
+     fee:	b8 01       	movw	r22, r16
+     ff0:	11 0f       	add	r17, r17
+     ff2:	88 0b       	sbc	r24, r24
+     ff4:	99 0b       	sbc	r25, r25
+     ff6:	5b d2       	rcall	.+1206   	; 0x14ae <__floatsisf>
+     ff8:	a3 01       	movw	r20, r6
+     ffa:	92 01       	movw	r18, r4
      ffc:	0c d3       	rcall	.+1560   	; 0x1616 <__mulsf3>
-     ffe:	4b 01       	movw	r8, r22
-    1000:	5c 01       	movw	r10, r24
-    1002:	b8 01       	movw	r22, r16
-    1004:	11 0f       	add	r17, r17
+     ffe:	2b 01       	movw	r4, r22
+    1000:	3c 01       	movw	r6, r24
+    1002:	b6 01       	movw	r22, r12
+    1004:	dd 0c       	add	r13, r13
     1006:	88 0b       	sbc	r24, r24
     1008:	99 0b       	sbc	r25, r25
     100a:	51 d2       	rcall	.+1186   	; 0x14ae <__floatsisf>
-    100c:	a5 01       	movw	r20, r10
-    100e:	94 01       	movw	r18, r8
+    100c:	a3 01       	movw	r20, r6
+    100e:	92 01       	movw	r18, r4
     1010:	50 d1       	rcall	.+672    	; 0x12b2 <__addsf3>
     1012:	1f d2       	rcall	.+1086   	; 0x1452 <__fixunssfsi>
     1014:	81 e0       	ldi	r24, 0x01	; 1
@@ -2841,19 +2841,19 @@ int main(void)
     101a:	90 e0       	ldi	r25, 0x00	; 0
     101c:	c4 db       	rcall	.-2168   	; 0x7a6 <CRANE_delayMs>
                             CRANE_delayMs(10);
-    101e:	c3 94       	inc	r12
+    101e:	a3 94       	inc	r10
     1020:	84 e6       	ldi	r24, 0x64	; 100
-    1022:	8c 15       	cp	r24, r12
+    1022:	8a 15       	cp	r24, r10
                         {
-                            CRANE_setServoPosition(armServo, craneState.armTicks + ((float)(recordedMoves[i].armTicks - craneState.armTicks) * ((float)j / 100)));
+                            CRANE_setServoPosition(armServo, craneState.armTicks + ((recordedMoves[i].armTicks - craneState.armTicks) * ((float)j / 100)));
                             CRANE_delayMs(10);
                         }
 
-                        for(uint8_t j = 0; j < 101; j++)
+                        for(uint8_t j = 1; j < 101; j++)
     1024:	08 f0       	brcs	.+2      	; 0x1028 <__EEPROM_REGION_LENGTH__+0x28>
-    1026:	c7 cf       	rjmp	.-114    	; 0xfb6 <main+0x44e>
+    1026:	c8 cf       	rjmp	.-112    	; 0xfb8 <main+0x450>
     1028:	f7 01       	movw	r30, r14
-                            CRANE_setServoPosition(plungerServo, craneState.plungerTicks + ((float)(recordedMoves[i].plungerTicks - craneState.plungerTicks) * ((float)j / 100)));
+                            CRANE_setServoPosition(plungerServo, craneState.plungerTicks + ((recordedMoves[i].plungerTicks - craneState.plungerTicks) * ((float)j / 100)));
                             CRANE_delayMs(10);
                         }
 
@@ -2892,9 +2892,9 @@ int main(void)
                     // HACK: potential multiple select
 
                     for(uint8_t i = 0; i < recordLength; i++)
-    1058:	d3 94       	inc	r13
+    1058:	b3 94       	inc	r11
     105a:	95 e0       	ldi	r25, 0x05	; 5
-    105c:	9d 15       	cp	r25, r13
+    105c:	9b 15       	cp	r25, r11
     105e:	08 f0       	brcs	.+2      	; 0x1062 <__EEPROM_REGION_LENGTH__+0x62>
     1060:	24 cf       	rjmp	.-440    	; 0xeaa <main+0x342>
 
