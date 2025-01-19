@@ -9,7 +9,7 @@ Please do not use these labs as your own, I answered all of these questions myse
 
 *I will try to go back and update questions that were incorrect.*
 ### Labs
-The lab folder should be structred as follows:
+The lab folder should be structured as follows:
 - Lab #
   - report.pdf
   - *.pdf
@@ -17,15 +17,15 @@ The lab folder should be structred as follows:
   - Procedure #
     - main.c
 
-Any included pdfs wre provided from class and represent the requirements for the lab. **main.c** contains my solution to any requirement to that part of lab.
+Any included pdfs were provided from class and represent the requirements for the lab. **main.c** contains my solution to any requirement to that part of lab.
 
 ## Prerequisites
-This assumes the use of an **Microship Studio** for the compilation and creation of projects. The download can be found [here](https://www.microchip.com/en-us/tools-resources/develop/microchip-studio).
+This assumes the use of an **Microchip Studio** for the compilation and creation of projects. The download can be found [here](https://www.microchip.com/en-us/tools-resources/develop/microchip-studio).
 
 For firmware flashing this is done through the use of [avrdude](https://github.com/avrdudes/avrdude).
 
 ### Devices
-There are various breakout boards or other devices used for this lab, but they can be pruchased for cheap on Ebay or other places.
+There are various breakout boards or other devices used for this lab, but they can be purchased for cheap on Ebay or other places.
 
 The microcontroller used in this lab is an **ATmega2560**. It is used in the form of an Arduino Mega
 
