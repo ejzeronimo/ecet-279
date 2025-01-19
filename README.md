@@ -1,5 +1,7 @@
 # CNIT 279
 This repo is for all of my personal answers and configs pertaining to the CNIT 279 class. 
+## Archived
+This repo is part of my college coursework and will be archived as I have completed college and no changes will be made to them.
 ## Usage
 Please do not use these labs as your own, I answered all of these questions myself and to use this directly in your own lab would be considered plagiarism.
 
